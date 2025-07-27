@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vita Integrare - Suporte Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1d4ed8;
+            --light-blue: #3b82f6;
+            --sky-blue: #dbeafe;
+            --accent-yellow: #fcd34d;
+            --gold: #fbbf24;
+            --white: #ffffff;
+            --off-white: #f8fafc;
+            --light-gray: #e2e8f0;
+            --medium-gray: #94a3b8;
+            --dark-gray: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0, #e0f2fe 100%);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .chat-container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+        
+        .chat-header {
+            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
+            color: var(--white);
+            padding: 1.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-header .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent-yellow);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background-color: var(--sky-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-blue);
+            font-size: 1.2rem;
+            border: 2px solid var(--white);
+        }
+        
+        .user-name {
+            font-weight: 500;
+        }
+        
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .chat-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            border-right: 1px solid var(--light-gray);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+        }
+        
+        .ticket-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+        
+        .ticket-item {
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            background-color: var(--off-white);
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary-blue);
+        }
+        
+        .ticket-item:hover {
+            background-color: var(--sky-blue);
+            transform: translateY(-2px);
+        }
+        
+        .ticket-item.active {
+            background-color: var(--sky-blue);
+            border-left-color: var(--accent-yellow);
+        }
+        
+        .ticket-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .ticket-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-open {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: var(--primary-blue);
+        }
+        
+        .status-closed {
+            background-color: rgba(107, 114, 128, 0.15);
+            color: var(--medium-gray);
+        }
+        
+        .ticket-meta {
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            margin-top: 0.5rem;
+        }
+        
+        .ticket-date {
+            display: block;
+        }
+        
+        .new-ticket-btn {
+            background: linear-gradient(to right, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .new-ticket-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .message-user {
+            align-self: flex-end;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-bottom-right-radius: 0;
+        }
+        
+        .message-admin {
+            align-self: flex-start;
+            background-color: var(--light-gray);
+            border-bottom-left-radius: 0;
+        }
+        
+        .message-system {
+            align-self: center;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem 1rem;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+            font-size: 0.85rem;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+        }
+        
+        .message-time {
+            opacity: 0.8;
+            font-size: 0.75rem;
+        }
+        
+        .no-chat-selected {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            color: var(--medium-gray);
+        }
+        
+        .no-chat-selected i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-gray);
+        }
+        
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius-md);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            resize: none;
+            height: 60px;
+            transition: var(--transition);
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .send-btn:hover {
+            background-color: var(--dark-blue);
+            transform: scale(1.05);
+        }
+        
+        .send-btn:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+        }
+        
+        .ticket-details {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+            background-color: var(--off-white);
+        }
+        
+        .ticket-details h3 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ticket-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .info-item {
+            font-size: 0.9rem;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .close-ticket-btn {
+            background-color: var(--success);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+        
+        .close-ticket-btn:hover {
+            background-color: #059669;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .chat-main {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                max-height: 300px;
+            }
+            
+            .ticket-list {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>
+                <i class="fas fa-comments logo-icon"></i>
+                Suporte Online - Vita Integrare
+            </h1>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div class="user-name" id="userName">Carregando...</div>
+                    <div class="user-role" id="userRole">Usuário</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-main">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Chamados de Suporte</h2>
+                </div>
+                
+                <div class="ticket-list" id="ticketList">
+                    <!-- Lista de tickets será preenchida dinamicamente -->
+                </div>
+                
+                <button class="new-ticket-btn" id="newTicketBtn">
+                    <i class="fas fa-plus"></i> Novo Chamado
+                </button>
+            </div>
+            
+            <div class="chat-area" id="chatArea">
+                <div class="no-chat-selected" id="noChatSelected">
+                    <i class="fas fa-comments"></i>
+                    <h3>Selecione um chamado para visualizar a conversa</h3>
+                    <p>Ou crie um novo chamado para iniciar uma conversa com nosso suporte</p>
+                </div>
+                
+                <div class="ticket-details" id="ticketDetails" style="display: none;">
+                    <h3><i class="fas fa-ticket-alt"></i> Detalhes do Chamado</h3>
+                    <div class="ticket-info" id="ticketInfo">
+                        <!-- Informações do ticket serão preenchidas aqui -->
+                    </div>
+                    <button class="close-ticket-btn" id="closeTicketBtn">Fechar Chamado</button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages" style="display: none;">
+                    <!-- Mensagens serão preenchidas aqui -->
+                </div>
+                
+                <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                    <textarea class="chat-input" id="chatInput" placeholder="Digite sua mensagem..."></textarea>
+                    <button class="send-btn" id="sendBtn" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration (mesmo do aplicativo principal)
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8MtoEA9DNeQOR-CYDfjCAIEFUfpWvg8o",
+            authDomain: "vitaintegrare.firebaseapp.com",
+            projectId: "vitaintegrare",
+            storageBucket: "vitaintegrare.appspot.com",
+            messagingSenderId: "138494228136",
+            appId: "1:138494228136:web:729d9fac1ae365af72b49d",
+            measurementId: "G-NQYCL90H73"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const rtdb = firebase.database();
+        
+        // Elementos DOM
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userRole = document.getElementById('userRole');
+        const ticketList = document.getElementById('ticketList');
+        const newTicketBtn = document.getElementById('newTicketBtn');
+        const noChatSelected = document.getElementById('noChatSelected');
+        const ticketDetails = document.getElementById('ticketDetails');
+        const ticketInfo = document.getElementById('ticketInfo');
+        const closeTicketBtn = document.getElementById('closeTicketBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatInputArea = document.getElementById('chatInputArea');
+        
+        // Variáveis globais
+        let currentUser = null;
+        let currentUserData = null;
+        let currentTicketId = null;
+        let currentTicketRef = null;
+        let isAdmin = false;
+        
+        // Inicializar o aplicativo quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initApp);
+        
+        // Função para inicializar o aplicativo
+        function initApp() {
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    currentUser = user;
+                    await loadUserData();
+                    setupEventListeners();
+                    loadTickets();
+                } else {
+                    // Redirecionar para login se não estiver autenticado
+                    alert('Por favor, faça login para acessar o suporte');
+                    window.location.href = 'index.html'; // Substitua pelo seu URL de login
+                }
+            });
+        }
+        
+        // Carregar dados do usuário
+        async function loadUserData() {
+            try {
+                const userDoc = await db.collection('users').doc(currentUser.uid).get();
+                if (userDoc.exists) {
+                    currentUserData = userDoc.data();
+                    
+                    // Atualizar informações do usuário na interface
+                    userName.textContent = currentUserData.fullName || 'Usuário';
+                    userRole.textContent = currentUserData.type === 'admin' ? 'Administrador' : 
+                                          currentUserData.type === 'caregiver' ? 'Cuidador' : 'Cliente';
+                    
+                    // Verificar se é administrador
+                    isAdmin = currentUserData.type === 'admin';
+                    
+                    // Atualizar avatar se existir foto
+                    if (currentUserData.profilePhotoUrl) {
+                        userAvatar.innerHTML = `<img src="${currentUserData.profilePhotoUrl}" alt="Foto do usuário">`;
+                    }
+                } else {
+                    console.error('Dados do usuário não encontrados');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados do usuário:', error);
+            }
+        }
+        
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Botão para criar novo ticket
+            newTicketBtn.addEventListener('click', createNewTicket);
+            
+            // Botão para enviar mensagem
+            sendBtn.addEventListener('click', sendMessage);
+            
+            // Habilitar botão de envio quando houver texto
+            chatInput.addEventListener('input', () => {
+                sendBtn.disabled = chatInput.value.trim() === '';
+            });
+            
+            // Enviar mensagem ao pressionar Enter (sem Shift)
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (chatInput.value.trim() !== '') {
+                        sendMessage();
+                    }
+                }
+            });
+            
+            // Botão para fechar ticket
+            closeTicketBtn.addEventListener('click', closeCurrentTicket);
+        }
+        
+        // Carregar tickets
+        function loadTickets() {
+            let query;
+            
+            if (isAdmin) {
+                // Administrador: carregar todos os tickets abertos
+                query = db.collection('supportTickets')
+                    .where('status', '==', 'open')
+                    .orderBy('createdAt', 'desc');
+            } else {
+                // Usuário normal: carregar apenas seus próprios tickets
+                query = db.collection('supportTickets')
+                    .where('userId', '==', currentUser.uid)
+                    .orderBy('createdAt', 'desc');
+            }
+            
+            query.onSnapshot((snapshot) => {
+                ticketList.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    ticketList.innerHTML = '<p style="text-align: center; padding: 1rem; color: var(--medium-gray);">Nenhum chamado encontrado</p>';
+                    return;
+                }
+                
+                snapshot.forEach((doc) => {
+                    const ticket = doc.data();
+                    const ticketItem = document.createElement('div');
+                    ticketItem.className = 'ticket-item';
+                    ticketItem.dataset.id = doc.id;
+                    
+                    ticketItem.innerHTML = `
+                        <div class="ticket-title">
+                            <span>#${doc.id.substring(0, 6)}</span>
+                            <span class="ticket-status status-${ticket.status}">${ticket.status === 'open' ? 'Aberto' : 'Fechado'}</span>
+                        </div>
+                        <div>${ticket.subject || 'Sem assunto'}</div>
+                        <div class="ticket-meta">
+                            <span class="ticket-date">Criado em: ${formatDate(ticket.createdAt.toDate())}</span>
+                            <span>Por: ${ticket.userName}</span>
+                        </div>
+                    `;
+                    
+                    ticketItem.addEventListener('click', () => {
+                        selectTicket(doc.id, ticket);
+                    });
+                    
+                    ticketList.appendChild(ticketItem);
+                    
+                    // Selecionar o ticket atual se for o mesmo
+                    if (currentTicketId === doc.id) {
+                        selectTicket(doc.id, ticket);
+                    }
+                });
+            });
+        }
+        
+        // Selecionar um ticket
+        function selectTicket(ticketId, ticketData) {
+            currentTicketId = ticketId;
+            
+            // Atualizar a UI para mostrar que este ticket está selecionado
+            document.querySelectorAll('.ticket-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.id === ticketId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Mostrar detalhes do ticket
+            showTicketDetails(ticketData);
+            
+            // Carregar mensagens
+            loadMessages(ticketId);
+            
+            // Mostrar a área de chat
+            noChatSelected.style.display = 'none';
+            ticketDetails.style.display = 'block';
+            chatMessages.style.display = 'flex';
+            chatInputArea.style.display = 'flex';
+            
+            // Habilitar/desabilitar campo de entrada baseado no status
+            chatInput.disabled = ticketData.status === 'closed';
+            sendBtn.disabled = ticketData.status === 'closed';
+            
+            // Habilitar/desabilitar botão de fechar ticket
+            closeTicketBtn.disabled = ticketData.status === 'closed';
+            closeTicketBtn.textContent = ticketData.status === 'closed' ? 'Chamado Fechado' : 'Fechar Chamado';
+        }
+        
+        // Mostrar detalhes do ticket
+        function showTicketDetails(ticket) {
+            ticketInfo.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">Assunto</span>
+                    <span>${ticket.subject || 'Não informado'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status</span>
+                    <span>${ticket.status === 'open' ? 'Aberto' : 'Fechado'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Criado em</span>
+                    <span>${formatDate(ticket.createdAt.toDate())}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Atualizado em</span>
+                    <span>${formatDate(ticket.updatedAt.toDate())}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Nome</span>
+                    <span>${ticket.userName || 'Não informado'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">CPF</span>
+                    <span>${ticket.userCPF || 'Não informado'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <span>${ticket.userEmail || 'Não informado'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Endereço</span>
+                    <span>${ticket.userAddress || 'Não informado'}</span>
+                </div>
+            `;
+        }
+        
+        // Criar novo ticket
+        async function createNewTicket() {
+            // Coletar informações do usuário
+            const userInfo = {
+                userName: currentUserData.fullName,
+                userCPF: currentUserData.cpf,
+                userEmail: currentUser.email,
+                userAddress: `${currentUserData.street}, ${currentUserData.number}, ${currentUserData.neighborhood}, ${currentUserData.city} - ${currentUserData.state}`
+            };
+            
+            // Solicitar assunto do ticket
+            const subject = prompt('Por favor, informe o assunto do seu chamado:');
+            if (!subject) return;
+            
+            try {
+                // Criar novo documento de ticket
+                const newTicketRef = await db.collection('supportTickets').add({
+                    userId: currentUser.uid,
+                    userName: userInfo.userName,
+                    userCPF: userInfo.userCPF,
+                    userEmail: userInfo.userEmail,
+                    userAddress: userInfo.userAddress,
+                    subject: subject,
+                    status: 'open',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Adicionar mensagem inicial
+                const initialMessage = {
+                    text: `Olá, meu nome é ${userInfo.userName}. Preciso de ajuda com: ${subject}`,
+                    senderId: currentUser.uid,
+                    senderName: userInfo.userName,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                
+                await db.collection('supportTickets').doc(newTicketRef.id)
+                    .collection('messages').add(initialMessage);
+                
+                // Selecionar o novo ticket
+                const ticketDoc = await newTicketRef.get();
+                selectTicket(newTicketRef.id, ticketDoc.data());
+                
+                alert('Chamado criado com sucesso! Nossa equipe de suporte entrará em contato em breve.');
+            } catch (error) {
+                console.error('Erro ao criar novo ticket:', error);
+                alert('Erro ao criar novo chamado. Por favor, tente novamente.');
+            }
+        }
+        
+        // Carregar mensagens de um ticket
+        function loadMessages(ticketId) {
+            // Limpar mensagens atuais
+            chatMessages.innerHTML = '';
+            
+            // Referência para as mensagens no Firestore
+            const messagesRef = db.collection('supportTickets')
+                .doc(ticketId)
+                .collection('messages')
+                .orderBy('timestamp');
+            
+            // Ouvir novas mensagens
+            messagesRef.onSnapshot((snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === 'added') {
+                        const message = change.doc.data();
+                        addMessageToUI(message, change.doc.id);
+                    }
+                });
+                
+                // Rolagem automática para a última mensagem
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+        
+        // Adicionar mensagem à interface
+        function addMessageToUI(message, messageId) {
+            // Evitar duplicatas
+            if (document.getElementById(messageId)) return;
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${
+                message.senderId === currentUser.uid ? 'message-user' : 
+                message.senderId === 'admin' ? 'message-admin' : 'message-system'
+            }`;
+            messageElement.id = messageId;
+            
+            const formattedTime = formatTime(message.timestamp.toDate());
+            
+            messageElement.innerHTML = `
+                <div class="message-header">
+                    <span class="message-sender">${message.senderName || 'Sistema'}</span>
+                    <span class="message-time">${formattedTime}</span>
+                </div>
+                <div class="message-text">${message.text}</div>
+            `;
+            
+            chatMessages.appendChild(messageElement);
+        }
+        
+        // Enviar mensagem
+        async function sendMessage() {
+            const messageText = chatInput.value.trim();
+            if (!messageText || !currentTicketId) return;
+            
+            try {
+                // Adicionar mensagem ao Firestore
+                await db.collection('supportTickets').doc(currentTicketId)
+                    .collection('messages').add({
+                        text: messageText,
+                        senderId: currentUser.uid,
+                        senderName: currentUserData.fullName,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                
+                // Atualizar timestamp de atualização do ticket
+                await db.collection('supportTickets').doc(currentTicketId).update({
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Limpar campo de entrada
+                chatInput.value = '';
+                sendBtn.disabled = true;
+            } catch (error) {
+                console.error('Erro ao enviar mensagem:', error);
+                alert('Erro ao enviar mensagem. Por favor, tente novamente.');
+            }
+        }
+        
+        // Fechar ticket atual
+        async function closeCurrentTicket() {
+            if (!currentTicketId) return;
+            
+            const confirmClose = confirm('Tem certeza que deseja fechar este chamado? Esta ação não pode ser desfeita.');
+            if (!confirmClose) return;
+            
+            try {
+                // Atualizar status do ticket
+                await db.collection('supportTickets').doc(currentTicketId).update({
+                    status: 'closed',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Adicionar mensagem de sistema
+                await db.collection('supportTickets').doc(currentTicketId)
+                    .collection('messages').add({
+                        text: `Chamado fechado por ${currentUserData.fullName}`,
+                        senderId: 'system',
+                        senderName: 'Sistema',
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                
+                // Desabilitar campo de entrada
+                chatInput.disabled = true;
+                sendBtn.disabled = true;
+                closeTicketBtn.disabled = true;
+                closeTicketBtn.textContent = 'Chamado Fechado';
+                
+                alert('Chamado fechado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao fechar ticket:', error);
+                alert('Erro ao fechar chamado. Por favor, tente novamente.');
+            }
+        }
+        
+        // Funções utilitárias
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+        
+        function formatTime(date) {
+            return new Intl.DateTimeFormat('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+    </script>
+</body>
+</html>
