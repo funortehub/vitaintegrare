@@ -95,7 +95,7 @@
                 <div class="module-card" id="caregiverPatientsModule"><div class="module-header"><div class="module-icon"><i class="fas fa-users"></i></div><div class="module-title">Agendamentos Ativos</div></div><div class="module-description">Gerencie seus pacientes e agendamentos ativos.</div><div class="appointment-list" id="caregiverPatientList"></div></div>
                 <div class="module-card" id="caregiverPatientHistoryModule"><div class="module-header"><div class="module-icon"><i class="fas fa-history"></i></div><div class="module-title">Histórico de Pacientes</div></div><div class="module-description">Visualize todos os pacientes que você já atendeu.</div><div class="appointment-list" id="caregiverPatientHistoryList"></div></div>
                 <div class="module-card disabled-module" id="caregiverEducaModule"><div class="module-header"><div class="module-icon"><i class="fas fa-graduation-cap"></i></div><div class="module-title">Edu-educa</div></div><div class="module-description">Cursos online e treinamentos para desenvolvimento profissional contínuo.</div></div>
-                <div class="module-card disabled-module" id="caregiverChatModule"><div class="module-header"><div class="module-icon"><i class="fas fa-comments"></i></div><div class="module-title">Chat - Suporte online</div></div><div class="module-description">Suporte técnico e atendimento ao cliente disponível para tirar suas dúvidas.</div></div>
+                <div class="module-card" id="caregiverChatModule"><div class="module-header"><div class="module-icon"><i class="fas fa-comments"></i></div><div class="module-title">Chat - Suporte online</div></div><div class="module-description">Suporte técnico e atendimento ao cliente disponível para tirar suas dúvidas.</div></div>
             </div>
         </div>
         <div id="caregiverProfileEditScreen" class="profile-edit-screen">
@@ -152,7 +152,7 @@
                 <div class="module-card" id="clientProfileModule"><div class="module-header"><div class="module-icon"><i class="fas fa-user"></i></div><div class="module-title">Meu Perfil</div></div><div class="module-description">Visualize e edite suas informações pessoais, medicamentos e necessidades específicas.</div></div>
                 <div class="module-card" id="clientAppointmentsModule"><div class="module-header"><div class="module-icon"><i class="fas fa-calendar-plus"></i></div><div class="module-title">Agendamentos</div></div><div class="module-description">Encontre e agende cuidadores disponíveis para atender suas necessidades.</div><div class="carousel-container" id="caregiverCarouselContainer"><div class="carousel" id="caregiverCarousel"></div><div class="carousel-nav"><button class="nav-btn" id="prevCaregiverBtn"><i class="fas fa-arrow-left"></i></button><button class="nav-btn" id="nextCaregiverBtn"><i class="fas fa-arrow-right"></i></button></div></div><button class="btn" id="interestCaregiverBtn" style="margin-top:20px">Tenho interesse nesse cuidador</button></div>
                 <div class="module-card" id="clientRequestsHistoryModule"><div class="module-header"><div class="module-icon"><i class="fas fa-clipboard-list"></i></div><div class="module-title">Minhas Solicitações</div></div><div class="module-description">Acompanhe o status dos seus pedidos de agendamento.</div></div>
-                <div class="module-card disabled-module" id="clientChatModule"><div class="module-header"><div class="module-icon"><i class="fas fa-comments"></i></div><div class="module-title">Chat - Suporte online</div></div><div class="module-description">Suporte técnico e atendimento ao cliente disponível para tirar suas dúvidas.</div></div>
+                <div class="module-card" id="clientChatModule"><div class="module-header"><div class="module-icon"><i class="fas fa-comments"></i></div><div class="module-title">Chat - Suporte online</div></div><div class="module-description">Suporte técnico e atendimento ao cliente disponível para tirar suas dúvidas.</div></div>
             </div>
         </div>
         <div id="clientProfileEditScreen" class="profile-edit-screen">
@@ -209,10 +209,19 @@
             <div class="modules">
                 <div class="module-card" id="adminPendingCaregiversModule"><div class="module-header"><div class="module-icon"><i class="fas fa-user-clock"></i></div><div class="module-title">Cuidadores Pendentes</div></div><div class="module-description">Aprove ou rejeite novos cadastros de cuidadores.</div><div class="admin-section" style="margin:1rem 0 0 0;padding:1rem"><ul id="pendingCaregiversList" class="admin-list"></ul><div class="pagination-controls"><button id="prevPendingCaregiverPageBtn" disabled="disabled">Anterior</button><button id="nextPendingCaregiverPageBtn" disabled="disabled">Próximo</button></div></div></div>
                 <div class="module-card" id="adminUserManagementModule"><div class="module-header"><div class="module-icon"><i class="fas fa-users-cog"></i></div><div class="module-title">Gerenciar Usuários</div></div><div class="module-description">Visualize e edite informações de todos os clientes e cuidadores.</div><div class="admin-section" style="margin:1rem 0 0 0;padding:1rem"><div class="admin-user-type-toggle"><button id="showCaregiversBtn" class="active">Cuidadores</button><button id="showClientsBtn">Clientes</button></div><div class="admin-user-list-container" id="adminUserListContainer"></div><div class="pagination-controls"><button id="prevUserPageBtn" disabled="disabled">Anterior</button><button id="nextUserPageBtn" disabled="disabled">Próximo</button></div></div></div>
-                <div class="module-card disabled-module" id="adminChatModule"><div class="module-header"><div class="module-icon"><i class="fas fa-comments"></i></div><div class="module-title">Chat - Suporte online</div></div><div class="module-description">Suporte técnico e atendimento ao cliente disponível para tirar suas dúvidas.</div></div>
+                <div class="module-card" id="adminChatModule"><div class="module-header"><div class="module-icon"><i class="fas fa-comments"></i></div><div class="module-title">Chat - Suporte online</div></div><div class="module-description">Suporte técnico e atendimento ao cliente disponível para tirar suas dúvidas.</div></div>
                 <div class="module-card" id="adminChartsModule"><div class="module-header"><div class="module-icon"><i class="fas fa-chart-bar"></i></div><div class="module-title">Estatísticas e Gráficos</div></div><div class="module-description">Acompanhe métricas importantes sobre agendamentos e usuários.</div><div class="charts-container"><div class="chart-card"><h3>Status dos Agendamentos</h3><canvas id="appointmentStatusChart"></canvas></div><div class="chart-card"><h3>Agendamentos por Mês</h3><canvas id="appointmentsPerMonthChart"></canvas></div></div></div>
             </div>
         </div>
+
+        <!-- Nova tela para o chat -->
+        <div id="chatScreen" class="main-screen">
+            <button class="back-button" id="backFromChat"><i class="fas fa-arrow-left"></i></button>
+            <div id="chatContent" style="flex-grow: 1; display: flex; flex-direction: column;">
+                <!-- O conteúdo do chat.html será carregado aqui -->
+            </div>
+        </div>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
@@ -290,6 +299,8 @@
         const clientRequestsHistoryScreen = document.getElementById('clientRequestsHistoryScreen'); // New client requests history screen
         const clientRequestDetailsScreen = document.getElementById('clientRequestDetailsScreen'); // New client request details screen
         const adminScreen = document.getElementById('adminScreen'); // New: Admin Screen
+        const chatScreen = document.getElementById('chatScreen'); // New: Chat Screen
+        const chatContent = document.getElementById('chatContent'); // New: Chat Content Container
 
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
@@ -521,7 +532,7 @@
                 authScreen, caregiverScreen, clientScreen, caregiverProfileEditScreen, 
                 caregiverPatientDetailsScreen, caregiverPatientHistoryDetailsScreen, 
                 clientProfileEditScreen, scheduleCaregiverScreen, clientRequestsHistoryScreen,
-                clientRequestDetailsScreen, adminScreen
+                clientRequestDetailsScreen, adminScreen, chatScreen // Adicionado chatScreen
             ];
             
             const currentScreen = screens.find(screen => screen.style.display === 'flex');
@@ -548,7 +559,7 @@
                     authScreen, caregiverScreen, clientScreen, caregiverProfileEditScreen, 
                     caregiverPatientDetailsScreen, caregiverPatientHistoryDetailsScreen, 
                     clientProfileEditScreen, scheduleCaregiverScreen, clientRequestsHistoryScreen,
-                    clientRequestDetailsScreen, adminScreen
+                    clientRequestDetailsScreen, adminScreen, chatScreen // Adicionado chatScreen
                 ];
                 screens.forEach(screen => {
                     if (screen.id === prevScreenId) {
@@ -1682,7 +1693,7 @@
                 { element: caregiverPatientsModule, alwaysEnabled: false },
                 { element: caregiverPatientHistoryModule, alwaysEnabled: false },
                 { element: caregiverEducaModule, alwaysEnabled: true, isComingSoon: true },
-                { element: caregiverChatModule, alwaysEnabled: true, isComingSoon: true }
+                { element: caregiverChatModule, alwaysEnabled: true, isComingSoon: false } // Chat agora habilitado
             ];
 
             modulesToControl.forEach(module => {
@@ -1690,10 +1701,12 @@
                     module.element.classList.add('disabled-module');
                     module.element.style.pointerEvents = 'none';
                 } else {
-                    if (isApproved) {
-                        module.element.classList.remove('disabled-module');
-                        module.element.style.pointerEvents = 'auto';
-                    } else {
+                    // Remover a classe disabled-module e o estilo pointer-events para módulos habilitados
+                    module.element.classList.remove('disabled-module');
+                    module.element.style.pointerEvents = 'auto';
+
+                    // Se o módulo não for o chat e o status não for aprovado, desabilitar
+                    if (module.element.id !== 'caregiverChatModule' && !isApproved) {
                         module.element.classList.add('disabled-module');
                         module.element.style.pointerEvents = 'none';
                     }
@@ -1855,6 +1868,12 @@
                 showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação ou foi rejeitada.');
                 return;
             }
+        });
+
+        // Event listener for caregiver chat module
+        caregiverChatModule.addEventListener('click', () => {
+            // O chat agora está sempre habilitado para cuidadores
+            loadChatScreen();
         });
 
         async function loadCaregiverProfileForEdit() {
@@ -2292,7 +2311,7 @@
 
             // Control "Em breve" badge for client modules
             const clientModulesToControl = [
-                { element: clientChatModule, isComingSoon: true }
+                { element: clientChatModule, isComingSoon: false } // Chat agora habilitado
             ];
 
             clientModulesToControl.forEach(module => {
@@ -2902,6 +2921,55 @@
                 showAlert('Erro', `Erro ao carregar detalhes da solicitação: ${error.message}`);
             }
         }
+
+        // --- Chat Module Integration ---
+
+        // Event listener for client chat module
+        clientChatModule.addEventListener('click', () => {
+            loadChatScreen();
+        });
+
+        // Event listener for admin chat module
+        adminChatModule.addEventListener('click', () => {
+            loadChatScreen();
+        });
+
+        // Function to load chat.html content
+        async function loadChatScreen() {
+            try {
+                const response = await fetch('chat.html');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const chatHtml = await response.text();
+                chatContent.innerHTML = chatHtml;
+                showScreen('chatScreen');
+
+                // Re-execute scripts within the loaded HTML if any
+                const scripts = chatContent.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                    newScript.remove(); // Remove the temporary script tag
+                });
+
+            } catch (error) {
+                console.error("Error loading chat.html:", error);
+                showAlert('Erro', `Não foi possível carregar o chat: ${error.message}`);
+            }
+        }
+
+        // Event listener for the back button on the chat screen
+        document.getElementById('backFromChat').addEventListener('click', () => {
+            // Clear chat content when going back
+            chatContent.innerHTML = '';
+            goBack();
+        });
 
 
         // --- Swipe Navigation (iOS-like) ---
