@@ -11,7 +11,149 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-    <style>:root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255, 255, 255, 0.08);--glass-border:rgba(255, 255, 255, 0.18);--shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);--shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);--shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#f0f9ff 0,#e0f2fe 100%);color:var(--dark-gray);line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;justify-content:center;align-items:center}.app-container{max-width:480px;width:100%;margin:0 auto;background-color:var(--white);box-shadow:var(--shadow-xl);position:relative;overflow:hidden;min-height:100vh;border-radius:0;display:flex;flex-direction:column}@media (min-width:768px){.app-container{border-radius:var(--radius-xl);margin:2rem auto;min-height:90vh;height:auto;overflow:hidden}}.auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;min-height:100vh;background:linear-gradient(135deg,var(--primary-blue) 0,var(--dark-blue) 100%);color:var(--white);text-align:center;flex-grow:1}.logo-container{margin-bottom:2.5rem;animation:fadeInDown .8s ease-out}.logo-container .logo-icon{width:100px;height:100px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(255,255,255,.2);box-shadow:var(--shadow-lg)}.logo-container .logo-icon i{font-size:3.5rem;color:var(--accent-yellow)}.logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--accent-yellow),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}.logo-container p{font-size:1rem;opacity:.9;font-weight:300}.auth-form{width:100%;max-width:400px;background:var(--glass);backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-lg);animation:fadeInUp .8s ease-out;border:1px solid var(--glass-border)}.form-toggle{display:flex;margin-bottom:1.5rem;background-color:var(--glass);border-radius:var(--radius-full);overflow:hidden;position:relative;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}.form-toggle::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:var(--light-blue);border-radius:var(--radius-full);transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);z-index:0}.form-toggle.register-active::before{transform:translateX(100%)}.toggle-btn{flex:1;padding:.8rem;text-align:center;background:0 0;border:none;color:var(--white);font-weight:500;font-size:.95rem;cursor:pointer;transition:var(--transition);position:relative;z-index:1}.toggle-btn.active{color:var(--white);font-weight:600}.input-group{margin-bottom:1.25rem;text-align:left}.input-group label{display:block;margin-bottom:.5rem;font-weight:500;font-size:.9rem;color:var(--white);opacity:.9}.input-group input,.input-group select,.input-group textarea{width:100%;padding:.9rem 1.2rem;border:none;border-radius:var(--radius-md);background-color:rgba(255,255,255,.9);font-family:'Open Sans',sans-serif;font-size:.95rem;color:var(--dark-gray);transition:var(--transition);box-shadow:var(--shadow-sm);border:1px solid transparent}.input-group input::placeholder,.input-group textarea::placeholder{color:var(--medium-gray);opacity:.7}.input-group input:focus,.input-group select:focus,.input-group textarea:focus{outline:0;box-shadow:0 0 0 3px rgba(59,130,246,.3);border-color:var(--light-blue)}.file-upload-label{display:flex;align-items:center;justify-content:center;width:100%;padding:.9rem 1.2rem;border:2px dashed rgba(255,255,255,.4);border-radius:var(--radius-md);background-color:var(--glass);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);font-size:.9rem}.file-upload-label:hover{background-color:rgba(255,255,255,.15);border-color:var(--accent-yellow)}.file-upload-label.uploaded{background-color:rgba(16,185,129,.2);border-color:var(--success);color:var(--white)}.file-upload-input{display:none}.coren-toggle-group{display:flex;gap:.75rem;margin-top:.5rem}.coren-toggle-btn{flex:1;padding:.7rem;background-color:var(--glass);border:2px solid transparent;border-radius:var(--radius-md);color:var(--white);font-weight:500;font-size:.85rem;cursor:pointer;transition:var(--transition)}.coren-toggle-btn.active{background-color:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow)}.user-type{display:flex;gap:1rem;margin-bottom:1.5rem}.user-type-btn{flex:1;padding:1.25rem .75rem;background:var(--glass);border:2px solid transparent;border-radius:var(--radius-lg);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);text-align:center;box-shadow:var(--shadow)}.user-type-btn.active{background:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow-lg);transform:translateY(-3px)}.user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--accent-yellow)}.terms{display:flex;align-items:flex-start;margin-bottom:1.5rem;font-size:.85rem;color:var(--white)}.terms input{margin-right:.75rem;margin-top:.25rem;min-width:18px;min-height:18px;accent-color:var(--accent-yellow)}.terms label{text-align:justify;font-weight:400;opacity:.9}.terms label a{color:var(--accent-yellow);text-decoration:underline;font-weight:600;transition:color 0.2s ease}.terms label a:hover{color:var(--white)}.btn{width:100%;padding:1rem;border:none;border-radius:var(--radius-lg);background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);letter-spacing:.5px;position:relative;overflow:hidden}.btn:after{content:'';position:absolute;top:-50%;left:-60%;width:20px;height:200%;background:rgba(255,255,255,.3);transform:rotate(25deg);transition:all .6s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}.btn:hover:after{left:120%}.btn:active{transform:translateY(0);box-shadow:var(--shadow)}.main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}.user-info{display:flex;align-items:center;margin-bottom:1.25rem}.user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}.user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--white)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}.user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin-top:1rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}.modules{padding:1.5rem 1.25rem;flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(100%,1fr));gap:1.25rem}@media (min-width:480px){.modules{grid-template-columns:repeat(auto-fill,minmax(48%,1fr))}}.module-card{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;overflow:hidden;position:relative;border:1px solid var(--light-gray)}.module-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}.module-header{display:flex;align-items:center;margin-bottom:1rem}.module-icon{width:50px;height:50px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--primary-blue),var(--light-blue));display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--white);box-shadow:var(--shadow);flex-shrink:0}.module-title{font-weight:600;font-size:1.15rem;color:var(--dark-blue)}.module-description{color:var(--medium-gray);font-size:.9rem;line-height:1.5}.disabled-module{opacity:.7;cursor:not-allowed}.disabled-module:after{content:"Em breve";position:absolute;top:12px;right:12px;background-color:var(--warning);color:var(--dark-gray);padding:.3rem .8rem;border-radius:var(--radius-full);font-size:.75rem;font-weight:700;box-shadow:var(--shadow-sm)}.appointment-list{margin-top:1.5rem;overflow-y:auto}.appointment-category{margin-bottom:1.5rem}.category-title{font-weight:600;color:var(--dark-blue);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:2px solid var(--sky-blue);font-size:1.05rem}.appointment-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.appointment-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}.patient-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.appointment-time{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}.appointment-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.status-pending{background-color:rgba(245,158,11,.15);color:var(--warning)}.status-confirmed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-completed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-cancelled{background-color:rgba(239,68,68,.15);color:var(--error)}.status-refused{background-color:rgba(239,68,68,.15);color:var(--error)}.carousel-container{position:relative;height:500px;overflow:hidden;border-radius:var(--radius-lg);margin:1.5rem 0;box-shadow:var(--shadow-lg);background-color:var(--white);width:100%;max-width:100%;display:flex;flex-direction:column}.carousel{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);height:100%;width:100%}.carousel-item{min-width:100%;height:100%;padding:0;display:flex;flex-direction:column;align-items:center;position:relative;flex-shrink:0;background:linear-gradient(135deg,var(--dark-blue) 0,var(--primary-blue) 100%);color:var(--white);text-align:center;box-sizing:border-box;border-radius:var(--radius-lg);overflow:hidden;}.carousel-profile{width:100%;height:200px;border-radius:var(--radius-lg);border-bottom-left-radius:0;border-bottom-right-radius:0;border:4px solid var(--white);border-bottom:none;background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:0;}.carousel-profile img{width:100%;height:100%;object-fit:cover;}.carousel-content{padding:1rem 1.5rem;width:100%;display:flex;flex-direction:column;align-items:center;}.carousel-name{font-weight:700;font-size:1.7rem;margin-bottom:.25rem;}.carousel-rating{display:flex;margin-bottom:1rem;align-items:center;justify-content:center;}.carousel-rating .stars{color:var(--accent-yellow);font-size:1.4rem;margin-right:.5rem;}.carousel-rating span{font-size:1rem;font-weight:600;}.carousel-bio{background-color:rgba(255,255,255,.95);border-radius:var(--radius-lg);padding:1.25rem;width:100%;margin-top:1rem;color:var(--dark-gray);overflow-y:auto;max-height:170px;text-align:left;box-shadow:var(--shadow);font-size:.9rem;}.carousel-bio p{margin-bottom:.75rem;line-height:1.6}.carousel-bio strong{color:var(--primary-blue)}.carousel-nav{display:flex;justify-content:center;gap:1.5rem;margin-top:auto;padding-bottom:1rem;width:100%;z-index:1}.nav-btn{width:55px;height:55px;border-radius:var(--radius-full);background-color:var(--white);color:var(--primary-blue);border:none;font-size:1.5rem;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-lg);transition:var(--transition)}.nav-btn:hover{transform:scale(1.1);background-color:var(--sky-blue);color:var(--dark-blue)}.nav-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}.profile-edit-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.profile-edit-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.profile-edit-screen .input-group{margin-bottom:1.25rem;text-align:left}.profile-edit-screen .input-group label{color:var(--dark-gray);font-weight:500;font-size:.9rem;display:block;margin-bottom:.5rem}.profile-edit-screen .btn{margin-top:1.5rem}.profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}.profile-section strong{color:var(--dark-gray);font-weight:600}.profile-section ul{list-style:none;padding:0}.profile-section ul li{margin-bottom:.5rem;color:var(--medium-gray);font-size:.9rem}.medication-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:.75rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;position:relative}.medication-item .medication-details{display:flex;flex-direction:column}.medication-item .medication-details strong{color:var(--dark-blue);font-size:.95rem}.medication-item .medication-details span{font-size:.85rem;color:var(--medium-gray)}.medication-item .remove-medication-btn{position:absolute;top:.5rem;right:.5rem;background:0 0;border:none;color:var(--error);font-size:1.2rem;cursor:pointer;padding:.2rem;border-radius:var(--radius-sm);transition:background-color .2s}.medication-item .remove-medication-btn:hover{background-color:rgba(239,68,68,.1)}.add-medication-btn{background-color:var(--success);color:var(--white);padding:.75rem;border:none;border-radius:var(--radius-md);cursor:pointer;font-weight:600;margin-top:1rem;transition:var(--transition)}.add-medication-btn:hover{background-color:#059669;transform:translateY(-2px)}.patient-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.patient-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.patient-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.patient-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.patient-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}.schedule-caregiver-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.schedule-caregiver-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.schedule-caregiver-screen .caregiver-info-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.schedule-caregiver-screen .caregiver-info-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.schedule-caregiver-screen .caregiver-info-summary .avatar img{width:100%;height:100%;object-fit:cover}.schedule-caregiver-screen .caregiver-info-summary .details{flex:1}.schedule-caregiver-screen .caregiver-info-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.schedule-caregiver-screen .caregiver-info-summary .rating{color:var(--accent-yellow);font-size:.95rem}.schedule-caregiver-screen .form-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow);border:1px solid var(--light-gray)}.schedule-caregiver-screen .form-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.day-selection{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}.day-button{flex:1 1 calc(33.33% - .5rem);padding:.75rem;border:1px solid var(--light-gray);border-radius:var(--radius-md);background-color:var(--off-white);color:var(--dark-gray);font-weight:500;cursor:pointer;transition:var(--transition);text-align:center;min-width:80px}.day-button.selected{background-color:var(--primary-blue);color:var(--white);border-color:var(--primary-blue);box-shadow:var(--shadow-sm)}.day-button:hover:not(.selected){background-color:var(--sky-blue)}.time-selection{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}.time-selection input[type=time]{width:100%;padding:.8rem;border:1px solid var(--light-gray);border-radius:var(--radius-md);font-size:.95rem;color:var(--dark-gray);transition:var(--transition)}.time-selection input[type=time]:focus{outline:0;border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(59,130,246,.2)}.schedule-caregiver-screen textarea{min-height:100px;resize:vertical;border-radius:var(--radius-md);padding:.8rem;border:1px solid var(--light-gray);font-family:'Open Sans',sans-serif;font-size:.95rem;color:var(--dark-gray);transition:var(--transition)}.schedule-caregiver-screen textarea:focus{outline:0;border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(59,130,246,.2)}.back-button{position:absolute;top:1.25rem;left:1.25rem;background:var(--white);border:none;border-radius:var(--radius-full);width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--primary-blue);font-size:1.4rem;cursor:pointer;z-index:20;transition:var(--transition);box-shadow:var(--shadow)}.back-button:hover{transform:translateX(-3px) scale(1.05);background-color:var(--sky-blue)}.auth-message{color:var(--white)!important;text-align:center;margin-top:1rem;font-weight:500;font-size:.95rem}.loading-message{animation:pulse 1.5s infinite ease-in-out}@keyframes pulse{0%{opacity:.7}50%{opacity:1}100%{opacity:.7}}#clientProfilePhotoPreview,#profilePhotoPreview{width:140px;height:140px;object-fit:cover;border-radius:var(--radius-full);border:4px solid var(--light-blue);box-shadow:var(--shadow)}.custom-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .4s ease-in-out,visibility .4s ease-in-out}.custom-overlay.show{opacity:1;visibility:visible}.custom-alert-box{background-color:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-xl);max-width:350px;width:90%;text-align:center;transform:translateY(-30px) scale(.9);opacity:0;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55),opacity .4s ease-in-out}.custom-overlay.show .custom-alert-box{transform:translateY(0) scale(1);opacity:1}.custom-alert-box h3{color:var(--dark-blue);margin-bottom:1rem;font-size:1.5rem;font-weight:700}.custom-alert-box p{color:var(--dark-gray);margin-bottom:1.5rem;line-height:1.6;font-size:.95rem}.custom-alert-box .alert-buttons{display:flex;gap:.75rem;justify-content:center}.custom-alert-box .alert-buttons button{padding:.8rem 1.5rem;border:none;border-radius:var(--radius-md);font-weight:600;cursor:pointer;transition:var(--transition);font-size:.95rem}.custom-alert-box .alert-buttons .btn-ok{background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);box-shadow:var(--shadow)}.custom-alert-box .alert-buttons .btn-ok:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}.custom-alert-box .alert-buttons .btn-cancel{background-color:var(--light-gray);color:var(--dark-gray);box-shadow:var(--shadow)}.custom-alert-box .alert-buttons .btn-cancel:hover{background-color:var(--medium-gray);color:var(--white);transform:translateY(-2px)}.patient-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;justify-content:center}.patient-actions .btn{width:auto;padding:.8rem 1.25rem;font-size:.95rem;flex-grow:1;min-width:140px}.patient-actions .btn-confirm{background:linear-gradient(to right,var(--success),#34d399)}.patient-actions .btn-confirm:hover{background:linear-gradient(to right,#059669,#34d399)}.patient-actions .btn-complete{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue))}.patient-actions .btn-complete:hover{background:linear-gradient(to right,#1e40af,var(--primary-blue))}.patient-actions .btn-cancel-appointment{background:linear-gradient(to right,var(--error),#f87171)}.patient-actions .btn-cancel-appointment:hover{background:linear-gradient(to right,#dc2626,#f87171)}.header-actions{position:absolute;top:1.5rem;right:1.25rem;display:flex;gap:1rem;z-index:11}.logout-button,.notification-icon{font-size:1.4rem;color:var(--white);cursor:pointer;transition:transform .2s ease-in-out;background:0 0;border:none;padding:0;position:relative}.logout-button:hover,.notification-icon:hover{transform:scale(1.1);color:var(--accent-yellow)}.notification-badge{position:absolute;top:-.25rem;right:-.25rem;background-color:var(--error);color:var(--white);border-radius:var(--radius-full);padding:.25rem .5rem;font-size:.65rem;font-weight:700;min-width:20px;text-align:center;box-shadow:var(--shadow-sm)}.notification-list-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .4s ease-in-out,visibility .4s ease-in-out}.notification-list-overlay.show{opacity:1;visibility:visible}.notification-list-box{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-xl);max-width:380px;width:90%;max-height:80%;overflow-y:auto;transform:translateY(-30px) scale(.9);opacity:0;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55),opacity .4s ease-in-out}.notification-list-overlay.show .notification-list-box{transform:translateY(0) scale(1);opacity:1}.notification-list-box h3{color:var(--dark-blue);margin-bottom:1.25rem;font-size:1.4rem;font-weight:700;text-align:center}.notification-list-box ul{list-style:none;padding:0}.notification-list-box li{background-color:var(--sky-blue);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;font-size:.9rem;color:var(--dark-gray);line-height:1.4;box-shadow:var(--shadow-sm);position:relative}.notification-list-box li.unread{font-weight:600;border-left:4px solid var(--primary-blue)}.notification-list-box li.unread:after{content:'';position:absolute;top:.75rem;right:.75rem;width:8px;height:8px;background-color:var(--error);border-radius:var(--radius-full)}.notification-list-box .close-btn{background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);padding:.7rem 1.25rem;border-radius:var(--radius-md);margin-top:1rem;cursor:pointer;transition:var(--transition);font-weight:500;border:none;width:100%}.notification-list-box .close-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}.client-requests-history-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-requests-history-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.client-requests-list{margin-top:1rem}.client-request-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}.client-request-item .caregiver-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.client-request-item .request-info{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}.client-request-item .request-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.pagination-controls{display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;margin-bottom:1rem}.pagination-controls button{padding:.6rem 1.2rem;border:none;border-radius:var(--radius-md);background-color:var(--primary-blue);color:var(--white);font-weight:600;cursor:pointer;transition:var(--transition)}.pagination-controls button:disabled{background-color:var(--medium-gray);cursor:not-allowed;opacity:.7}.pagination-controls button:hover:not(:disabled){background-color:var(--dark-blue);transform:translateY(-2px)}.client-request-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-request-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.client-request-details-screen .caregiver-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.client-request-details-screen .caregiver-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.client-request-details-screen .caregiver-summary .avatar img{width:100%;height:100%;object-fit:cover}.client-request-details-screen .caregiver-summary .details{flex:1}.client-request-details-screen .caregiver-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.client-request-details-screen .caregiver-summary .rating{color:var(--accent-yellow);font-size:.95rem}.client-request-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.client-request-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}.client-request-details-screen .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.client-request-details-screen .profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.client-request-details-screen .profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}.admin-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.admin-screen .header{background:linear-gradient(to right,#4caf50,#8bc34a)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}.admin-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.admin-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin:1.5rem 1.25rem 1.25rem;box-shadow:var(--shadow)}.admin-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.admin-list{list-style:none;padding:0}.admin-list-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--shadow-sm)}.admin-list-item .item-details{font-size:.95rem;color:var(--dark-gray)}.admin-list-item .item-details strong{color:var(--primary-blue)}.admin-list-item .item-actions{display:flex;gap:.5rem;margin-top:.75rem;justify-content:flex-end}.admin-list-item .item-actions button{padding:.5rem 1rem;border:none;border-radius:var(--radius-md);font-weight:600;cursor:pointer;transition:var(--transition);font-size:.85rem}.admin-list-item .item-actions .btn-approve{background-color:var(--success);color:var(--white)}.admin-list-item .item-actions .btn-approve:hover{background-color:#059669}.admin-list-item .item-actions .btn-reject{background-color:var(--error);color:var(--white)}.admin-list-item .item-actions .btn-reject:hover{background-color:#dc2626}.admin-user-list-container{display:flex;flex-direction:column;gap:1rem}.admin-user-type-toggle{display:flex;background-color:var(--light-gray);border-radius:var(--radius-md);overflow:hidden}.admin-user-type-toggle button{flex:1;padding:.75rem;border:none;background-color:transparent;font-weight:600;color:var(--dark-gray);cursor:pointer;transition:var(--transition)}.admin-user-type-toggle button.active{background-color:var(--primary-blue);color:var(--white)}.admin-user-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:1rem;cursor:pointer;transition:var(--transition)}.admin-user-item:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.admin-user-item .avatar{width:40px;height:40px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--dark-blue);overflow:hidden;flex-shrink:0}.admin-user-item .avatar img{width:100%;height:100%;object-fit:cover}.admin-user-item .user-info-text{flex-grow:1}.admin-user-item .user-info-text strong{display:block;color:var(--dark-blue);font-size:1rem}.admin-user-item .user-info-text span{font-size:.85rem;color:var(--medium-gray)}.admin-user-details-popup{background-color:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-xl);max-width:450px;width:90%;max-height:90vh;overflow-y:auto;position:relative}.admin-user-details-popup h3{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.8rem;font-weight:700}.admin-user-details-popup .profile-section{padding:1rem;margin-bottom:1rem}.admin-user-details-popup .profile-section h4{color:var(--primary-blue);margin-bottom:.75rem;font-size:1.05rem;font-weight:600}.admin-user-details-popup .input-group label{color:var(--dark-gray)}.admin-user-details-popup .rating-input{display:flex;align-items:center;gap:.5rem;margin-top:.5rem}.admin-user-details-popup .rating-input input{width:60px;text-align:center}.admin-user-details-popup .rating-input .stars{color:var(--accent-yellow);font-size:1.2rem}.admin-user-details-popup .btn-save-user{margin-top:1.5rem}.fc .fc-toolbar-title{font-size:1.2em;color:var(--dark-blue)}.fc .fc-button{background-color:var(--primary-blue);border-color:var(--primary-blue);color:var(--white)}.fc .fc-button:hover{background-color:var(--dark-blue);border-color:var(--dark-blue)}.fc-event{background-color:var(--success)!important;border-color:var(--success)!important;color:var(--white)!important;font-size:.8em;padding:2px 4px;border-radius:4px}.fc-event-title{white-space:normal}.charts-container{display:grid;grid-template-columns:1fr;gap:1.5rem;padding:1.5rem 1.25rem}.chart-card{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow);border:1px solid var(--light-gray)}.chart-card h3{color:var(--primary-blue);margin-bottom:1rem;font-size:1.15rem;font-weight:600;text-align:center}@media (min-width:480px){.charts-container{grid-template-columns:repeat(auto-fill,minmax(48%,1fr))}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}.fade-in{animation:fadeIn .5s ease forwards}@media (max-width:480px){.auth-form{padding:1.5rem}.user-type{flex-direction:column}.carousel-container{height:480px}.header-actions{right:1rem;gap:.75rem}.day-button{flex:1 1 calc(50% - .5rem)}}</style>
+    <style>:root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255, 255, 255, 0.08);--glass-border:rgba(255, 255, 255, 0.18);--shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);--shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);--shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#f0f9ff 0,#e0f2fe 100%);color:var(--dark-gray);line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;justify-content:center;align-items:center}.app-container{max-width:480px;width:100%;margin:0 auto;background-color:var(--white);box-shadow:var(--shadow-xl);position:relative;overflow:hidden;min-height:100vh;border-radius:0;display:flex;flex-direction:column}@media (min-width:768px){.app-container{border-radius:var(--radius-xl);margin:2rem auto;min-height:90vh;height:auto;overflow:hidden}}.auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;min-height:100vh;background:linear-gradient(135deg,var(--primary-blue) 0,var(--dark-blue) 100%);color:var(--white);text-align:center;flex-grow:1}.logo-container{margin-bottom:2.5rem;animation:fadeInDown .8s ease-out}.logo-container .logo-icon{width:100px;height:100px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(255,255,255,.2);box-shadow:var(--shadow-lg)}.logo-container .logo-icon i{font-size:3.5rem;color:var(--accent-yellow)}.logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--accent-yellow),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}.logo-container p{font-size:1rem;opacity:.9;font-weight:300}.auth-form{width:100%;max-width:400px;background:var(--glass);backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-lg);animation:fadeInUp .8s ease-out;border:1px solid var(--glass-border)}.form-toggle{display:flex;margin-bottom:1.5rem;background-color:var(--glass);border-radius:var(--radius-full);overflow:hidden;position:relative;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}.form-toggle::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:var(--light-blue);border-radius:var(--radius-full);transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);z-index:0}.form-toggle.register-active::before{transform:translateX(100%)}.toggle-btn{flex:1;padding:.8rem;text-align:center;background:0 0;border:none;color:var(--white);font-weight:500;font-size:.95rem;cursor:pointer;transition:var(--transition);position:relative;z-index:1}.toggle-btn.active{color:var(--white);font-weight:600}.input-group{margin-bottom:1.25rem;text-align:left}.input-group label{display:block;margin-bottom:.5rem;font-weight:500;font-size:.9rem;color:var(--white);opacity:.9}.input-group input,.input-group select,.input-group textarea{width:100%;padding:.9rem 1.2rem;border:none;border-radius:var(--radius-md);background-color:rgba(255,255,255,.9);font-family:'Open Sans',sans-serif;font-size:.95rem;color:var(--dark-gray);transition:var(--transition);box-shadow:var(--shadow-sm);border:1px solid transparent}.input-group input::placeholder,.input-group textarea::placeholder{color:var(--medium-gray);opacity:.7}.input-group input:focus,.input-group select:focus,.input-group textarea:focus{outline:0;box-shadow:0 0 0 3px rgba(59,130,246,.3);border-color:var(--light-blue)}.file-upload-label{display:flex;align-items:center;justify-content:center;width:100%;padding:.9rem 1.2rem;border:2px dashed rgba(255,255,255,.4);border-radius:var(--radius-md);background-color:var(--glass);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);font-size:.9rem}.file-upload-label:hover{background-color:rgba(255,255,255,.15);border-color:var(--accent-yellow)}.file-upload-label.uploaded{background-color:rgba(16,185,129,.2);border-color:var(--success);color:var(--white)}.file-upload-input{display:none}.coren-toggle-group{display:flex;gap:.75rem;margin-top:.5rem}.coren-toggle-btn{flex:1;padding:.7rem;background-color:var(--glass);border:2px solid transparent;border-radius:var(--radius-md);color:var(--white);font-weight:500;font-size:.85rem;cursor:pointer;transition:var(--transition)}.coren-toggle-btn.active{background-color:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow)}.user-type{display:flex;gap:1rem;margin-bottom:1.5rem}.user-type-btn{flex:1;padding:1.25rem .75rem;background:var(--glass);border:2px solid transparent;border-radius:var(--radius-lg);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);text-align:center;box-shadow:var(--shadow)}.user-type-btn.active{background:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow-lg);transform:translateY(-3px)}.user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--accent-yellow)}.terms{display:flex;align-items:flex-start;margin-bottom:1.5rem;font-size:.85rem;color:var(--white)}.terms input{margin-right:.75rem;margin-top:.25rem;min-width:18px;min-height:18px;accent-color:var(--accent-yellow)}.terms label{text-align:justify;font-weight:400;opacity:.9}.terms label a{color:var(--accent-yellow);text-decoration:underline;font-weight:600;transition:color 0.2s ease}.terms label a:hover{color:var(--white)}.btn{width:100%;padding:1rem;border:none;border-radius:var(--radius-lg);background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);letter-spacing:.5px;position:relative;overflow:hidden}.btn:after{content:'';position:absolute;top:-50%;left:-60%;width:20px;height:200%;background:rgba(255,255,255,.3);transform:rotate(25deg);transition:all .6s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}.btn:hover:after{left:120%}.btn:active{transform:translateY(0);box-shadow:var(--shadow)}.main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}.user-info{display:flex;align-items:center;margin-bottom:1.25rem}.user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}.user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--white)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}.user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin-top:1rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}.modules{padding:1.5rem 1.25rem;flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(100%,1fr));gap:1.25rem}@media (min-width:480px){.modules{grid-template-columns:repeat(auto-fill,minmax(48%,1fr))}}.module-card{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;overflow:hidden;position:relative;border:1px solid var(--light-gray)}.module-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}.module-header{display:flex;align-items:center;margin-bottom:1rem}.module-icon{width:50px;height:50px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--primary-blue),var(--light-blue));display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--white);box-shadow:var(--shadow);flex-shrink:0}.module-title{font-weight:600;font-size:1.15rem;color:var(--dark-blue)}.module-description{color:var(--medium-gray);font-size:.9rem;line-height:1.5}.disabled-module{opacity:.7;cursor:not-allowed}.disabled-module:after{content:"Em breve";position:absolute;top:12px;right:12px;background-color:var(--warning);color:var(--dark-gray);padding:.3rem .8rem;border-radius:var(--radius-full);font-size:.75rem;font-weight:700;box-shadow:var(--shadow-sm)}.appointment-list{margin-top:1.5rem;overflow-y:auto}.appointment-category{margin-bottom:1.5rem}.category-title{font-weight:600;color:var(--dark-blue);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:2px solid var(--sky-blue);font-size:1.05rem}.appointment-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.appointment-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}.patient-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.appointment-time{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}.appointment-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.status-pending{background-color:rgba(245,158,11,.15);color:var(--warning)}.status-confirmed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-completed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-cancelled{background-color:rgba(239,68,68,.15);color:var(--error)}.status-refused{background-color:rgba(239,68,68,.15);color:var(--error)}.carousel-container{position:relative;height:500px;overflow:hidden;border-radius:var(--radius-lg);margin:1.5rem 0;box-shadow:var(--shadow-lg);background-color:var(--white);width:100%;max-width:100%;display:flex;flex-direction:column}.carousel{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);height:100%;width:100%}.carousel-item{min-width:100%;height:100%;padding:0;display:flex;flex-direction:column;align-items:center;position:relative;flex-shrink:0;background:linear-gradient(135deg,var(--dark-blue) 0,var(--primary-blue) 100%);color:var(--white);text-align:center;box-sizing:border-box;border-radius:var(--radius-lg);overflow:hidden;}.carousel-profile{width:100%;height:200px;border-radius:var(--radius-lg);border-bottom-left-radius:0;border-bottom-right-radius:0;border:4px solid var(--white);border-bottom:none;background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:0;}.carousel-profile img{width:100%;height:100%;object-fit:cover;}.carousel-content{padding:1rem 1.5rem;width:100%;display:flex;flex-direction:column;align-items:center;}.carousel-name{font-weight:700;font-size:1.7rem;margin-bottom:.25rem;}.carousel-rating{display:flex;margin-bottom:1rem;align-items:center;justify-content:center;}.carousel-rating .stars{color:var(--accent-yellow);font-size:1.4rem;margin-right:.5rem;}.carousel-rating span{font-size:1rem;font-weight:600;}.carousel-bio{background-color:rgba(255,255,255,.95);border-radius:var(--radius-lg);padding:1.25rem;width:100%;margin-top:1rem;color:var(--dark-gray);overflow-y:auto;max-height:170px;text-align:left;box-shadow:var(--shadow);font-size:.9rem;word-wrap:break-word; /* Added for word wrapping */}.carousel-bio p{margin-bottom:.75rem;line-height:1.6}.carousel-bio strong{color:var(--primary-blue)}.carousel-nav{display:flex;justify-content:center;gap:1.5rem;margin-top:auto;padding-bottom:1rem;width:100%;z-index:1}.nav-btn{width:55px;height:55px;border-radius:var(--radius-full);background-color:var(--white);color:var(--primary-blue);border:none;font-size:1.5rem;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-lg);transition:var(--transition)}.nav-btn:hover{transform:scale(1.1);background-color:var(--sky-blue);color:var(--dark-blue)}.nav-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}.profile-edit-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.profile-edit-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.profile-edit-screen .input-group{margin-bottom:1.25rem;text-align:left}.profile-edit-screen .input-group label{color:var(--dark-gray);font-weight:500;font-size:.9rem;display:block;margin-bottom:.5rem}.profile-edit-screen .btn{margin-top:1.5rem}.profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}.profile-section strong{color:var(--dark-gray);font-weight:600}.profile-section ul{list-style:none;padding:0}.profile-section ul li{margin-bottom:.5rem;color:var(--medium-gray);font-size:.9rem}.medication-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:.75rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;position:relative}.medication-item .medication-details{display:flex;flex-direction:column}.medication-item .medication-details strong{color:var(--dark-blue);font-size:.95rem}.medication-item .medication-details span{font-size:.85rem;color:var(--medium-gray)}.medication-item .remove-medication-btn{position:absolute;top:.5rem;right:.5rem;background:0 0;border:none;color:var(--error);font-size:1.2rem;cursor:pointer;padding:.2rem;border-radius:var(--radius-sm);transition:background-color .2s}.medication-item .remove-medication-btn:hover{background-color:rgba(239,68,68,.1)}.add-medication-btn{background-color:var(--success);color:var(--white);padding:.75rem;border:none;border-radius:var(--radius-md);cursor:pointer;font-weight:600;margin-top:1rem;transition:var(--transition)}.add-medication-btn:hover{background-color:#059669;transform:translateY(-2px)}.patient-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.patient-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.patient-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.patient-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.patient-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}.schedule-caregiver-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.schedule-caregiver-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.schedule-caregiver-screen .caregiver-info-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.schedule-caregiver-screen .caregiver-info-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.schedule-caregiver-screen .caregiver-info-summary .avatar img{width:100%;height:100%;object-fit:cover}.schedule-caregiver-screen .caregiver-info-summary .details{flex:1}.schedule-caregiver-screen .caregiver-info-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.schedule-caregiver-screen .caregiver-info-summary .rating{color:var(--accent-yellow);font-size:.95rem}.schedule-caregiver-screen .form-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow);border:1px solid var(--light-gray)}.schedule-caregiver-screen .form-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.day-selection{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}.day-button{flex:1 1 calc(33.33% - .5rem);padding:.75rem;border:1px solid var(--light-gray);border-radius:var(--radius-md);background-color:var(--off-white);color:var(--dark-gray);font-weight:500;cursor:pointer;transition:var(--transition);text-align:center;min-width:80px}.day-button.selected{background-color:var(--primary-blue);color:var(--white);border-color:var(--primary-blue);box-shadow:var(--shadow-sm)}.day-button:hover:not(.selected){background-color:var(--sky-blue)}.time-selection{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}.time-selection input[type=time]{width:100%;padding:.8rem;border:1px solid var(--light-gray);border-radius:var(--radius-md);font-size:.95rem;color:var(--dark-gray);transition:var(--transition)}.time-selection input[type=time]:focus{outline:0;border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(59,130,246,.2)}.schedule-caregiver-screen textarea{min-height:100px;resize:vertical;border-radius:var(--radius-md);padding:.8rem;border:1px solid var(--light-gray);font-family:'Open Sans',sans-serif;font-size:.95rem;color:var(--dark-gray);transition:var(--transition)}.schedule-caregiver-screen textarea:focus{outline:0;border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(59,130,246,.2)}.back-button{position:absolute;top:1.25rem;left:1.25rem;background:var(--white);border:none;border-radius:var(--radius-full);width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--primary-blue);font-size:1.4rem;cursor:pointer;z-index:20;transition:var(--transition);box-shadow:var(--shadow)}.back-button:hover{transform:translateX(-3px) scale(1.05);background-color:var(--sky-blue)}.auth-message{color:var(--white)!important;text-align:center;margin-top:1rem;font-weight:500;font-size:.95rem}.loading-message{animation:pulse 1.5s infinite ease-in-out}@keyframes pulse{0%{opacity:.7}50%{opacity:1}100%{opacity:.7}}#clientProfilePhotoPreview,#profilePhotoPreview{width:140px;height:140px;object-fit:cover;border-radius:var(--radius-full);border:4px solid var(--light-blue);box-shadow:var(--shadow)}.custom-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .4s ease-in-out,visibility .4s ease-in-out}.custom-overlay.show{opacity:1;visibility:visible}.custom-alert-box{background-color:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-xl);max-width:350px;width:90%;text-align:center;transform:translateY(-30px) scale(.9);opacity:0;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55),opacity .4s ease-in-out}.custom-overlay.show .custom-alert-box{transform:translateY(0) scale(1);opacity:1}.custom-alert-box h3{color:var(--dark-blue);margin-bottom:1rem;font-size:1.5rem;font-weight:700}.custom-alert-box p{color:var(--dark-gray);margin-bottom:1.5rem;line-height:1.6;font-size:.95rem}.custom-alert-box .alert-buttons{display:flex;gap:.75rem;justify-content:center}.custom-alert-box .alert-buttons button{padding:.8rem 1.5rem;border:none;border-radius:var(--radius-md);font-weight:600;cursor:pointer;transition:var(--transition);font-size:.95rem}.custom-alert-box .alert-buttons .btn-ok{background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);box-shadow:var(--shadow)}.custom-alert-box .alert-buttons .btn-ok:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}.custom-alert-box .alert-buttons .btn-cancel{background-color:var(--light-gray);color:var(--dark-gray);box-shadow:var(--shadow)}.custom-alert-box .alert-buttons .btn-cancel:hover{background-color:var(--medium-gray);color:var(--white);transform:translateY(-2px)}.patient-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;justify-content:center}.patient-actions .btn{width:auto;padding:.8rem 1.25rem;font-size:.95rem;flex-grow:1;min-width:140px}.patient-actions .btn-confirm{background:linear-gradient(to right,var(--success),#34d399)}.patient-actions .btn-confirm:hover{background:linear-gradient(to right,#059669,#34d399)}.patient-actions .btn-complete{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue))}.patient-actions .btn-complete:hover{background:linear-gradient(to right,#1e40af,var(--primary-blue))}.patient-actions .btn-cancel-appointment{background:linear-gradient(to right,var(--error),#f87171)}.patient-actions .btn-cancel-appointment:hover{background:linear-gradient(to right,#dc2626,#f87171)}.header-actions{position:absolute;top:1.5rem;right:1.25rem;display:flex;gap:1rem;z-index:11}.logout-button,.notification-icon{font-size:1.4rem;color:var(--white);cursor:pointer;transition:transform .2s ease-in-out;background:0 0;border:none;padding:0;position:relative}.logout-button:hover,.notification-icon:hover{transform:scale(1.1);color:var(--accent-yellow)}.notification-badge{position:absolute;top:-.25rem;right:-.25rem;background-color:var(--error);color:var(--white);border-radius:var(--radius-full);padding:.25rem .5rem;font-size:.65rem;font-weight:700;min-width:20px;text-align:center;box-shadow:var(--shadow-sm)}.notification-list-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .4s ease-in-out,visibility .4s ease-in-out}.notification-list-overlay.show{opacity:1;visibility:visible}.notification-list-box{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-xl);max-width:380px;width:90%;max-height:80%;overflow-y:auto;transform:translateY(-30px) scale(.9);opacity:0;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55),opacity .4s ease-in-out}.notification-list-overlay.show .notification-list-box{transform:translateY(0) scale(1);opacity:1}.notification-list-box h3{color:var(--dark-blue);margin-bottom:1.25rem;font-size:1.4rem;font-weight:700;text-align:center}.notification-list-box ul{list-style:none;padding:0}.notification-list-box li{background-color:var(--sky-blue);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;font-size:.9rem;color:var(--dark-gray);line-height:1.4;box-shadow:var(--shadow-sm);position:relative}.notification-list-box li.unread{font-weight:600;border-left:4px solid var(--primary-blue)}.notification-list-box li.unread:after{content:'';position:absolute;top:.75rem;right:.75rem;width:8px;height:8px;background-color:var(--error);border-radius:var(--radius-full)}.notification-list-box .close-btn{background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);padding:.7rem 1.25rem;border-radius:var(--radius-md);margin-top:1rem;cursor:pointer;transition:var(--transition);font-weight:500;border:none;width:100%}.notification-list-box .close-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}.client-requests-history-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-requests-history-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.client-requests-list{margin-top:1rem}.client-request-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}.client-request-item .caregiver-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.client-request-item .request-info{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}.client-request-item .request-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.client-request-item .whatsapp-link{display:inline-flex;align-items:center;gap:.3rem;color:var(--success);text-decoration:none;font-weight:600;margin-top:.5rem;}.client-request-item .whatsapp-link i{font-size:1.1rem;}.pagination-controls{display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;margin-bottom:1rem}.pagination-controls button{padding:.6rem 1.2rem;border:none;border-radius:var(--radius-md);background-color:var(--primary-blue);color:var(--white);font-weight:600;cursor:pointer;transition:var(--transition)}.pagination-controls button:disabled{background-color:var(--medium-gray);cursor:not-allowed;opacity:.7}.pagination-controls button:hover:not(:disabled){background-color:var(--dark-blue);transform:translateY(-2px)}.client-request-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-request-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.client-request-details-screen .caregiver-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.client-request-details-screen .caregiver-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.client-request-details-screen .caregiver-summary .avatar img{width:100%;height:100%;object-fit:cover}.client-request-details-screen .caregiver-summary .details{flex:1}.client-request-details-screen .caregiver-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.client-request-details-screen .caregiver-summary .rating{color:var(--accent-yellow);font-size:.95rem}.client-request-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.client-request-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}.client-request-details-screen .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.client-request-details-screen .profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.client-request-details-screen .profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}.admin-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.admin-screen .header{background:linear-gradient(to right,#4caf50,#8bc34a)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}.admin-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.admin-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin:1.5rem 1.25rem 1.25rem;box-shadow:var(--shadow)}.admin-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.admin-list{list-style:none;padding:0}.admin-list-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--shadow-sm)}.admin-list-item .item-details{font-size:.95rem;color:var(--dark-gray)}.admin-list-item .item-details strong{color:var(--primary-blue)}.admin-list-item .item-actions{display:flex;gap:.5rem;margin-top:.75rem;justify-content:flex-end}.admin-list-item .item-actions button{padding:.5rem 1rem;border:none;border-radius:var(--radius-md);font-weight:600;cursor:pointer;transition:var(--transition);font-size:.85rem}.admin-list-item .item-actions .btn-approve{background-color:var(--success);color:var(--white)}.admin-list-item .item-actions .btn-approve:hover{background-color:#059669}.admin-list-item .item-actions .btn-reject{background-color:var(--error);color:var(--white)}.admin-list-item .item-actions .btn-reject:hover{background-color:#dc2626}.admin-user-list-container{display:flex;flex-direction:column;gap:1rem}.admin-user-type-toggle{display:flex;background-color:var(--light-gray);border-radius:var(--radius-md);overflow:hidden}.admin-user-type-toggle button{flex:1;padding:.75rem;border:none;background-color:transparent;font-weight:600;color:var(--dark-gray);cursor:pointer;transition:var(--transition)}.admin-user-type-toggle button.active{background-color:var(--primary-blue);color:var(--white)}.admin-user-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:1rem;cursor:pointer;transition:var(--transition)}.admin-user-item:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.admin-user-item .avatar{width:40px;height:40px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--dark-blue);overflow:hidden;flex-shrink:0}.admin-user-item .avatar img{width:100%;height:100%;object-fit:cover}.admin-user-item .user-info-text{flex-grow:1}.admin-user-item .user-info-text strong{display:block;color:var(--dark-blue);font-size:1rem}.admin-user-item .user-info-text span{font-size:.85rem;color:var(--medium-gray)}.admin-user-details-popup{background-color:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-xl);max-width:450px;width:90%;max-height:90vh;overflow-y:auto;position:relative}.admin-user-details-popup h3{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.8rem;font-weight:700}.admin-user-details-popup .profile-section{padding:1rem;margin-bottom:1rem}.admin-user-details-popup .profile-section h4{color:var(--primary-blue);margin-bottom:.75rem;font-size:1.05rem;font-weight:600}.admin-user-details-popup .input-group label{color:var(--dark-gray)}.admin-user-details-popup .rating-input{display:flex;align-items:center;gap:.5rem;margin-top:.5rem}.admin-user-details-popup .rating-input input{width:60px;text-align:center}.admin-user-details-popup .rating-input .stars{color:var(--accent-yellow);font-size:1.2rem}.admin-user-details-popup .btn-save-user{margin-top:1.5rem}.fc .fc-toolbar-title{font-size:1.2em;color:var(--dark-blue)}.fc .fc-button{background-color:var(--primary-blue);border-color:var(--primary-blue);color:var(--white)}.fc .fc-button:hover{background-color:var(--dark-blue);border-color:var(--dark-blue)}.fc-event{background-color:var(--success)!important;border-color:var(--success)!important;color:var(--white)!important;font-size:.8em;padding:2px 4px;border-radius:4px}.fc-event-title{white-space:normal}.charts-container{display:grid;grid-template-columns:1fr;gap:1.5rem;padding:1.5rem 1.25rem}.chart-card{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow);border:1px solid var(--light-gray)}.chart-card h3{color:var(--primary-blue);margin-bottom:1rem;font-size:1.15rem;font-weight:600;text-align:center}@media (min-width:480px){.charts-container{grid-template-columns:repeat(auto-fill,minmax(48%,1fr))}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}.fade-in{animation:fadeIn .5s ease forwards}@media (max-width:480px){.auth-form{padding:1.5rem}.user-type{flex-direction:column}.carousel-container{height:480px}.header-actions{right:1rem;gap:.75rem}.day-button{flex:1 1 calc(50% - .5rem)}}
+    
+    /* New styles for appointment details popup */
+    .appointment-details-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1001; /* Higher than other overlays */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+    }
+
+    .appointment-details-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .appointment-details-box {
+        background-color: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        box-shadow: var(--shadow-xl);
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        transform: translateY(-30px) scale(.9);
+        opacity: 0;
+        transition: transform .4s cubic-bezier(.68,-.55,.27,1.55), opacity .4s ease-in-out;
+    }
+
+    .appointment-details-overlay.show .appointment-details-box {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    .appointment-details-box h3 {
+        color: var(--dark-blue);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .appointment-details-box p {
+        color: var(--dark-gray);
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        text-align: left;
+    }
+
+    .appointment-details-box p strong {
+        color: var(--primary-blue);
+    }
+
+    .appointment-details-box .info-message {
+        background-color: var(--sky-blue);
+        border-left: 4px solid var(--primary-blue);
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: var(--dark-blue);
+        text-align: left;
+    }
+
+    .appointment-details-box .whatsapp-btn {
+        background-color: #25D366; /* WhatsApp green */
+        color: var(--white);
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        margin-top: 1rem;
+    }
+
+    .appointment-details-box .whatsapp-btn:hover {
+        background-color: #1DA851;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .appointment-details-box .close-btn {
+        background: linear-gradient(to right, var(--primary-blue), var(--light-blue));
+        color: var(--white);
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--radius-md);
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+        border: none;
+        width: 100%;
+    }
+
+    .appointment-details-box .close-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* Admin Caregiver Document/Photo Preview */
+    .admin-caregiver-media {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+        align-items: center;
+    }
+
+    .admin-caregiver-media img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--light-gray);
+    }
+
+    .admin-caregiver-media .media-item {
+        text-align: center;
+        width: 100%;
+    }
+
+    .admin-caregiver-media .media-item h4 {
+        margin-bottom: 0.5rem;
+        color: var(--dark-blue);
+        font-size: 1rem;
+    }
+
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -49,9 +191,49 @@
                 </div>
                 <div class="profile-section" id="adminCaregiverBioSection" style="display:none"><h4>Biografia</h4><div class="input-group"><textarea id="adminEditBio"></textarea></div></div>
                 <div class="profile-section" id="adminClientMedicationsSection" style="display:none"><h4>Medicações em Uso</h4><div id="adminEditMedicationsList"></div></div>
+                
+                <!-- New: Admin Caregiver Media Section -->
+                <div class="profile-section" id="adminCaregiverMediaSection" style="display:none">
+                    <h4>Documentos e Fotos</h4>
+                    <div class="admin-caregiver-media">
+                        <div class="media-item">
+                            <h4>Foto Profissional</h4>
+                            <img id="adminCaregiverProfilePhoto" src="" alt="Foto Profissional" style="display:none;">
+                            <p id="adminCaregiverProfilePhotoNone" style="display:none; color: var(--medium-gray);">Nenhuma foto profissional.</p>
+                        </div>
+                        <div class="media-item">
+                            <h4>Documento de Identificação</h4>
+                            <img id="adminCaregiverDocumentPhoto" src="" alt="Documento de Identificação" style="display:none;">
+                            <p id="adminCaregiverDocumentPhotoNone" style="display:none; color: var(--medium-gray);">Nenhum documento enviado.</p>
+                            <a id="adminCaregiverDocumentLink" href="#" target="_blank" style="display:none; color: var(--primary-blue); text-decoration: underline;">Ver Documento (PDF)</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End New: Admin Caregiver Media Section -->
+
                 <button class="btn btn-save-user" id="adminSaveUserDetailsBtn">Salvar Alterações</button>
             </div>
         </div>
+
+        <!-- New: Appointment Details Popup -->
+        <div id="appointmentDetailsOverlay" class="appointment-details-overlay">
+            <div class="appointment-details-box">
+                <h3 id="appointmentDetailsTitle">Agendamento Confirmado!</h3>
+                <p><strong>Cuidador(a):</strong> <span id="popupCaregiverName"></span></p>
+                <p><strong>Paciente:</strong> <span id="popupClientName"></span></p>
+                <p><strong>Período:</strong> <span id="popupAppointmentPeriod"></span></p>
+                <p><strong>Dias:</strong> <span id="popupAppointmentDays"></span></p>
+                <p><strong>Horário:</strong> <span id="popupAppointmentTime"></span></p>
+                <p class="info-message">
+                    Lembre-se que toda a negociação sobre valores e outros combinados devem ser realizados fora do aplicativo.
+                    Sugerimos que entre em contato via WhatsApp para finalizar os detalhes.
+                </p>
+                <button class="whatsapp-btn" id="popupWhatsappBtn"><i class="fab fa-whatsapp"></i> Conversar no WhatsApp</button>
+                <button class="btn close-btn" id="closeAppointmentDetailsPopup">Entendi</button>
+            </div>
+        </div>
+        <!-- End New: Appointment Details Popup -->
+
         <div id="authScreen" class="auth-screen">
             <div class="logo-container"><div class="logo-icon"><i class="fas fa-hands-helping"></i></div><h1>Vita Integrare</h1><p>Cuidado que Conecta</p></div>
             <div class="auth-form">
@@ -59,12 +241,12 @@
                 <div id="userTypeSelection" style="display:none"><p class="input-group">Selecione seu perfil:</p><div class="user-type"><button class="user-type-btn active" data-type="client"><i class="fas fa-user"></i>Cliente</button><button class="user-type-btn" data-type="caregiver"><i class="fas fa-user-nurse"></i>Cuidador</button></div></div>
                 <div class="input-group" id="emailInputGroup"><label for="email">E-mail</label><input type="email" id="email" placeholder="seu.email@exemplo.com"></div>
                 <div class="input-group"><label for="password">Senha</label><input type="password" id="password" placeholder="••••••••"></div>
+                <div class="input-group" id="confirmPasswordInputGroup" style="display:none;"><label for="confirmPassword">Confirmar Senha</label><input type="password" id="confirmPassword" placeholder="••••••••"></div>
                 <div id="registrationFields" style="display:none">
                     <div class="input-group"><label for="fullName">Nome Completo</label><input type="text" id="fullName" placeholder="Seu nome completo"></div>
                     <div class="input-group"><label for="dob">Data de Nascimento</label><input type="text" id="dob" placeholder="DD/MM/AAAA" maxlength="10"></div>
                     <div class="input-group"><label for="cpf">CPF</label><input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14"></div>
-                    <div class="input-group"><label for="phone">Telefone</label><input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" maxlength="15"></div>
-                    <div class="input-group"><label for="confirmPassword">Confirmar Senha</label><input type="password" id="confirmPassword" placeholder="••••••••"></div>
+                    <div class="input-group"><label for="phone">Telefone (WhatsApp)</label><input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" maxlength="15"></div>
                     <div class="input-group"><label for="cep">CEP</label><input type="text" id="cep" placeholder="00000-000" maxlength="9"></div>
                     <div class="input-group"><label for="state">Estado</label><select id="state"><option value="">Selecione o Estado</option></select></div>
                     <div class="input-group"><label for="city">Cidade</label><select id="city" disabled="disabled"><option value="">Selecione a Cidade</option></select></div>
@@ -106,6 +288,7 @@
                 <p><strong>Nome Completo:</strong><span id="displayFullName"></span></p>
                 <p><strong>Data de Nascimento:</strong><span id="displayDOB"></span></p>
                 <p><strong>CPF:</strong><span id="displayCPF"></span></p>
+                <p><strong>Telefone:</strong><span id="displayPhoneCaregiver"></span></p>
                 <p><strong>COREN:</strong><span id="displayCOREN"></span></p>
                 <p><strong>Religião:</strong><span id="displayReligionCaregiver"></span></p>
                 <p><strong>Localização:</strong><span id="displayLocation"></span></p>
@@ -248,7 +431,8 @@
         let currentAppointments = []; // Stores all appointments for the current caregiver
         let currentSelectedAppointment = null; // Stores the appointment object when viewing patient details
         let unsubscribeAppointments = null; // To store the unsubscribe function for real-time listener (caregiver)
-        let unsubscribeNotifications = null; // To store the unsubscribe function for real-time listener (client notifications)
+        let unsubscribeClientNotifications = null; // To store the unsubscribe function for real-time listener (client notifications)
+        let unsubscribeCaregiverNotifications = null; // New: for caregiver notifications
         let unsubscribeAdminPendingCaregivers = null; // New: for admin pending caregivers listener
         let unsubscribeAdminAllUsers = null; // New: for admin all users listener
         let unsubscribeCaregiverData = null; // New: for real-time caregiver data updates
@@ -305,10 +489,11 @@
         const fullNameInput = document.getElementById('fullName');
         const dobInput = document.getElementById('dob'); // Date of Birth input
         const cpfInput = document.getElementById('cpf');
-        const phoneInput = document.getElementById('phone');
+        const phoneInput = document.getElementById('phone'); // Updated to include WhatsApp
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
+        const confirmPasswordInputGroup = document.getElementById('confirmPasswordInputGroup'); // New: for toggling visibility
         const cepInput = document.getElementById('cep');
         const stateSelect = document.getElementById('state');
         const citySelect = document.getElementById('city');
@@ -348,6 +533,7 @@
         const displayFullName = document.getElementById('displayFullName');
         const displayDOB = document.getElementById('displayDOB'); 
         const displayCPF = document.getElementById('displayCPF');
+        const displayPhoneCaregiver = document.getElementById('displayPhoneCaregiver'); // Added for caregiver profile
         const displayCOREN = document.getElementById('displayCOREN');
         const displayReligionCaregiver = document.getElementById('displayReligionCaregiver'); // New religion display
         const displayLocation = document.getElementById('displayLocation');
@@ -420,7 +606,7 @@
         const editClientProfilePhotoUploadLabel = document.getElementById('editClientProfilePhotoUploadLabel');
         const clientDisplayFullName = document.getElementById('clientDisplayFullName');
         const clientDisplayCPF = document.getElementById('clientDisplayCPF');
-        const clientDisplayPhone = document.getElementById('clientDisplayPhone');
+        const clientDisplayPhone = document.getElementById('clientDisplayPhone'); // Added for client profile
         const clientDisplayEmail = document.getElementById('clientDisplayEmail');
         const clientDisplayReligion = document.getElementById('clientDisplayReligion'); // New client religion display
         const clientDisplayAddress = document.getElementById('clientDisplayAddress');
@@ -505,10 +691,27 @@
         const adminClientMedicationsSection = document.getElementById('adminClientMedicationsSection');
         const adminEditMedicationsList = document.getElementById('adminEditMedicationsList');
         const adminSaveUserDetailsBtn = document.getElementById('adminSaveUserDetailsBtn');
+        const adminCaregiverMediaSection = document.getElementById('adminCaregiverMediaSection'); // New
+        const adminCaregiverProfilePhoto = document.getElementById('adminCaregiverProfilePhoto'); // New
+        const adminCaregiverProfilePhotoNone = document.getElementById('adminCaregiverProfilePhotoNone'); // New
+        const adminCaregiverDocumentPhoto = document.getElementById('adminCaregiverDocumentPhoto'); // New
+        const adminCaregiverDocumentPhotoNone = document.getElementById('adminCaregiverDocumentPhotoNone'); // New
+        const adminCaregiverDocumentLink = document.getElementById('adminCaregiverDocumentLink'); // New
 
         // Admin Charts elements
         const appointmentStatusChartCtx = document.getElementById('appointmentStatusChart')?.getContext('2d');
         const appointmentsPerMonthChartCtx = document.getElementById('appointmentsPerMonthChart')?.getContext('2d');
+
+        // Appointment Details Popup elements
+        const appointmentDetailsOverlay = document.getElementById('appointmentDetailsOverlay');
+        const appointmentDetailsTitle = document.getElementById('appointmentDetailsTitle');
+        const popupCaregiverName = document.getElementById('popupCaregiverName');
+        const popupClientName = document.getElementById('popupClientName');
+        const popupAppointmentPeriod = document.getElementById('popupAppointmentPeriod');
+        const popupAppointmentDays = document.getElementById('popupAppointmentDays');
+        const popupAppointmentTime = document.getElementById('popupAppointmentTime');
+        const popupWhatsappBtn = document.getElementById('popupWhatsappBtn');
+        const closeAppointmentDetailsPopup = document.getElementById('closeAppointmentDetailsPopup');
 
 
         // --- Utility Functions ---
@@ -692,10 +895,18 @@
 
         function maskPhone(value) {
             value = value.replace(/\D/g, "");
-            value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-            value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+            if (value.length > 10) { // (XX) XXXXX-XXXX
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+            } else if (value.length > 5) { // (XX) XXXX-XXXX
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+            } else if (value.length > 2) { // (XX) XXXX
+                value = value.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
+            } else { // (XX
+                value = value.replace(/^(\d*)/, "($1");
+            }
             return value;
         }
+
 
         function maskCEP(value) {
             value = value.replace(/\D/g, "");
@@ -888,7 +1099,8 @@
         function toggleRegistrationFields(show) {
             registrationFields.style.display = show ? 'block' : 'none';
             userTypeSelection.style.display = show ? 'block' : 'none';
-            
+            confirmPasswordInputGroup.style.display = show ? 'block' : 'none'; // Show/hide confirm password
+
             const emailLabel = emailInputGroup.querySelector('label');
             emailLabel.textContent = show ? 'E-mail (Opcional para Cliente)' : 'E-mail';
 
@@ -974,7 +1186,7 @@
                 const dobDisplay = dobInput.value;
                 const dobISO = formatDateToISO(dobDisplay);
                 const cpf = cpfInput.value;
-                const phone = phoneInput.value;
+                const phone = phoneInput.value; // Get phone number
                 const cep = cepInput.value;
                 const state = stateSelect.value;
                 const city = citySelect.value;
@@ -1053,7 +1265,7 @@
                         fullName: fullName,
                         dob: dobISO,
                         cpf: cpf,
-                        phone: phone,
+                        phone: phone, // Save phone number
                         email: email || null,
                         cep: cep,
                         city: city,
@@ -1242,6 +1454,7 @@
                         <div class="item-details"><strong>Nome:</strong> ${caregiver.fullName}</div>
                         <div class="item-details"><strong>E-mail:</strong> ${caregiver.email || 'N/A'}</div>
                         <div class="item-details"><strong>CPF:</strong> ${caregiver.cpf}</div>
+                        <div class="item-details"><strong>Telefone:</strong> ${caregiver.phone || 'N/A'}</div>
                         <div class="item-details"><strong>COREN:</strong> ${caregiver.coren || 'Não possui'}</div>
                         <div class="item-actions">
                             <button class="btn-approve" data-id="${caregiver.id}" data-name="${caregiver.fullName}">Aprovar</button>
@@ -1417,7 +1630,7 @@
                 adminUserDetailsTitle.textContent = `Detalhes de ${currentEditingUser.fullName}`;
                 adminEditFullName.value = currentEditingUser.fullName || '';
                 adminEditEmail.value = currentEditingUser.email || '';
-                adminEditPhone.value = currentEditingUser.phone || '';
+                adminEditPhone.value = currentEditingUser.phone || ''; // Populate phone
                 adminEditCpf.value = currentEditingUser.cpf || '';
                 adminEditReligion.value = currentEditingUser.religion || '';
                 adminEditAddress.value = `${currentEditingUser.street || ''}, ${currentEditingUser.number || ''}, ${currentEditingUser.neighborhood || ''}, ${currentEditingUser.city || ''} - ${currentEditingUser.state || ''}`;
@@ -1426,6 +1639,7 @@
                 adminCaregiverRatingGroup.style.display = 'none';
                 adminCaregiverBioSection.style.display = 'none';
                 adminClientMedicationsSection.style.display = 'none';
+                adminCaregiverMediaSection.style.display = 'none'; // Hide by default
 
                 if (userType === 'caregiver') {
                     adminCaregiverStatusGroup.style.display = 'block';
@@ -1435,6 +1649,37 @@
                     displayStars(currentEditingUser.rating || 3.0, adminEditRatingStars);
                     adminCaregiverBioSection.style.display = 'block';
                     adminEditBio.value = currentEditingUser.bio || '';
+                    
+                    // Show caregiver media section
+                    adminCaregiverMediaSection.style.display = 'block';
+                    if (currentEditingUser.profilePhotoUrl) {
+                        adminCaregiverProfilePhoto.src = currentEditingUser.profilePhotoUrl;
+                        adminCaregiverProfilePhoto.style.display = 'block';
+                        adminCaregiverProfilePhotoNone.style.display = 'none';
+                    } else {
+                        adminCaregiverProfilePhoto.style.display = 'none';
+                        adminCaregiverProfilePhotoNone.style.display = 'block';
+                    }
+
+                    if (currentEditingUser.documentUrl) {
+                        const isPdf = currentEditingUser.documentUrl.toLowerCase().endsWith('.pdf');
+                        if (isPdf) {
+                            adminCaregiverDocumentPhoto.style.display = 'none';
+                            adminCaregiverDocumentPhotoNone.style.display = 'none';
+                            adminCaregiverDocumentLink.href = currentEditingUser.documentUrl;
+                            adminCaregiverDocumentLink.style.display = 'block';
+                        } else {
+                            adminCaregiverDocumentPhoto.src = currentEditingUser.documentUrl;
+                            adminCaregiverDocumentPhoto.style.display = 'block';
+                            adminCaregiverDocumentPhotoNone.style.display = 'none';
+                            adminCaregiverDocumentLink.style.display = 'none';
+                        }
+                    } else {
+                        adminCaregiverDocumentPhoto.style.display = 'none';
+                        adminCaregiverDocumentPhotoNone.style.display = 'block';
+                        adminCaregiverDocumentLink.style.display = 'none';
+                    }
+
                 } else if (userType === 'client') {
                     adminClientMedicationsSection.style.display = 'block';
                     renderAdminEditMedications(currentEditingUser.medications || []);
@@ -1494,7 +1739,7 @@
 
             const updatedData = {
                 fullName: adminEditFullName.value,
-                phone: adminEditPhone.value,
+                phone: adminEditPhone.value, // Save updated phone
                 religion: adminEditReligion.value,
             };
 
@@ -1698,7 +1943,7 @@
 
             showScreen('caregiverScreen');
             setupCaregiverAppointmentsListener(currentUser.uid);
-            setupClientNotificationsListener(currentUser.uid, caregiverNotificationBadge);
+            setupCaregiverNotificationsListener(currentUser.uid, caregiverNotificationBadge); // Use new caregiver notification listener
         }
 
         function setupCaregiverAppointmentsListener(caregiverId) {
@@ -1858,6 +2103,7 @@
 
             displayFullName.textContent = currentCaregiverData.fullName || 'N/A';
             displayCPF.textContent = currentCaregiverData.cpf || 'N/A';
+            displayPhoneCaregiver.textContent = currentCaregiverData.phone || 'N/A'; // Display phone
             displayCOREN.textContent = currentCaregiverData.coren || 'Não possui';
             displayReligionCaregiver.textContent = currentCaregiverData.religion || 'Não informado';
             displayLocation.textContent = `${currentCaregiverData.city || ''}, ${currentCaregiverData.state || ''}`;
@@ -2099,10 +2345,31 @@
                 try {
                     await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'confirmed' });
                     
+                    // Notification for Client (regular notification)
                     await db.collection('notifications').add({
                         userId: currentSelectedAppointment.clientId,
                         type: 'appointment_confirmed',
                         message: `Seu agendamento com ${currentSelectedAppointment.caregiverName} para o período de ${formatDateToDisplay(currentSelectedAppointment.startDate)} a ${formatDateToDisplay(currentSelectedAppointment.endDate)} foi CONFIRMADO!`,
+                        read: false,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    // Notification for Client (popup trigger)
+                    await db.collection('notifications').add({
+                        userId: currentSelectedAppointment.clientId,
+                        type: 'appointment_confirmed_popup',
+                        message: `Agendamento com ${currentSelectedAppointment.caregiverName} confirmado!`, // Generic message for popup
+                        appointmentId: currentSelectedAppointment.id, // Pass appointment ID to fetch details for popup
+                        read: false,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    // Notification for Caregiver (popup trigger)
+                    await db.collection('notifications').add({
+                        userId: currentSelectedAppointment.caregiverId,
+                        type: 'appointment_confirmed_popup',
+                        message: `Agendamento com ${currentSelectedAppointment.clientName} confirmado!`, // Generic message for popup
+                        appointmentId: currentSelectedAppointment.id, // Pass appointment ID to fetch details for popup
                         read: false,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     });
@@ -2303,11 +2570,11 @@
         }
 
         function setupClientNotificationsListener(userId, badgeElement) {
-            if (unsubscribeNotifications) {
-                unsubscribeNotifications();
+            if (unsubscribeClientNotifications) {
+                unsubscribeClientNotifications();
             }
 
-            unsubscribeNotifications = db.collection('notifications')
+            unsubscribeClientNotifications = db.collection('notifications')
                 .where('userId', '==', userId)
                 .orderBy('timestamp', 'desc')
                 .onSnapshot(snapshot => {
@@ -2320,29 +2587,84 @@
                     }
 
                     notificationList.innerHTML = '';
+                    let popupTriggered = false;
+                    snapshot.forEach(doc => {
+                        const notification = doc.data();
+                        if (notification.type === 'appointment_confirmed_popup' && !notification.read && !popupTriggered) {
+                            showAppointmentDetailsPopup(notification.appointmentId, doc.id);
+                            popupTriggered = true; // Ensure only one popup is shown at a time
+                        }
+
+                        const li = document.createElement('li');
+                        li.textContent = notification.message;
+                        if (!notification.read) {
+                            li.classList.add('unread');
+                        }
+                        li.dataset.notificationId = doc.id;
+                        li.addEventListener('click', async () => {
+                            if (!notification.read) {
+                                await db.collection('notifications').doc(doc.id).update({ read: true });
+                            }
+                        });
+                        notificationList.appendChild(li);
+                    });
+
                     if (snapshot.empty) {
                         notificationList.innerHTML = '<p style="text-align: center; color: var(--medium-gray);">Nenhuma notificação.</p>';
-                    } else {
-                        snapshot.forEach(doc => {
-                            const notification = doc.data();
-                            const li = document.createElement('li');
-                            li.textContent = notification.message;
-                            if (!notification.read) {
-                                li.classList.add('unread');
-                            }
-                            li.dataset.notificationId = doc.id;
-                            li.addEventListener('click', async () => {
-                                if (!notification.read) {
-                                    await db.collection('notifications').doc(doc.id).update({ read: true });
-                                }
-                            });
-                            notificationList.appendChild(li);
-                        });
                     }
                 }, error => {
                     console.error("Error listening to client notifications:", error);
                 });
         }
+
+        function setupCaregiverNotificationsListener(userId, badgeElement) {
+            if (unsubscribeCaregiverNotifications) {
+                unsubscribeCaregiverNotifications();
+            }
+
+            unsubscribeCaregiverNotifications = db.collection('notifications')
+                .where('userId', '==', userId)
+                .orderBy('timestamp', 'desc')
+                .onSnapshot(snapshot => {
+                    const unreadCount = snapshot.docs.filter(doc => !doc.data().read).length;
+                    if (unreadCount > 0) {
+                        badgeElement.textContent = unreadCount;
+                        badgeElement.style.display = 'block';
+                    } else {
+                        badgeElement.style.display = 'none';
+                    }
+
+                    notificationList.innerHTML = '';
+                    let popupTriggered = false;
+                    snapshot.forEach(doc => {
+                        const notification = doc.data();
+                        if (notification.type === 'appointment_confirmed_popup' && !notification.read && !popupTriggered) {
+                            showAppointmentDetailsPopup(notification.appointmentId, doc.id);
+                            popupTriggered = true; // Ensure only one popup is shown at a time
+                        }
+
+                        const li = document.createElement('li');
+                        li.textContent = notification.message;
+                        if (!notification.read) {
+                            li.classList.add('unread');
+                        }
+                        li.dataset.notificationId = doc.id;
+                        li.addEventListener('click', async () => {
+                            if (!notification.read) {
+                                await db.collection('notifications').doc(doc.id).update({ read: true });
+                            }
+                        });
+                        notificationList.appendChild(li);
+                    });
+
+                    if (snapshot.empty) {
+                        notificationList.innerHTML = '<p style="text-align: center; color: var(--medium-gray);">Nenhuma notificação.</p>';
+                    }
+                }, error => {
+                    console.error("Error listening to caregiver notifications:", error);
+                });
+        }
+
 
         clientNotificationIcon.addEventListener('click', () => {
             notificationListOverlay.classList.add('show');
@@ -2356,6 +2678,65 @@
             notificationListOverlay.classList.remove('show');
         });
 
+        // --- Appointment Details Popup Logic ---
+        async function showAppointmentDetailsPopup(appointmentId, notificationDocId) {
+            try {
+                const appointmentDoc = await db.collection('appointments').doc(appointmentId).get();
+                if (!appointmentDoc.exists) {
+                    console.error("Appointment not found for popup:", appointmentId);
+                    return;
+                }
+                const appointmentData = appointmentDoc.data();
+
+                let contactName = '';
+                let contactPhone = '';
+                let otherPartyName = '';
+
+                if (currentUserType === 'client') {
+                    const caregiverDoc = await db.collection('users').doc(appointmentData.caregiverId).get();
+                    const caregiverData = caregiverDoc.data();
+                    contactName = caregiverData.fullName;
+                    contactPhone = caregiverData.phone;
+                    otherPartyName = appointmentData.caregiverName;
+                    popupCaregiverName.textContent = contactName;
+                    popupClientName.textContent = appointmentData.clientName;
+                } else if (currentUserType === 'caregiver') {
+                    const clientDoc = await db.collection('users').doc(appointmentData.clientId).get();
+                    const clientData = clientDoc.data();
+                    contactName = clientData.fullName;
+                    contactPhone = clientData.phone;
+                    otherPartyName = appointmentData.clientName;
+                    popupCaregiverName.textContent = appointmentData.caregiverName;
+                    popupClientName.textContent = contactName;
+                }
+
+                appointmentDetailsTitle.textContent = `Agendamento Confirmado!`;
+                popupAppointmentPeriod.textContent = `${formatDateToDisplay(appointmentData.startDate)} a ${formatDateToDisplay(appointmentData.endDate)}`;
+                popupAppointmentDays.textContent = appointmentData.daysOfWeek ? appointmentData.daysOfWeek.join(', ') : 'Não informado';
+                popupAppointmentTime.textContent = appointmentData.startTime && appointmentData.endTime ? `${appointmentData.startTime} - ${appointmentData.endTime}` : 'Não informado';
+
+                const cleanedPhoneNumber = contactPhone ? contactPhone.replace(/\D/g, '') : '';
+                if (cleanedPhoneNumber) {
+                    popupWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}`;
+                    popupWhatsappBtn.style.display = 'inline-flex';
+                } else {
+                    popupWhatsappBtn.style.display = 'none';
+                }
+
+                appointmentDetailsOverlay.classList.add('show');
+
+                closeAppointmentDetailsPopup.onclick = async () => {
+                    appointmentDetailsOverlay.classList.remove('show');
+                    // Mark notification as read after closing popup
+                    await db.collection('notifications').doc(notificationDocId).update({ read: true });
+                };
+
+            } catch (error) {
+                console.error("Error showing appointment details popup:", error);
+                showAlert('Erro', `Erro ao carregar detalhes do agendamento: ${error.message}`);
+            }
+        }
+
 
         clientProfileModule.addEventListener('click', () => {
             loadClientProfileForEdit();
@@ -2367,7 +2748,7 @@
 
             clientDisplayFullName.textContent = currentClientData.fullName || 'N/A';
             clientDisplayCPF.textContent = currentClientData.cpf || 'N/A';
-            clientDisplayPhone.textContent = currentClientData.phone || 'N/A';
+            clientDisplayPhone.textContent = currentClientData.phone || 'N/A'; // Display phone
             clientDisplayEmail.textContent = currentClientData.email || 'N/A';
             clientDisplayReligion.textContent = currentClientData.religion || 'Não informado';
             clientDisplayAddress.textContent = `${currentClientData.street || ''}, ${currentClientData.number || ''}, ${currentClientData.neighborhood || ''}, ${currentClientData.city || ''} - ${currentClientData.state || ''}`;
@@ -2700,6 +3081,7 @@
                         clientName: currentClientData.fullName,
                         caregiverId: selectedCaregiverForScheduling.id,
                         caregiverName: selectedCaregiverForScheduling.fullName,
+                        caregiverPhone: selectedCaregiverForScheduling.phone, // Save caregiver's phone
                         startDate: startDate,
                         endDate: endDate,
                         daysOfWeek: selectedDays,
@@ -2797,15 +3179,31 @@
                     const daysText = request.daysOfWeek ? request.daysOfWeek.join(', ') : 'Não informado';
                     const timeText = request.startTime && request.endTime ? `${request.startTime} - ${request.endTime}` : 'Não informado';
 
+                    let whatsappLinkHtml = '';
+                    if (request.status === 'confirmed' && request.caregiverPhone) {
+                        const cleanedPhoneNumber = request.caregiverPhone.replace(/\D/g, '');
+                        whatsappLinkHtml = `
+                            <a href="https://wa.me/55${cleanedPhoneNumber}" target="_blank" class="whatsapp-link">
+                                ${request.caregiverPhone} <i class="fab fa-whatsapp"></i>
+                            </a>
+                        `;
+                    }
+
                     item.innerHTML = `
                         <div class="caregiver-name">${request.caregiverName}</div>
                         <div class="request-info">Período: ${formatDateToDisplay(request.startDate)} a ${formatDateToDisplay(request.endDate)}</div>
                         <div class="request-info">Dias: ${daysText}</div>
                         <div class="request-info">Horário: ${timeText}</div>
                         <div class="request-status ${statusClass}">${statusText}</div>
+                        ${whatsappLinkHtml}
                     `;
                     item.dataset.requestId = request.id;
-                    item.addEventListener('click', () => showClientRequestDetails(request.id));
+                    item.addEventListener('click', (e) => {
+                        // Prevent opening details if WhatsApp link was clicked
+                        if (!e.target.closest('.whatsapp-link')) {
+                            showClientRequestDetails(request.id);
+                        }
+                    });
                     clientRequestsList.appendChild(item);
                 });
             }
@@ -2919,7 +3317,7 @@
             const diffX = endX - startX;
 
             if (diffX > 70 && screenHistory.length > 0) {
-                if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !notificationListOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show')) {
+                if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !notificationListOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show') && !appointmentDetailsOverlay.classList.contains('show')) {
                     goBack();
                 }
             }
@@ -2994,9 +3392,13 @@
                     unsubscribeAppointments();
                     unsubscribeAppointments = null;
                 }
-                if (unsubscribeNotifications) {
-                    unsubscribeNotifications();
-                    unsubscribeNotifications = null;
+                if (unsubscribeClientNotifications) {
+                    unsubscribeClientNotifications();
+                    unsubscribeClientNotifications = null;
+                }
+                if (unsubscribeCaregiverNotifications) { // New: unsubscribe caregiver notifications
+                    unsubscribeCaregiverNotifications();
+                    unsubscribeCaregiverNotifications = null;
                 }
                 if (unsubscribeAdminPendingCaregivers) {
                     unsubscribeAdminPendingCaregivers();
