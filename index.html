@@ -2075,7 +2075,7 @@
             displayPhoneCaregiver.textContent = currentCaregiverData.phone || 'N/A'; // Display phone
             displayCOREN.textContent = currentCaregiverData.coren || 'Não possui';
             displayReligionCaregiver.textContent = currentCaregiverData.religion || 'Não informado';
-            displayLocation.textContent = `${currentCaregiverData.city || ''}, ${currentCaregiverData.state || ''}`;
+            displayLocation.textContent = `${currentCaregiverData.city || ''}, ${currentCaregiverData.neighborhood || ''}, ${currentCaregiverData.street || ''}, ${currentCaregiverData.number || ''}, ${currentCaregiverData.state || ''}`;
             displayDOB.textContent = formatDateToDisplay(currentCaregiverData.dob) || 'N/A';
 
             editBio.value = currentCaregiverData.bio || '';
@@ -2319,7 +2319,8 @@
                         type: 'appointment_confirmed',
                         message: `Seu agendamento com ${currentSelectedAppointment.caregiverName} para o período de ${formatDateToDisplay(currentSelectedAppointment.startDate)} a ${formatDateToDisplay(currentSelectedAppointment.endDate)} foi CONFIRMADO!`,
                         read: false,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        appointmentId: currentSelectedAppointment.id // Add appointment ID for popup
                     });
 
                     showAlert('Sucesso', 'Agendamento confirmado!');
@@ -2343,7 +2344,8 @@
                         type: 'appointment_completed',
                         message: `Seu agendamento com ${currentSelectedAppointment.caregiverName} para o período de ${formatDateToDisplay(currentSelectedAppointment.startDate)} a ${formatDateToDisplay(currentSelectedAppointment.endDate)} foi CONCLUÍDO.`,
                         read: false,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        appointmentId: currentSelectedAppointment.id // Add appointment ID for popup
                     });
 
                     showAlert('Sucesso', 'Agendamento concluído!');
@@ -2370,7 +2372,8 @@
                         type: 'appointment_cancelled',
                         message: `Seu agendamento com ${currentSelectedAppointment.caregiverName} para o período de ${formatDateToDisplay(currentSelectedAppointment.startDate)} a ${formatDateToDisplay(currentSelectedAppointment.endDate)}, nos dias ${daysText} e horário ${timeText}, foi CANCELADO.`,
                         read: false,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        appointmentId: currentSelectedAppointment.id // Add appointment ID for popup
                     });
 
                     showAlert('Sucesso', 'Agendamento cancelado e cliente notificado!');
@@ -2397,7 +2400,8 @@
                         type: 'appointment_refused',
                         message: `Seu pedido de agendamento com ${currentSelectedAppointment.caregiverName} para o período de ${formatDateToDisplay(currentSelectedAppointment.startDate)} a ${formatDateToDisplay(currentSelectedAppointment.endDate)}, nos dias ${daysText} e horário ${timeText}, foi RECUSADO.`,
                         read: false,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        appointmentId: currentSelectedAppointment.id // Add appointment ID for popup
                     });
 
                     showAlert('Sucesso', 'Pedido de agendamento recusado e cliente notificado!');
@@ -2771,10 +2775,16 @@
         }
 
         function updateCarousel() {
-            if (allCaregivers.length === 0) return;
+            if (allCaregivers.length === 0) {
+                prevCaregiverBtn.style.display = 'none';
+                nextCaregiverBtn.style.display = 'none';
+                return;
+            }
             caregiverCarousel.style.transform = `translateX(-${currentCaregiverIndex * 100}%)`;
             prevCaregiverBtn.disabled = currentCaregiverIndex === 0;
             nextCaregiverBtn.disabled = currentCaregiverIndex === allCaregivers.length - 1;
+            prevCaregiverBtn.style.display = 'flex'; // Ensure buttons are visible
+            nextCaregiverBtn.style.display = 'flex'; // Ensure buttons are visible
         }
 
         prevCaregiverBtn.addEventListener('click', () => {
@@ -2790,6 +2800,40 @@
                 updateCarousel();
             }
         });
+
+        // Swipe functionality for carousel
+        let carouselStartX = 0;
+        let carouselCurrentX = 0;
+        let isSwiping = false;
+
+        caregiverCarousel.addEventListener('touchstart', (e) => {
+            carouselStartX = e.touches[0].clientX;
+            isSwiping = true;
+            caregiverCarousel.style.transition = 'none'; // Disable transition during swipe
+        });
+
+        caregiverCarousel.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            carouselCurrentX = e.touches[0].clientX;
+            const diff = carouselCurrentX - carouselStartX;
+            // Apply transform directly to move with finger
+            caregiverCarousel.style.transform = `translateX(calc(-${currentCaregiverIndex * 100}% + ${diff}px))`;
+        });
+
+        caregiverCarousel.addEventListener('touchend', () => {
+            if (!isSwiping) return;
+            isSwiping = false;
+            caregiverCarousel.style.transition = 'transform .5s cubic-bezier(.25,.46,.45,.94)'; // Re-enable transition
+
+            const diff = carouselCurrentX - carouselStartX;
+            if (diff > 50 && currentCaregiverIndex > 0) { // Swipe right (to previous)
+                currentCaregiverIndex--;
+            } else if (diff < -50 && currentCaregiverIndex < allCaregivers.length - 1) { // Swipe left (to next)
+                currentCaregiverIndex++;
+            }
+            updateCarousel();
+        });
+
 
         interestCaregiverBtn.addEventListener('click', () => {
             if (allCaregivers.length > 0) {
@@ -2924,7 +2968,7 @@
 
             if (confirmed) {
                 try {
-                    await db.collection('appointments').add({
+                    const newAppointmentRef = await db.collection('appointments').add({
                         clientId: currentUser.uid,
                         clientName: currentClientData.fullName,
                         caregiverId: selectedCaregiverForScheduling.id,
@@ -2946,7 +2990,8 @@
                         type: 'new_appointment_request',
                         message: `Você recebeu um novo pedido de agendamento de ${currentClientData.fullName} para o período de ${formatDateToDisplay(startDate)} a ${formatDateToDisplay(endDate)}.`,
                         read: false,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        appointmentId: newAppointmentRef.id // Store the appointment ID
                     });
 
                     showAlert('Sucesso', "Pedido de agendamento enviado! Aguarda aprovação do cuidador.");
