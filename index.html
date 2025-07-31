@@ -984,7 +984,7 @@
         }
 
         .time-selection input[type=time],
-        .time-selection input[type=date] { /* Added input[type=date] */
+        .time-selection input[type=date] {
             width: 100%;
             padding: .8rem;
             border: 1px solid var(--light-gray);
@@ -992,12 +992,13 @@
             font-size: .95rem;
             color: var(--dark-gray);
             transition: var(--transition);
-            -webkit-appearance: none; /* For iOS date/time input styling */
+            -webkit-appearance: none; /* Remove default iOS styling */
+            -moz-appearance: none;
             appearance: none;
         }
 
         .time-selection input[type=time]:focus,
-        .time-selection input[type=date]:focus { /* Added input[type=date] */
+        .time-selection input[type=date]:focus {
             outline: 0;
             border-color: var(--primary-blue);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, .2)
@@ -2287,7 +2288,7 @@
         </div>
     </div>
 
-    <div id="notificationListOverlay" class="custom-overlay">
+    <div id="notificationListOverlay" class="notification-list-overlay">
         <div class="notification-list-box">
             <h3>Suas Notificações</h3>
             <ul id="notificationList"></ul>
@@ -2301,10 +2302,22 @@
             <h3 id="adminUserDetailsTitle"></h3>
             <div class="profile-section">
                 <h4>Informações Pessoais</h4>
-                <div class="input-group"><label for="adminEditFullName">Nome Completo</label><input type="text" id="adminEditFullName"></div>
-                <div class="input-group"><label for="adminEditEmail">E-mail</label><input type="email" id="adminEditEmail" disabled="disabled"></div>
-                <div class="input-group"><label for="adminEditPhone">Telefone</label><input type="tel" id="adminEditPhone"></div>
-                <div class="input-group"><label for="adminEditCpf">CPF</label><input type="text" id="adminEditCpf" disabled="disabled"></div>
+                <div class="input-group">
+                    <label for="adminEditFullName">Nome Completo</label>
+                    <input type="text" id="adminEditFullName">
+                </div>
+                <div class="input-group">
+                    <label for="adminEditEmail">E-mail</label>
+                    <input type="email" id="adminEditEmail" disabled="disabled">
+                </div>
+                <div class="input-group">
+                    <label for="adminEditPhone">Telefone</label>
+                    <input type="tel" id="adminEditPhone">
+                </div>
+                <div class="input-group">
+                    <label for="adminEditCpf">CPF</label>
+                    <input type="text" id="adminEditCpf" disabled="disabled">
+                </div>
                 <div class="input-group">
                     <label for="adminEditReligion">Religião</label>
                     <select id="adminEditReligion">
@@ -2323,7 +2336,10 @@
                         <option value="Não Informar">Não Informar</option>
                     </select>
                 </div>
-                <div class="input-group"><label for="adminEditAddress">Endereço</label><input type="text" id="adminEditAddress"></div>
+                <div class="input-group">
+                    <label for="adminEditAddress">Endereço</label>
+                    <input type="text" id="adminEditAddress">
+                </div>
                 <div class="input-group" id="adminCaregiverStatusGroup" style="display:none">
                     <label for="adminEditStatus">Status do Cuidador</label>
                     <select id="adminEditStatus">
@@ -2342,7 +2358,9 @@
             </div>
             <div class="profile-section" id="adminCaregiverBioSection" style="display:none">
                 <h4>Biografia</h4>
-                <div class="input-group"><textarea id="adminEditBio"></textarea></div>
+                <div class="input-group">
+                    <textarea id="adminEditBio"></textarea>
+                </div>
             </div>
             <div class="profile-section" id="adminClientMedicationsSection" style="display:none">
                 <h4>Medicações em Uso</h4>
@@ -2366,28 +2384,24 @@
         </div>
     </div>
 
-    <!-- Novo Pop-up de Resumo de Agendamento Confirmado -->
-    <div id="appointmentConfirmedPopupOverlay" class="custom-overlay">
+    <div id="appointmentSummaryOverlay" class="appointment-summary-overlay">
         <div class="appointment-summary-popup">
-            <h3 id="confirmedSummaryTitle">Agendamento Confirmado!</h3>
+            <h3 id="summaryTitle">Agendamento Confirmado!</h3>
             <div class="summary-photos">
-                <img id="confirmedSummaryCaregiverPhoto" class="summary-photo" src="" alt="Foto do Cuidador" style="display:none">
-                <img id="confirmedSummaryClientPhoto" class="summary-photo" src="" alt="Foto do Paciente" style="display:none">
+                <img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none">
+                <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none">
             </div>
             <div class="summary-details">
-                <p><strong>Cuidador:</strong> <span id="confirmedSummaryCaregiverName"></span></p>
-                <p><strong>Paciente:</strong> <span id="confirmedSummaryClientName"></span></p>
-                <p><strong>Período:</strong> <span id="confirmedSummaryPeriod"></span></p>
-                <p><strong>Dias:</strong> <span id="confirmedSummaryDays"></span></p>
-                <p><strong>Horário:</strong> <span id="confirmedSummaryTime"></span></p>
+                <p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p>
+                <p><strong>Paciente:</strong><span id="summaryClientName"></span></p>
+                <p><strong>Local:</strong><span id="summaryLocation"></span></p>
+                <p><strong>Período:</strong><span id="summaryPeriod"></span></p>
+                <p><strong>Dias:</strong><span id="summaryDays"></span></p>
+                <p><strong>Horário:</strong><span id="summaryTime"></span></p>
             </div>
-            <a href="#" id="confirmedSummaryWhatsappBtn" class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> Conversar no WhatsApp
-            </a>
-            <p class="disclaimer">
-                Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.
-            </p>
-            <button class="btn-ok" id="confirmedSummaryOkBtn">OK</button>
+            <a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a>
+            <p class="disclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p>
+            <button class="btn-ok" id="summaryOkBtn">OK</button>
         </div>
     </div>
 
@@ -2418,17 +2432,54 @@
                 <input type="password" id="password" placeholder="••••••••">
             </div>
             <div id="registrationFields" style="display:none">
-                <div class="input-group"><label for="fullName">Nome Completo</label><input type="text" id="fullName" placeholder="Seu nome completo"></div>
-                <div class="input-group"><label for="dob">Data de Nascimento</label><input type="text" id="dob" placeholder="DD/MM/AAAA" maxlength="10"></div>
-                <div class="input-group"><label for="cpf">CPF</label><input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14"></div>
-                <div class="input-group"><label for="phone">Telefone (WhatsApp)</label><input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" maxlength="15"></div>
-                <div class="input-group"><label for="confirmPassword">Confirmar Senha</label><input type="password" id="confirmPassword" placeholder="••••••••"></div>
-                <div class="input-group"><label for="cep">CEP</label><input type="text" id="cep" placeholder="00000-000" maxlength="9"></div>
-                <div class="input-group"><label for="state">Estado</label><select id="state"><option value="">Selecione o Estado</option></select></div>
-                <div class="input-group"><label for="city">Cidade</label><select id="city" disabled="disabled"><option value="">Selecione a Cidade</option></select></div>
-                <div class="input-group"><label for="neighborhood">Bairro</label><input type="text" id="neighborhood" placeholder="Seu bairro"></div>
-                <div class="input-group"><label for="street">Rua</label><input type="text" id="street" placeholder="Sua rua"></div>
-                <div class="input-group"><label for="number">Número</label><input type="text" id="number" placeholder="Número do logradouro"></div>
+                <div class="input-group">
+                    <label for="fullName">Nome Completo</label>
+                    <input type="text" id="fullName" placeholder="Seu nome completo">
+                </div>
+                <div class="input-group">
+                    <label for="dob">Data de Nascimento</label>
+                    <input type="text" id="dob" placeholder="DD/MM/AAAA" maxlength="10">
+                </div>
+                <div class="input-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
+                </div>
+                <div class="input-group">
+                    <label for="phone">Telefone (WhatsApp)</label>
+                    <input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" maxlength="15">
+                </div>
+                <div class="input-group">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" id="confirmPassword" placeholder="••••••••">
+                </div>
+                <div class="input-group">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+                </div>
+                <div class="input-group">
+                    <label for="state">Estado</label>
+                    <select id="state">
+                        <option value="">Selecione o Estado</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="city">Cidade</label>
+                    <select id="city" disabled="disabled">
+                        <option value="">Selecione a Cidade</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="neighborhood">Bairro</label>
+                    <input type="text" id="neighborhood" placeholder="Seu bairro">
+                </div>
+                <div class="input-group">
+                    <label for="street">Rua</label>
+                    <input type="text" id="street" placeholder="Sua rua">
+                </div>
+                <div class="input-group">
+                    <label for="number">Número</label>
+                    <input type="text" id="number" placeholder="Número do logradouro">
+                </div>
                 <div class="input-group">
                     <label for="religion">Religião</label>
                     <select id="religion">
@@ -2492,8 +2543,7 @@
                     <div class="user-name" id="caregiverNameDisplay">Dr. Ana Silva</div>
                     <div class="user-badge">Cuidador</div>
                     <div class="user-rating">
-                        <div class="stars" id="caregiverStars"></div>
-                        <span id="caregiverRatingValue">3.0</span>
+                        <div class="stars" id="caregiverStars"></div><span id="caregiverRatingValue">3.0</span>
                     </div>
                 </div>
             </div>
@@ -2557,27 +2607,39 @@
         </div>
         <div class="profile-section">
             <h3>Biografia Resumida</h3>
-            <div class="input-group"><textarea id="editBio" placeholder="Fale um pouco sobre você e sua experiência..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editBio" placeholder="Fale um pouco sobre você e sua experiência..."></textarea>
+            </div>
         </div>
         <div class="profile-section">
             <h3>Formação Acadêmica e Técnica</h3>
-            <div class="input-group"><textarea id="editEducation" placeholder="Ex: Enfermeiro(a) pela Universidade X, Técnico(a) de Enfermagem pelo Senac..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editEducation" placeholder="Ex: Enfermeiro(a) pela Universidade X, Técnico(a) de Enfermagem pelo Senac..."></textarea>
+            </div>
         </div>
         <div class="profile-section">
             <h3>Cursos de Formação Continuada</h3>
-            <div class="input-group"><textarea id="editCourses" placeholder="Ex: Curso de Primeiros Socorros, Especialização em Geriatria..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editCourses" placeholder="Ex: Curso de Primeiros Socorros, Especialização em Geriatria..."></textarea>
+            </div>
         </div>
         <div class="profile-section">
             <h3>Experiências Anteriores</h3>
-            <div class="input-group"><textarea id="editExperience" placeholder="Ex: 5 anos de experiência com idosos, 2 anos com crianças..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editExperience" placeholder="Ex: 5 anos de experiência com idosos, 2 anos com crianças..."></textarea>
+            </div>
         </div>
         <div class="profile-section">
             <h3>Disponibilidade de Horários</h3>
-            <div class="input-group"><textarea id="editAvailability" placeholder="Ex: Segunda a Sexta, 8h às 18h; Finais de semana sob consulta..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editAvailability" placeholder="Ex: Segunda a Sexta, 8h às 18h; Finais de semana sob consulta..."></textarea>
+            </div>
         </div>
         <div class="profile-section">
             <h3>Informações Adicionais</h3>
-            <div class="input-group"><textarea id="editAdditionalInfo" placeholder="Ex: Afinidade com cuidados paliativos, experiência com pacientes acamados..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editAdditionalInfo" placeholder="Ex: Afinidade com cuidados paliativos, experiência com pacientes acamados..."></textarea>
+            </div>
         </div>
         <button class="btn" id="saveCaregiverProfile">Salvar Alterações</button>
     </div>
@@ -2598,9 +2660,18 @@
         </div>
         <div class="profile-section">
             <h3>Notas do Cuidador para o Paciente</h3>
-            <div class="input-group"><label for="patientRoutines">Rotinas e Hábitos:</label><textarea id="patientRoutines" placeholder="Rotina diária, hábitos alimentares, sono..."></textarea></div>
-            <div class="input-group"><label for="patientSpecificCare">Cuidados e Manejos Específicos:</label><textarea id="patientSpecificCare" placeholder="Cuidados com feridas, mobilidade, higiene..."></textarea></div>
-            <div class="input-group"><label for="patientDailyRecord">Registro Diário:</label><textarea id="patientDailyRecord" placeholder="Anotações diárias sobre o estado do paciente, ocorrências..."></textarea></div>
+            <div class="input-group">
+                <label for="patientRoutines">Rotinas e Hábitos:</label>
+                <textarea id="patientRoutines" placeholder="Rotina diária, hábitos alimentares, sono..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="patientSpecificCare">Cuidados e Manejos Específicos:</label>
+                <textarea id="patientSpecificCare" placeholder="Cuidados com feridas, mobilidade, higiene..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="patientDailyRecord">Registro Diário:</label>
+                <textarea id="patientDailyRecord" placeholder="Anotações diárias sobre o estado do paciente, ocorrências..."></textarea>
+            </div>
             <button class="btn" id="savePatientNotes">Salvar Notas do Paciente</button>
         </div>
         <div class="patient-actions">
@@ -2624,9 +2695,18 @@
         </div>
         <div class="profile-section">
             <h3>Notas do Cuidador (Histórico)</h3>
-            <div class="input-group"><label>Rotinas e Hábitos:</label><textarea id="historyPatientRoutines" readonly="readonly"></textarea></div>
-            <div class="input-group"><label>Cuidados e Manejos Específicos:</label><textarea id="historyPatientSpecificCare" readonly="readonly"></textarea></div>
-            <div class="input-group"><label>Registro Diário:</label><textarea id="historyPatientDailyRecord" readonly="readonly"></textarea></div>
+            <div class="input-group">
+                <label>Rotinas e Hábitos:</label>
+                <textarea id="historyPatientRoutines" readonly="readonly"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Cuidados e Manejos Específicos:</label>
+                <textarea id="historyPatientSpecificCare" readonly="readonly"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Registro Diário:</label>
+                <textarea id="historyPatientDailyRecord" readonly="readonly"></textarea>
+            </div>
         </div>
     </div>
 
@@ -2706,7 +2786,9 @@
         </div>
         <div class="profile-section">
             <h3>Recomendações e Necessidades Específicas</h3>
-            <div class="input-group"><textarea id="editClientRecommendations" placeholder="Descreva quaisquer recomendações médicas ou necessidades especiais..."></textarea></div>
+            <div class="input-group">
+                <textarea id="editClientRecommendations" placeholder="Descreva quaisquer recomendações médicas ou necessidades especiais..."></textarea>
+            </div>
         </div>
         <button class="btn" id="saveClientProfile">Salvar Alterações</button>
     </div>
@@ -2726,15 +2808,13 @@
         </div>
         <div class="form-section">
             <h3>Período do Atendimento</h3>
-            <div class="time-selection"> <!-- Changed to time-selection for consistent styling -->
-                <div class="input-group">
-                    <label for="startDate">Data de Início:</label>
-                    <input type="date" id="startDate">
-                </div>
-                <div class="input-group">
-                    <label for="endDate">Data de Término:</label>
-                    <input type="date" id="endDate">
-                </div>
+            <div class="input-group">
+                <label for="startDate">Data de Início:</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="input-group">
+                <label for="endDate">Data de Término:</label>
+                <input type="date" id="endDate">
             </div>
         </div>
         <div class="form-section">
@@ -2764,7 +2844,9 @@
         </div>
         <div class="form-section">
             <h3>Observação (Opcional):</h3>
-            <div class="input-group"><textarea id="scheduleObservation" placeholder="Ex: Necessita de ajuda para banho, acompanhamento em consulta..."></textarea></div>
+            <div class="input-group">
+                <textarea id="scheduleObservation" placeholder="Ex: Necessita de ajuda para banho, acompanhamento em consulta..."></textarea>
+            </div>
         </div>
         <button class="btn" id="confirmScheduleBtn">Confirmar Agendamento</button>
     </div>
@@ -2874,6 +2956,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -2911,7 +2994,7 @@
     let currentAppointments = []; // Stores all appointments for the current caregiver
     let currentSelectedAppointment = null; // Stores the appointment object when viewing patient details
     let unsubscribeAppointments = null; // To store the unsubscribe function for real-time listener (caregiver)
-    let unsubscribeClientNotifications = null; // To store the unsubscribe function for real-time listener (client notifications)
+    let unsubscribeNotifications = null; // To store the unsubscribe function for real-time listener (client notifications)
     let unsubscribeAdminPendingCaregivers = null; // New: for admin pending caregivers listener
     let unsubscribeAdminAllUsers = null; // New: for admin all users listener
     let unsubscribeCaregiverData = null; // New: for real-time caregiver data updates
@@ -3000,6 +3083,7 @@
     const caregiverLogoutBtn = document.getElementById('caregiverLogoutBtn');
     const caregiverWelcomeMessage = document.getElementById('caregiverWelcomeMessage'); // New: Welcome message for caregiver
     const caregiverEducaModule = document.getElementById('caregiverEducaModule'); // New: Edu-educa module
+    // const caregiverChatModule = document.getElementById('caregiverChatModule'); // Removed: Chat module
 
     // Caregiver Profile Edit elements
     const backToCaregiverDashboardBtn = document.getElementById('backToCaregiverDashboard');
@@ -3034,7 +3118,7 @@
     const caregiverPatientMedicationsList = document.getElementById('caregiverPatientMedicationsList'); // For caregiver to view/edit patient meds
     const addCaregiverPatientMedicationBtn = document.getElementById('addCaregiverPatientMedicationBtn'); // Button to add medication for caregiver
     const patientRoutines = document.getElementById('patientRoutines');
-    const patientSpecificCare = document.getElementById('patientSpecificCare');
+    const patientSpecificCare = document = document.getElementById('patientSpecificCare');
     const patientDailyRecord = document.getElementById('patientDailyRecord');
     const savePatientNotesBtn = document.getElementById('savePatientNotes');
     const confirmAppointmentBtn = document.getElementById('confirmAppointmentBtn');
@@ -3064,15 +3148,16 @@
     const prevCaregiverBtn = document.getElementById('prevCaregiverBtn');
     const nextCaregiverBtn = document.getElementById('nextCaregiverBtn');
     const interestCaregiverBtn = document.getElementById('interestCaregiverBtn');
-    const clientNotificationIcon = document.getElementById('clientNotificationIcon');
-    const caregiverNotificationIcon = document.getElementById('caregiverNotificationIcon');
+    const clientNotificationIcon = document.getElementById('clientNotificationIcon'); // Renamed from notificationIcon
+    const caregiverNotificationIcon = document.getElementById('caregiverNotificationIcon'); // New: for caregiver notifications
     const notificationBadge = document.getElementById('notificationBadge');
-    const caregiverNotificationBadge = document.getElementById('caregiverNotificationBadge');
+    const caregiverNotificationBadge = document.getElementById('caregiverNotificationBadge'); // New: for caregiver notifications
     const notificationListOverlay = document.getElementById('notificationListOverlay');
     const notificationList = document.getElementById('notificationList');
     const closeNotificationListBtn = document.getElementById('closeNotificationList');
     const clientLogoutBtn = document.getElementById('clientLogoutBtn');
-    const clientRequestsHistoryModule = document.getElementById('clientRequestsHistoryModule');
+    const clientRequestsHistoryModule = document.getElementById('clientRequestsHistoryModule'); // New module for client requests history
+    // const clientChatModule = document.getElementById('clientChatModule'); // Removed: Chat module
 
     // Client Profile Edit elements
     const backToClientDashboardBtn = document.getElementById('backToClientDashboard');
@@ -3178,18 +3263,20 @@
     const appointmentStatusChartCtx = document.getElementById('appointmentStatusChart')?.getContext('2d');
     const appointmentsPerMonthChartCtx = document.getElementById('appointmentsPerMonthChart')?.getContext('2d');
 
-    // Appointment Confirmed Popup elements (NEW)
-    const appointmentConfirmedPopupOverlay = document.getElementById('appointmentConfirmedPopupOverlay');
-    const confirmedSummaryTitle = document.getElementById('confirmedSummaryTitle');
-    const confirmedSummaryCaregiverPhoto = document.getElementById('confirmedSummaryCaregiverPhoto');
-    const confirmedSummaryClientPhoto = document.getElementById('confirmedSummaryClientPhoto');
-    const confirmedSummaryCaregiverName = document.getElementById('confirmedSummaryCaregiverName');
-    const confirmedSummaryClientName = document.getElementById('confirmedSummaryClientName');
-    const confirmedSummaryPeriod = document.getElementById('confirmedSummaryPeriod');
-    const confirmedSummaryDays = document.getElementById('confirmedSummaryDays');
-    const confirmedSummaryTime = document.getElementById('confirmedSummaryTime');
-    const confirmedSummaryWhatsappBtn = document.getElementById('confirmedSummaryWhatsappBtn');
-    const confirmedSummaryOkBtn = document.getElementById('confirmedSummaryOkBtn');
+    // Appointment Summary Popup elements (NEW)
+    const appointmentSummaryOverlay = document.getElementById('appointmentSummaryOverlay');
+    const appointmentSummaryPopup = document.getElementById('appointmentSummaryPopup');
+    const summaryTitle = document.getElementById('summaryTitle');
+    const summaryUserPhoto = document.getElementById('summaryUserPhoto');
+    const summaryOtherPhoto = document.getElementById('summaryOtherPhoto');
+    const summaryCaregiverName = document.getElementById('summaryCaregiverName');
+    const summaryClientName = document.getElementById('summaryClientName');
+    const summaryLocation = document.getElementById('summaryLocation');
+    const summaryPeriod = document.getElementById('summaryPeriod');
+    const summaryDays = document.getElementById('summaryDays');
+    const summaryTime = document.getElementById('summaryTime');
+    const summaryWhatsappBtn = document.getElementById('summaryWhatsappBtn');
+    const summaryOkBtn = document.getElementById('summaryOkBtn');
 
 
     // --- Utility Functions ---
@@ -3378,7 +3465,7 @@
         } else if (value.length > 5) { // (XX) XXXX-XXXX
             value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
         } else if (value.length > 2) { // (XX) XXXX
-            value = value.replace(/^(\d*)/, "($1");
+            value = value.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
         } else { // (XX
             value = value.replace(/^(\d*)/, "($1");
         }
@@ -4433,7 +4520,7 @@
 
         showScreen('caregiverScreen');
         setupCaregiverAppointmentsListener(currentUser.uid);
-        setupNotificationListener(currentUser.uid, caregiverNotificationBadge);
+        setupNotificationsListener(currentUser.uid, caregiverNotificationBadge);
     }
 
     function setupCaregiverAppointmentsListener(caregiverId) {
@@ -4835,7 +4922,7 @@
             try {
                 await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'confirmed' });
 
-                // Add notification for the client
+                // Trigger real-time notification for client
                 await db.collection('notifications').add({
                     userId: currentSelectedAppointment.clientId,
                     type: 'appointment_confirmed',
@@ -4861,7 +4948,6 @@
             try {
                 await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'completed' });
 
-                // Add notification for the client
                 await db.collection('notifications').add({
                     userId: currentSelectedAppointment.clientId,
                     type: 'appointment_completed',
@@ -4890,7 +4976,6 @@
                 const daysText = currentSelectedAppointment.daysOfWeek ? currentSelectedAppointment.daysOfWeek.join(', ') : 'Não informado';
                 const timeText = currentSelectedAppointment.startTime && currentSelectedAppointment.endTime ? `${currentSelectedAppointment.startTime} - ${currentSelectedAppointment.endTime}` : 'Não informado';
 
-                // Add notification for the client
                 await db.collection('notifications').add({
                     userId: currentSelectedAppointment.clientId,
                     type: 'appointment_cancelled',
@@ -4919,7 +5004,6 @@
                 const daysText = currentSelectedAppointment.daysOfWeek ? currentSelectedAppointment.daysOfWeek.join(', ') : 'Não informado';
                 const timeText = currentSelectedAppointment.startTime && currentSelectedAppointment.endTime ? `${currentSelectedAppointment.startTime} - ${currentSelectedAppointment.endTime}` : 'Não informado';
 
-                // Add notification for the client
                 await db.collection('notifications').add({
                     userId: currentSelectedAppointment.clientId,
                     type: 'appointment_refused',
@@ -5028,11 +5112,11 @@
         }
         showScreen('clientScreen');
         loadAllCaregivers();
-        setupNotificationListener(currentUser.uid, notificationBadge);
+        setupNotificationsListener(currentUser.uid, notificationBadge);
 
         // Control "Em breve" badge for client modules
         const clientModulesToControl = [
-            // No modules to control for now, as chat was removed
+            // { element: clientChatModule, isComingSoon: true } // Removed chat module
         ];
 
         clientModulesToControl.forEach(module => {
@@ -5046,16 +5130,15 @@
         });
     }
 
-    // Refactored Notification Listener
-    function setupNotificationListener(userId, badgeElement) {
-        if (unsubscribeClientNotifications) {
-            unsubscribeClientNotifications();
+    function setupNotificationsListener(userId, badgeElement) {
+        if (unsubscribeNotifications) {
+            unsubscribeNotifications();
         }
 
-        unsubscribeClientNotifications = db.collection('notifications')
+        unsubscribeNotifications = db.collection('notifications')
             .where('userId', '==', userId)
             .orderBy('timestamp', 'desc')
-            .onSnapshot(async snapshot => {
+            .onSnapshot(async snapshot => { // Added async here
                 const unreadCount = snapshot.docs.filter(doc => !doc.data().read).length;
                 if (unreadCount > 0) {
                     badgeElement.textContent = unreadCount;
@@ -5068,7 +5151,7 @@
                 if (snapshot.empty) {
                     notificationList.innerHTML = '<p style="text-align: center; color: var(--medium-gray);">Nenhuma notificação.</p>';
                 } else {
-                    for (const doc of snapshot.docs) {
+                    for (const doc of snapshot.docs) { // Changed to for...of for async operations
                         const notification = doc.data();
                         const li = document.createElement('li');
                         li.textContent = notification.message;
@@ -5080,28 +5163,28 @@
                             if (!notification.read) {
                                 await db.collection('notifications').doc(doc.id).update({ read: true });
                             }
-                            // If it's a confirmed appointment notification, show the new popup
-                            if (notification.type === 'appointment_confirmed' && notification.appointmentId) {
-                                const appointmentId = notification.appointmentId;
-                                const appointmentDoc = await db.collection('appointments').doc(appointmentId).get();
-                                if (appointmentDoc.exists) {
-                                    const appointmentData = appointmentDoc.data();
-                                    const caregiverDoc = await db.collection('users').doc(appointmentData.caregiverId).get();
-                                    const clientDoc = await db.collection('users').doc(appointmentData.clientId).get();
-                                    if (caregiverDoc.exists && clientDoc.exists) {
-                                        showAppointmentConfirmedPopup(appointmentData, caregiverDoc.data(), clientDoc.data());
-                                    }
-                                }
-                            }
                         });
                         notificationList.appendChild(li);
+
+                        // Show appointment summary popup if it's a new confirmed appointment notification
+                        if (!notification.read && notification.type === 'appointment_confirmed' && notification.appointmentId) {
+                            const appointmentId = notification.appointmentId;
+                            const appointmentDoc = await db.collection('appointments').doc(appointmentId).get();
+                            if (appointmentDoc.exists) {
+                                const appointmentData = appointmentDoc.data();
+                                const caregiverDoc = await db.collection('users').doc(appointmentData.caregiverId).get();
+                                const clientDoc = await db.collection('users').doc(appointmentData.clientId).get();
+                                if (caregiverDoc.exists && clientDoc.exists) {
+                                    showAppointmentSummaryPopup(appointmentData, caregiverDoc.data(), clientDoc.data());
+                                }
+                            }
+                        }
                     }
                 }
             }, error => {
                 console.error("Error listening to client notifications:", error);
             });
     }
-
 
     clientNotificationIcon.addEventListener('click', () => {
         notificationListOverlay.classList.add('show');
@@ -5724,40 +5807,59 @@
         }
     }
 
-    // --- New Appointment Confirmed Popup Logic ---
-    async function showAppointmentConfirmedPopup(appointment, caregiverData, clientData) {
-        confirmedSummaryTitle.textContent = "Agendamento Confirmado!";
+    // --- Appointment Summary Popup Logic (REFACTORED) ---
+    async function showAppointmentSummaryPopup(appointment, caregiverData, clientData) {
+        summaryTitle.textContent = "Agendamento Confirmado!";
 
-        confirmedSummaryCaregiverName.textContent = caregiverData.fullName;
-        confirmedSummaryClientName.textContent = clientData.fullName;
-        confirmedSummaryPeriod.textContent = `${formatDateToDisplay(appointment.startDate)} a ${formatDateToDisplay(appointment.endDate)}`;
-        confirmedSummaryDays.textContent = appointment.daysOfWeek ? appointment.daysOfWeek.join(', ') : 'Não informado';
-        confirmedSummaryTime.textContent = appointment.startTime && appointment.endTime ? `${appointment.startTime} - ${appointment.endTime}` : 'Não informado';
+        summaryCaregiverName.textContent = caregiverData.fullName;
+        summaryClientName.textContent = clientData.fullName;
+        summaryLocation.textContent = `${clientData.city}, ${clientData.state}`;
+        summaryPeriod.textContent = `${formatDateToDisplay(appointment.startDate)} a ${formatDateToDisplay(appointment.endDate)}`;
+        summaryDays.textContent = appointment.daysOfWeek ? appointment.daysOfWeek.join(', ') : 'Não informado';
+        summaryTime.textContent = appointment.startTime && appointment.endTime ? `${appointment.startTime} - ${appointment.endTime}` : 'Não informado';
 
-        // Set caregiver photo
-        if (caregiverData.profilePhotoUrl) {
-            confirmedSummaryCaregiverPhoto.src = caregiverData.profilePhotoUrl;
-            confirmedSummaryCaregiverPhoto.style.display = 'block';
-        } else {
-            confirmedSummaryCaregiverPhoto.style.display = 'none';
+        // Set photos based on current user type
+        if (currentUserType === 'client') {
+            // Client sees caregiver's photo
+            if (caregiverData.profilePhotoUrl) {
+                summaryUserPhoto.src = caregiverData.profilePhotoUrl;
+                summaryUserPhoto.style.display = 'block';
+            } else {
+                summaryUserPhoto.style.display = 'none';
+            }
+            if (clientData.profilePhotoUrl) { // Client's own photo
+                summaryOtherPhoto.src = clientData.profilePhotoUrl;
+                summaryOtherPhoto.style.display = 'block';
+            } else {
+                summaryOtherPhoto.style.display = 'none';
+            }
+            // WhatsApp button for caregiver
+            const cleanedPhoneNumber = caregiverData.phone.replace(/\D/g, '');
+            summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+        } else if (currentUserType === 'caregiver') {
+            // Caregiver sees client's photo
+            if (clientData.profilePhotoUrl) {
+                summaryUserPhoto.src = clientData.profilePhotoUrl;
+                summaryUserPhoto.style.display = 'block';
+            } else {
+                summaryUserPhoto.style.display = 'none';
+            }
+            if (caregiverData.profilePhotoUrl) { // Caregiver's own photo
+                summaryOtherPhoto.src = caregiverData.profilePhotoUrl;
+                summaryOtherPhoto.style.display = 'block';
+            } else {
+                summaryOtherPhoto.style.display = 'none';
+            }
+            // WhatsApp button for client
+            const cleanedPhoneNumber = clientData.phone.replace(/\D/g, '');
+            summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
         }
-        // Set client photo
-        if (clientData.profilePhotoUrl) {
-            confirmedSummaryClientPhoto.src = clientData.profilePhotoUrl;
-            confirmedSummaryClientPhoto.style.display = 'block';
-        } else {
-            confirmedSummaryClientPhoto.style.display = 'none';
-        }
 
-        // WhatsApp button for caregiver
-        const cleanedPhoneNumber = caregiverData.phone.replace(/\D/g, '');
-        confirmedSummaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
-
-        appointmentConfirmedPopupOverlay.classList.add('show');
+        appointmentSummaryOverlay.classList.add('show');
     }
 
-    confirmedSummaryOkBtn.addEventListener('click', () => {
-        appointmentConfirmedPopupOverlay.classList.remove('show');
+    summaryOkBtn.addEventListener('click', () => {
+        appointmentSummaryOverlay.classList.remove('show');
     });
 
 
@@ -5778,7 +5880,7 @@
         const diffX = endX - startX;
 
         if (diffX > 70 && screenHistory.length > 0) {
-            if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !notificationListOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show') && !appointmentConfirmedPopupOverlay.classList.contains('show')) {
+            if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !notificationListOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show') && !appointmentSummaryOverlay.classList.contains('show')) {
                 goBack();
             }
         }
@@ -5853,9 +5955,9 @@
                 unsubscribeAppointments();
                 unsubscribeAppointments = null;
             }
-            if (unsubscribeClientNotifications) { // Changed from unsubscribeNotifications
-                unsubscribeClientNotifications();
-                unsubscribeClientNotifications = null;
+            if (unsubscribeNotifications) {
+                unsubscribeNotifications();
+                unsubscribeNotifications = null;
             }
             if (unsubscribeAdminPendingCaregivers) {
                 unsubscribeAdminPendingCaregivers();
