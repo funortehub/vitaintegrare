@@ -38,14 +38,14 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
-            --radius-full: 9999px
+            --radius-full: 9999px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -53,12 +53,40 @@
             background: linear-gradient(135deg, #f0f9ff 0, #e0f2fe 100%);
             color: var(--dark-gray);
             line-height: 1.6;
-            overflow-x: hidden; /* Mantido para evitar rolagem horizontal geral */
+            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center
+            align-items: center;
         }
+
+        /* Modern Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* For Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.2) rgba(255, 255, 255, 0.1);
+        }
+
 
         .app-container {
             max-width: 480px;
@@ -71,16 +99,16 @@
             min-height: 100vh;
             border-radius: 0;
             display: flex;
-            flex-direction: column
+            flex-direction: column;
         }
 
-        @media (min-width:768px) {
+        @media (min-width: 768px) {
             .app-container {
                 border-radius: var(--radius-xl);
                 margin: 2rem auto;
                 min-height: 90vh;
                 height: auto;
-                overflow: hidden
+                overflow: hidden;
             }
         }
 
@@ -94,12 +122,12 @@
             background: linear-gradient(135deg, var(--primary-blue) 0, var(--dark-blue) 100%);
             color: var(--white);
             text-align: center;
-            flex-grow: 1
+            flex-grow: 1;
         }
 
         .logo-container {
             margin-bottom: 2.5rem;
-            animation: fadeInDown .8s ease-out
+            animation: fadeInDown .8s ease-out;
         }
 
         .logo-container .logo-icon {
@@ -113,12 +141,12 @@
             justify-content: center;
             margin: 0 auto 1.5rem;
             border: 2px solid rgba(255, 255, 255, .2);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .logo-container .logo-icon i {
             font-size: 3.5rem;
-            color: var(--accent-yellow)
+            color: var(--accent-yellow);
         }
 
         .logo-container h1 {
@@ -129,13 +157,13 @@
             background: linear-gradient(to right, var(--accent-yellow), var(--white));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2))
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2));
         }
 
         .logo-container p {
             font-size: 1rem;
             opacity: .9;
-            font-weight: 300
+            font-weight: 300;
         }
 
         .auth-form {
@@ -147,7 +175,7 @@
             padding: 2rem;
             box-shadow: var(--shadow-lg);
             animation: fadeInUp .8s ease-out;
-            border: 1px solid var(--glass-border)
+            border: 1px solid var(--glass-border);
         }
 
         .form-toggle {
@@ -157,7 +185,7 @@
             border-radius: var(--radius-full);
             overflow: hidden;
             position: relative;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, .1)
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, .1);
         }
 
         .form-toggle::before {
@@ -170,11 +198,11 @@
             background: var(--light-blue);
             border-radius: var(--radius-full);
             transition: transform .4s cubic-bezier(.68, -.55, .27, 1.55);
-            z-index: 0
+            z-index: 0;
         }
 
         .form-toggle.register-active::before {
-            transform: translateX(100%)
+            transform: translateX(100%);
         }
 
         .toggle-btn {
@@ -189,17 +217,17 @@
             cursor: pointer;
             transition: var(--transition);
             position: relative;
-            z-index: 1
+            z-index: 1;
         }
 
         .toggle-btn.active {
             color: var(--white);
-            font-weight: 600
+            font-weight: 600;
         }
 
         .input-group {
             margin-bottom: 1.25rem;
-            text-align: left
+            text-align: left;
         }
 
         .input-group label {
@@ -208,7 +236,7 @@
             font-weight: 500;
             font-size: .9rem;
             color: var(--white);
-            opacity: .9
+            opacity: .9;
         }
 
         .input-group input,
@@ -224,13 +252,13 @@
             color: var(--dark-gray);
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
-            border: 1px solid transparent
+            border: 1px solid transparent;
         }
 
         .input-group input::placeholder,
         .input-group textarea::placeholder {
             color: var(--medium-gray);
-            opacity: .7
+            opacity: .7;
         }
 
         .input-group input:focus,
@@ -238,7 +266,7 @@
         .input-group textarea:focus {
             outline: 0;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, .3);
-            border-color: var(--light-blue)
+            border-color: var(--light-blue);
         }
 
         .file-upload-label {
@@ -254,28 +282,28 @@
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            font-size: .9rem
+            font-size: .9rem;
         }
 
         .file-upload-label:hover {
             background-color: rgba(255, 255, 255, .15);
-            border-color: var(--accent-yellow)
+            border-color: var(--accent-yellow);
         }
 
         .file-upload-label.uploaded {
             background-color: rgba(16, 185, 129, .2);
             border-color: var(--success);
-            color: var(--white)
+            color: var(--white);
         }
 
         .file-upload-input {
-            display: none
+            display: none;
         }
 
         .coren-toggle-group {
             display: flex;
             gap: .75rem;
-            margin-top: .5rem
+            margin-top: .5rem;
         }
 
         .coren-toggle-btn {
@@ -288,19 +316,19 @@
             font-weight: 500;
             font-size: .85rem;
             cursor: pointer;
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .coren-toggle-btn.active {
             background-color: var(--light-blue);
             border-color: var(--accent-yellow);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .user-type {
             display: flex;
             gap: 1rem;
-            margin-bottom: 1.5rem
+            margin-bottom: 1.5rem;
         }
 
         .user-type-btn {
@@ -314,21 +342,21 @@
             cursor: pointer;
             transition: var(--transition);
             text-align: center;
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .user-type-btn.active {
             background: var(--light-blue);
             border-color: var(--accent-yellow);
             box-shadow: var(--shadow-lg);
-            transform: translateY(-3px)
+            transform: translateY(-3px);
         }
 
         .user-type-btn i {
             font-size: 1.8rem;
             margin-bottom: .75rem;
             display: block;
-            color: var(--accent-yellow)
+            color: var(--accent-yellow);
         }
 
         .terms {
@@ -336,7 +364,7 @@
             align-items: flex-start;
             margin-bottom: 1.5rem;
             font-size: .85rem;
-            color: var(--white)
+            color: var(--white);
         }
 
         .terms input {
@@ -344,24 +372,24 @@
             margin-top: .25rem;
             min-width: 18px;
             min-height: 18px;
-            accent-color: var(--accent-yellow)
+            accent-color: var(--accent-yellow);
         }
 
         .terms label {
             text-align: justify;
             font-weight: 400;
-            opacity: .9
+            opacity: .9;
         }
 
         .terms label a {
             color: var(--accent-yellow);
             text-decoration: underline;
             font-weight: 600;
-            transition: color .2s ease
+            transition: color .2s ease;
         }
 
         .terms label a:hover {
-            color: var(--white)
+            color: var(--white);
         }
 
         .btn {
@@ -378,7 +406,7 @@
             box-shadow: var(--shadow);
             letter-spacing: .5px;
             position: relative;
-            overflow: hidden
+            overflow: hidden;
         }
 
         .btn:after {
@@ -390,17 +418,17 @@
             height: 200%;
             background: rgba(255, 255, 255, .3);
             transform: rotate(25deg);
-            transition: all .6s ease
+            transition: all .6s ease;
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .btn:active {
             transform: translateY(0);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .main-screen {
@@ -410,7 +438,7 @@
             padding-bottom: 1.5rem;
             background-color: var(--off-white);
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .header {
@@ -422,13 +450,13 @@
             border-bottom-left-radius: var(--radius-xl);
             border-bottom-right-radius: var(--radius-xl);
             box-shadow: var(--shadow-lg);
-            padding-top: 2.5rem
+            padding-top: 2.5rem;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            margin-bottom: 1.25rem
+            margin-bottom: 1.25rem;
         }
 
         .user-avatar {
@@ -445,24 +473,24 @@
             border: 3px solid var(--white);
             overflow: hidden;
             box-shadow: var(--shadow);
-            flex-shrink: 0
+            flex-shrink: 0;
         }
 
         .user-avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
         }
 
         .user-details {
-            flex: 1
+            flex: 1;
         }
 
         .user-name {
             font-weight: 600;
             font-size: 1.3rem;
             margin-bottom: .25rem;
-            color: var(--white)
+            color: var(--white);
         }
 
         .user-badge {
@@ -473,19 +501,19 @@
             border-radius: var(--radius-full);
             font-size: .8rem;
             font-weight: 700;
-            box-shadow: var(--shadow-sm)
+            box-shadow: var(--shadow-sm);
         }
 
         .user-rating {
             display: flex;
             align-items: center;
-            margin-top: .5rem
+            margin-top: .5rem;
         }
 
         .user-rating .stars {
             color: var(--accent-yellow);
             margin-right: .5rem;
-            font-size: 1rem
+            font-size: 1rem;
         }
 
         .welcome-message {
@@ -498,7 +526,7 @@
             box-shadow: var(--shadow);
             font-size: .9rem;
             line-height: 1.5;
-            font-weight: 400
+            font-weight: 400;
         }
 
         .welcome-message:before {
@@ -510,7 +538,7 @@
             height: 20px;
             background-color: var(--white);
             transform: rotate(45deg);
-            box-shadow: -2px -2px 5px rgba(0, 0, 0, .05)
+            box-shadow: -2px -2px 5px rgba(0, 0, 0, .05);
         }
 
         .modules {
@@ -518,12 +546,12 @@
             flex: 1;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-            gap: 1.25rem
+            gap: 1.25rem;
         }
 
-        @media (min-width:480px) {
+        @media (min-width: 480px) {
             .modules {
-                grid-template-columns: repeat(auto-fill, minmax(48%, 1fr))
+                grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
             }
         }
 
@@ -536,18 +564,18 @@
             cursor: pointer;
             overflow: hidden;
             position: relative;
-            border: 1px solid var(--light-gray)
+            border: 1px solid var(--light-gray);
         }
 
         .module-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .module-header {
             display: flex;
             align-items: center;
-            margin-bottom: 1rem
+            margin-bottom: 1rem;
         }
 
         .module-icon {
@@ -562,24 +590,24 @@
             font-size: 1.5rem;
             color: var(--white);
             box-shadow: var(--shadow);
-            flex-shrink: 0
+            flex-shrink: 0;
         }
 
         .module-title {
             font-weight: 600;
             font-size: 1.15rem;
-            color: var(--dark-blue)
+            color: var(--dark-blue);
         }
 
         .module-description {
             color: var(--medium-gray);
             font-size: .9rem;
-            line-height: 1.5
+            line-height: 1.5;
         }
 
         .disabled-module {
             opacity: .7;
-            cursor: not-allowed
+            cursor: not-allowed;
         }
 
         .disabled-module:after {
@@ -593,16 +621,16 @@
             border-radius: var(--radius-full);
             font-size: .75rem;
             font-weight: 700;
-            box-shadow: var(--shadow-sm)
+            box-shadow: var(--shadow-sm);
         }
 
         .appointment-list {
             margin-top: 1.5rem;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .appointment-category {
-            margin-bottom: 1.5rem
+            margin-bottom: 1.5rem;
         }
 
         .category-title {
@@ -611,7 +639,7 @@
             margin-bottom: .75rem;
             padding-bottom: .5rem;
             border-bottom: 2px solid var(--sky-blue);
-            font-size: 1.05rem
+            font-size: 1.05rem;
         }
 
         .appointment-item {
@@ -622,27 +650,27 @@
             transition: var(--transition);
             cursor: pointer;
             box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary-blue)
+            border-left: 4px solid var(--primary-blue);
         }
 
         .appointment-item:hover {
             background-color: var(--sky-blue);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .patient-name {
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: .5rem;
-            color: var(--primary-blue)
+            color: var(--primary-blue);
         }
 
         .appointment-time {
             color: var(--medium-gray);
             font-weight: 500;
             font-size: .85rem;
-            margin-bottom: .5rem
+            margin-bottom: .5rem;
         }
 
         .appointment-status {
@@ -652,32 +680,32 @@
             font-size: .8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: .5px
+            letter-spacing: .5px;
         }
 
         .status-pending {
             background-color: rgba(245, 158, 11, .15);
-            color: var(--warning)
+            color: var(--warning);
         }
 
         .status-confirmed {
             background-color: rgba(16, 185, 129, .15);
-            color: var(--success)
+            color: var(--success);
         }
 
         .status-completed {
             background-color: rgba(16, 185, 129, .15);
-            color: var(--success)
+            color: var(--success);
         }
 
         .status-cancelled {
             background-color: rgba(239, 68, 68, .15);
-            color: var(--error)
+            color: var(--error);
         }
 
         .status-refused {
             background-color: rgba(239, 68, 68, .15);
-            color: var(--error)
+            color: var(--error);
         }
 
         .profile-edit-screen {
@@ -687,7 +715,7 @@
             background-color: var(--off-white);
             flex-grow: 1;
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .profile-edit-screen h2 {
@@ -696,12 +724,12 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: 700;
-            padding-top: .5rem
+            padding-top: .5rem;
         }
 
         .profile-edit-screen .input-group {
             margin-bottom: 1.25rem;
-            text-align: left
+            text-align: left;
         }
 
         .profile-edit-screen .input-group label {
@@ -709,11 +737,11 @@
             font-weight: 500;
             font-size: .9rem;
             display: block;
-            margin-bottom: .5rem
+            margin-bottom: .5rem;
         }
 
         .profile-edit-screen .btn {
-            margin-top: 1.5rem
+            margin-top: 1.5rem;
         }
 
         .profile-section {
@@ -721,7 +749,7 @@
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             margin-bottom: 1.25rem;
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .profile-section h3 {
@@ -730,29 +758,29 @@
             border-bottom: 1px solid var(--light-gray);
             padding-bottom: .75rem;
             font-size: 1.15rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .profile-section p {
             margin-bottom: .75rem;
             color: var(--medium-gray);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .profile-section strong {
             color: var(--dark-gray);
-            font-weight: 600
+            font-weight: 600;
         }
 
         .profile-section ul {
             list-style: none;
-            padding: 0
+            padding: 0;
         }
 
         .profile-section ul li {
             margin-bottom: .5rem;
             color: var(--medium-gray);
-            font-size: .9rem
+            font-size: .9rem;
         }
 
         .medication-item {
@@ -764,22 +792,22 @@
             display: flex;
             flex-direction: column;
             gap: .5rem;
-            position: relative
+            position: relative;
         }
 
         .medication-item .medication-details {
             display: flex;
-            flex-direction: column
+            flex-direction: column;
         }
 
         .medication-item .medication-details strong {
             color: var(--dark-blue);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .medication-item .medication-details span {
             font-size: .85rem;
-            color: var(--medium-gray)
+            color: var(--medium-gray);
         }
 
         .medication-item .remove-medication-btn {
@@ -793,11 +821,11 @@
             cursor: pointer;
             padding: .2rem;
             border-radius: var(--radius-sm);
-            transition: background-color .2s
+            transition: background-color .2s;
         }
 
         .medication-item .remove-medication-btn:hover {
-            background-color: rgba(239, 68, 68, .1)
+            background-color: rgba(239, 68, 68, .1);
         }
 
         .add-medication-btn {
@@ -809,12 +837,12 @@
             cursor: pointer;
             font-weight: 600;
             margin-top: 1rem;
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .add-medication-btn:hover {
             background-color: #059669;
-            transform: translateY(-2px)
+            transform: translateY(-2px);
         }
 
         .patient-details-screen {
@@ -824,7 +852,7 @@
             background-color: var(--off-white);
             flex-grow: 1;
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .patient-details-screen h2 {
@@ -833,7 +861,7 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: 700;
-            padding-top: .5rem
+            padding-top: .5rem;
         }
 
         .patient-details-screen .info-item {
@@ -842,7 +870,7 @@
             padding: 1rem;
             margin-bottom: .75rem;
             box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary-blue)
+            border-left: 4px solid var(--primary-blue);
         }
 
         .patient-details-screen .info-item strong {
@@ -850,12 +878,12 @@
             display: block;
             margin-bottom: .5rem;
             font-size: .95rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .patient-details-screen .info-item p {
             color: var(--dark-gray);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .schedule-caregiver-screen {
@@ -865,7 +893,7 @@
             background-color: var(--off-white);
             flex-grow: 1;
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .schedule-caregiver-screen h2 {
@@ -874,7 +902,7 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: 700;
-            padding-top: .5rem
+            padding-top: .5rem;
         }
 
         .schedule-caregiver-screen .caregiver-info-summary {
@@ -885,7 +913,7 @@
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            border: 1px solid var(--light-gray)
+            border: 1px solid var(--light-gray);
         }
 
         .schedule-caregiver-screen .caregiver-info-summary .avatar {
@@ -901,29 +929,29 @@
             color: var(--dark-blue);
             overflow: hidden;
             border: 3px solid var(--accent-yellow);
-            flex-shrink: 0
+            flex-shrink: 0;
         }
 
         .schedule-caregiver-screen .caregiver-info-summary .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
         }
 
         .schedule-caregiver-screen .caregiver-info-summary .details {
-            flex: 1
+            flex: 1;
         }
 
         .schedule-caregiver-screen .caregiver-info-summary .name {
             font-weight: 600;
             font-size: 1.1rem;
             color: var(--dark-blue);
-            margin-bottom: .25rem
+            margin-bottom: .25rem;
         }
 
         .schedule-caregiver-screen .caregiver-info-summary .rating {
             color: var(--accent-yellow);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .schedule-caregiver-screen .form-section {
@@ -932,7 +960,7 @@
             padding: 1.5rem;
             margin-bottom: 1.25rem;
             box-shadow: var(--shadow);
-            border: 1px solid var(--light-gray)
+            border: 1px solid var(--light-gray);
         }
 
         .schedule-caregiver-screen .form-section h3 {
@@ -941,14 +969,14 @@
             border-bottom: 1px solid var(--light-gray);
             padding-bottom: .75rem;
             font-size: 1.15rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .day-selection {
             display: flex;
             flex-wrap: wrap;
             gap: .5rem;
-            margin-bottom: 1.5rem
+            margin-bottom: 1.5rem;
         }
 
         .day-button {
@@ -962,43 +990,43 @@
             cursor: pointer;
             transition: var(--transition);
             text-align: center;
-            min-width: 80px
+            min-width: 80px;
         }
 
         .day-button.selected {
             background-color: var(--primary-blue);
             color: var(--white);
             border-color: var(--primary-blue);
-            box-shadow: var(--shadow-sm)
+            box-shadow: var(--shadow-sm);
         }
 
         .day-button:hover:not(.selected) {
-            background-color: var(--sky-blue)
+            background-color: var(--sky-blue);
         }
 
         .time-selection {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-bottom: 1.5rem
+            margin-bottom: 1.5rem;
         }
 
-        .time-selection input[type=time],
-        .time-selection input[type=date] {
+        .time-selection input[type=date],
+        .time-selection input[type=time] {
             width: 100%;
             padding: .8rem;
             border: 1px solid var(--light-gray);
             border-radius: var(--radius-md);
             font-size: .95rem;
             color: var(--dark-gray);
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
-        .time-selection input[type=time]:focus,
-        .time-selection input[type=date]:focus {
+        .time-selection input[type=date]:focus,
+        .time-selection input[type=time]:focus {
             outline: 0;
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, .2)
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, .2);
         }
 
         .schedule-caregiver-screen textarea {
@@ -1010,13 +1038,13 @@
             font-family: 'Open Sans', sans-serif;
             font-size: .95rem;
             color: var(--dark-gray);
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .schedule-caregiver-screen textarea:focus {
             outline: 0;
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, .2)
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, .2);
         }
 
         .back-button {
@@ -1036,12 +1064,12 @@
             cursor: pointer;
             z-index: 20;
             transition: var(--transition);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .back-button:hover {
             transform: translateX(-3px) scale(1.05);
-            background-color: var(--sky-blue)
+            background-color: var(--sky-blue);
         }
 
         .auth-message {
@@ -1049,11 +1077,11 @@
             text-align: center;
             margin-top: 1rem;
             font-weight: 500;
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .loading-message {
-            animation: pulse 1.5s infinite ease-in-out
+            animation: pulse 1.5s infinite ease-in-out;
         }
 
         @keyframes pulse {
@@ -1078,7 +1106,7 @@
             border-radius: var(--radius-full);
             border: 4px solid var(--light-blue);
             box-shadow: var(--shadow);
-            cursor: pointer; /* Adicionado para indicar clicável */
+            cursor: pointer;
         }
 
         .custom-overlay {
@@ -1094,12 +1122,12 @@
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity .4s ease-in-out, visibility .4s ease-in-out
+            transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
         }
 
         .custom-overlay.show {
             opacity: 1;
-            visibility: visible
+            visibility: visible;
         }
 
         .custom-alert-box {
@@ -1112,32 +1140,32 @@
             text-align: center;
             transform: translateY(-30px) scale(.9);
             opacity: 0;
-            transition: transform .4s cubic-bezier(.68, -.55, .27, 1.55), opacity .4s ease-in-out
+            transition: transform .4s cubic-bezier(.68, -.55, .27, 1.55), opacity .4s ease-in-out;
         }
 
         .custom-overlay.show .custom-alert-box {
             transform: translateY(0) scale(1);
-            opacity: 1
+            opacity: 1;
         }
 
         .custom-alert-box h3 {
             color: var(--dark-blue);
             margin-bottom: 1rem;
             font-size: 1.5rem;
-            font-weight: 700
+            font-weight: 700;
         }
 
         .custom-alert-box p {
             color: var(--dark-gray);
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .custom-alert-box .alert-buttons {
             display: flex;
             gap: .75rem;
-            justify-content: center
+            justify-content: center;
         }
 
         .custom-alert-box .alert-buttons button {
@@ -1147,30 +1175,30 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .custom-alert-box .alert-buttons .btn-ok {
             background: linear-gradient(to right, var(--primary-blue), var(--light-blue));
             color: var(--white);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .custom-alert-box .alert-buttons .btn-ok:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .custom-alert-box .alert-buttons .btn-cancel {
             background-color: var(--light-gray);
             color: var(--dark-gray);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .custom-alert-box .alert-buttons .btn-cancel:hover {
             background-color: var(--medium-gray);
             color: var(--white);
-            transform: translateY(-2px)
+            transform: translateY(-2px);
         }
 
         .patient-actions {
@@ -1178,7 +1206,7 @@
             flex-wrap: wrap;
             gap: .75rem;
             margin-top: 1.5rem;
-            justify-content: center
+            justify-content: center;
         }
 
         .patient-actions .btn {
@@ -1186,31 +1214,31 @@
             padding: .8rem 1.25rem;
             font-size: .95rem;
             flex-grow: 1;
-            min-width: 140px
+            min-width: 140px;
         }
 
         .patient-actions .btn-confirm {
-            background: linear-gradient(to right, var(--success), #34d399)
+            background: linear-gradient(to right, var(--success), #34d399);
         }
 
         .patient-actions .btn-confirm:hover {
-            background: linear-gradient(to right, #059669, #34d399)
+            background: linear-gradient(to right, #059669, #34d399);
         }
 
         .patient-actions .btn-complete {
-            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue))
+            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
         }
 
         .patient-actions .btn-complete:hover {
-            background: linear-gradient(to right, #1e40af, var(--primary-blue))
+            background: linear-gradient(to right, #1e40af, var(--primary-blue));
         }
 
         .patient-actions .btn-cancel-appointment {
-            background: linear-gradient(to right, var(--error), #f87171)
+            background: linear-gradient(to right, var(--error), #f87171);
         }
 
         .patient-actions .btn-cancel-appointment:hover {
-            background: linear-gradient(to right, #dc2626, #f87171)
+            background: linear-gradient(to right, #dc2626, #f87171);
         }
 
         .header-actions {
@@ -1219,7 +1247,7 @@
             right: 1.25rem;
             display: flex;
             gap: 1rem;
-            z-index: 11
+            z-index: 11;
         }
 
         .logout-button {
@@ -1230,12 +1258,12 @@
             background: 0 0;
             border: none;
             padding: 0;
-            position: relative
+            position: relative;
         }
 
         .logout-button:hover {
             transform: scale(1.1);
-            color: var(--accent-yellow)
+            color: var(--accent-yellow);
         }
 
         .client-requests-history-screen {
@@ -1245,7 +1273,7 @@
             background-color: var(--off-white);
             flex-grow: 1;
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .client-requests-history-screen h2 {
@@ -1254,11 +1282,11 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: 700;
-            padding-top: .5rem
+            padding-top: .5rem;
         }
 
         .client-requests-list {
-            margin-top: 1rem
+            margin-top: 1rem;
         }
 
         .client-request-item {
@@ -1269,27 +1297,27 @@
             transition: var(--transition);
             cursor: pointer;
             box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary-blue)
+            border-left: 4px solid var(--primary-blue);
         }
 
         .client-request-item:hover {
             background-color: var(--sky-blue);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .client-request-item .caregiver-name {
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: .5rem;
-            color: var(--primary-blue)
+            color: var(--primary-blue);
         }
 
         .client-request-item .request-info {
             color: var(--medium-gray);
             font-weight: 500;
             font-size: .85rem;
-            margin-bottom: .5rem
+            margin-bottom: .5rem;
         }
 
         .client-request-item .request-status {
@@ -1299,7 +1327,7 @@
             font-size: .8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: .5px
+            letter-spacing: .5px;
         }
 
         .client-request-item .whatsapp-link {
@@ -1309,11 +1337,11 @@
             color: var(--success);
             text-decoration: none;
             font-weight: 600;
-            margin-top: .5rem
+            margin-top: .5rem;
         }
 
         .client-request-item .whatsapp-link i {
-            font-size: 1.1rem
+            font-size: 1.1rem;
         }
 
         .pagination-controls {
@@ -1321,7 +1349,7 @@
             justify-content: center;
             gap: 1rem;
             margin-top: 1.5rem;
-            margin-bottom: 1rem
+            margin-bottom: 1rem;
         }
 
         .pagination-controls button {
@@ -1332,18 +1360,18 @@
             color: var(--white);
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .pagination-controls button:disabled {
             background-color: var(--medium-gray);
             cursor: not-allowed;
-            opacity: .7
+            opacity: .7;
         }
 
         .pagination-controls button:hover:not(:disabled) {
             background-color: var(--dark-blue);
-            transform: translateY(-2px)
+            transform: translateY(-2px);
         }
 
         .client-request-details-screen {
@@ -1353,7 +1381,7 @@
             background-color: var(--off-white);
             flex-grow: 1;
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .client-request-details-screen h2 {
@@ -1362,7 +1390,7 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: 700;
-            padding-top: .5rem
+            padding-top: .5rem;
         }
 
         .client-request-details-screen .caregiver-summary {
@@ -1373,7 +1401,7 @@
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            border: 1px solid var(--light-gray)
+            border: 1px solid var(--light-gray);
         }
 
         .client-request-details-screen .caregiver-summary .avatar {
@@ -1389,29 +1417,29 @@
             color: var(--dark-blue);
             overflow: hidden;
             border: 3px solid var(--accent-yellow);
-            flex-shrink: 0
+            flex-shrink: 0;
         }
 
         .client-request-details-screen .caregiver-summary .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
         }
 
         .client-request-details-screen .caregiver-summary .details {
-            flex: 1
+            flex: 1;
         }
 
         .client-request-details-screen .caregiver-summary .name {
             font-weight: 600;
             font-size: 1.1rem;
             color: var(--dark-blue);
-            margin-bottom: .25rem
+            margin-bottom: .25rem;
         }
 
         .client-request-details-screen .caregiver-summary .rating {
             color: var(--accent-yellow);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .client-request-details-screen .info-item {
@@ -1420,7 +1448,7 @@
             padding: 1rem;
             margin-bottom: .75rem;
             box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary-blue)
+            border-left: 4px solid var(--primary-blue);
         }
 
         .client-request-details-screen .info-item strong {
@@ -1428,12 +1456,12 @@
             display: block;
             margin-bottom: .5rem;
             font-size: .95rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .client-request-details-screen .info-item p {
             color: var(--dark-gray);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .client-request-details-screen .profile-section {
@@ -1441,7 +1469,7 @@
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             margin-bottom: 1.25rem;
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .client-request-details-screen .profile-section h3 {
@@ -1450,13 +1478,13 @@
             border-bottom: 1px solid var(--light-gray);
             padding-bottom: .75rem;
             font-size: 1.15rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .client-request-details-screen .profile-section p {
             margin-bottom: .75rem;
             color: var(--medium-gray);
-            font-size: .95rem
+            font-size: .95rem;
         }
 
         .admin-screen {
@@ -1466,16 +1494,16 @@
             padding-bottom: 1.5rem;
             background-color: var(--off-white);
             position: relative;
-            overflow-y: auto
+            overflow-y: auto;
         }
 
         .admin-screen .header {
-            background: linear-gradient(to right, #4caf50, #8bc34a)
+            background: linear-gradient(to right, #4caf50, #8bc34a);
         }
 
         .admin-screen .header .user-badge {
             background-color: var(--white);
-            color: #4caf50
+            color: #4caf50;
         }
 
         .admin-screen h2 {
@@ -1484,7 +1512,7 @@
             text-align: center;
             font-size: 1.6rem;
             font-weight: 700;
-            padding-top: .5rem
+            padding-top: .5rem;
         }
 
         .admin-section {
@@ -1492,7 +1520,7 @@
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             margin: 1.5rem 1.25rem 1.25rem;
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .admin-section h3 {
@@ -1501,12 +1529,12 @@
             border-bottom: 1px solid var(--light-gray);
             padding-bottom: .75rem;
             font-size: 1.15rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .admin-list {
             list-style: none;
-            padding: 0
+            padding: 0;
         }
 
         .admin-list-item {
@@ -1518,23 +1546,23 @@
             display: flex;
             flex-direction: column;
             gap: .5rem;
-            box-shadow: var(--shadow-sm)
+            box-shadow: var(--shadow-sm);
         }
 
         .admin-list-item .item-details {
             font-size: .95rem;
-            color: var(--dark-gray)
+            color: var(--dark-gray);
         }
 
         .admin-list-item .item-details strong {
-            color: var(--primary-blue)
+            color: var(--primary-blue);
         }
 
         .admin-list-item .item-actions {
             display: flex;
             gap: .5rem;
             margin-top: .75rem;
-            justify-content: flex-end
+            justify-content: flex-end;
         }
 
         .admin-list-item .item-actions button {
@@ -1544,47 +1572,47 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            font-size: .85rem
+            font-size: .85rem;
         }
 
         .admin-list-item .item-actions .btn-approve {
             background-color: var(--success);
-            color: var(--white)
+            color: var(--white);
         }
 
         .admin-list-item .item-actions .btn-approve:hover {
-            background-color: #059669
+            background-color: #059669;
         }
 
         .admin-list-item .item-actions .btn-reject {
             background-color: var(--error);
-            color: var(--white)
+            color: var(--white);
         }
 
         .admin-list-item .item-actions .btn-reject:hover {
-            background-color: #dc2626
+            background-color: #dc2626;
         }
 
         .admin-list-item .item-actions .btn-view-docs {
             background-color: var(--primary-blue);
-            color: var(--white)
+            color: var(--white);
         }
 
         .admin-list-item .item-actions .btn-view-docs:hover {
-            background-color: var(--dark-blue)
+            background-color: var(--dark-blue);
         }
 
         .admin-user-list-container {
             display: flex;
             flex-direction: column;
-            gap: 1rem
+            gap: 1rem;
         }
 
         .admin-user-type-toggle {
             display: flex;
             background-color: var(--light-gray);
             border-radius: var(--radius-md);
-            overflow: hidden
+            overflow: hidden;
         }
 
         .admin-user-type-toggle button {
@@ -1595,12 +1623,12 @@
             font-weight: 600;
             color: var(--dark-gray);
             cursor: pointer;
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .admin-user-type-toggle button.active {
             background-color: var(--primary-blue);
-            color: var(--white)
+            color: var(--white);
         }
 
         .admin-user-item {
@@ -1612,12 +1640,12 @@
             align-items: center;
             gap: 1rem;
             cursor: pointer;
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .admin-user-item:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .admin-user-item .avatar {
@@ -1631,28 +1659,27 @@
             font-size: 1.2rem;
             color: var(--dark-blue);
             overflow: hidden;
-            flex -shrink: 0
         }
 
         .admin-user-item .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
         }
 
         .admin-user-item .user-info-text {
-            flex-grow: 1
+            flex-grow: 1;
         }
 
         .admin-user-item .user-info-text strong {
             display: block;
             color: var(--dark-blue);
-            font-size: 1rem
+            font-size: 1rem;
         }
 
         .admin-user-item .user-info-text span {
             font-size: .85rem;
-            color: var(--medium-gray)
+            color: var(--medium-gray);
         }
 
         .admin-user-details-popup {
@@ -1664,7 +1691,7 @@
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            position: relative
+            position: relative;
         }
 
         .admin-user-details-popup h3 {
@@ -1672,60 +1699,60 @@
             margin-bottom: 1.5rem;
             text-align: center;
             font-size: 1.8rem;
-            font-weight: 700
+            font-weight: 700;
         }
 
         .admin-user-details-popup .profile-section {
             padding: 1rem;
-            margin-bottom: 1rem
+            margin-bottom: 1rem;
         }
 
         .admin-user-details-popup .profile-section h4 {
             color: var(--primary-blue);
             margin-bottom: .75rem;
             font-size: 1.05rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .admin-user-details-popup .input-group label {
-            color: var(--dark-gray)
+            color: var(--dark-gray);
         }
 
         .admin-user-details-popup .rating-input {
             display: flex;
             align-items: center;
             gap: .5rem;
-            margin-top: .5rem
+            margin-top: .5rem;
         }
 
         .admin-user-details-popup .rating-input input {
             width: 60px;
-            text-align: center
+            text-align: center;
         }
 
         .admin-user-details-popup .rating-input .stars {
             color: var(--accent-yellow);
-            font-size: 1.2rem
+            font-size: 1.2rem;
         }
 
         .admin-user-details-popup .btn-save-user {
-            margin-top: 1.5rem
+            margin-top: 1.5rem;
         }
 
         .fc .fc-toolbar-title {
             font-size: 1.2em;
-            color: var(--dark-blue)
+            color: var(--dark-blue);
         }
 
         .fc .fc-button {
             background-color: var(--primary-blue);
             border-color: var(--primary-blue);
-            color: var(--white)
+            color: var(--white);
         }
 
         .fc .fc-button:hover {
             background-color: var(--dark-blue);
-            border-color: var(--dark-blue)
+            border-color: var(--dark-blue);
         }
 
         .fc-event {
@@ -1734,18 +1761,18 @@
             color: var(--white) !important;
             font-size: .8em;
             padding: 2px 4px;
-            border-radius: 4px
+            border-radius: 4px;
         }
 
         .fc-event-title {
-            white-space: normal
+            white-space: normal;
         }
 
         .charts-container {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
-            padding: 1.5rem 1.25rem
+            padding: 1.5rem 1.25rem;
         }
 
         .chart-card {
@@ -1753,7 +1780,7 @@
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             box-shadow: var(--shadow);
-            border: 1px solid var(--light-gray)
+            border: 1px solid var(--light-gray);
         }
 
         .chart-card h3 {
@@ -1761,12 +1788,12 @@
             margin-bottom: 1rem;
             font-size: 1.15rem;
             font-weight: 600;
-            text-align: center
+            text-align: center;
         }
 
-        @media (min-width:480px) {
+        @media (min-width: 480px) {
             .charts-container {
-                grid-template-columns: repeat(auto-fill, minmax(48%, 1fr))
+                grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
             }
         }
 
@@ -1808,7 +1835,7 @@
             animation: fadeIn .5s ease forwards
         }
 
-        @media (max-width:480px) {
+        @media (max-width: 480px) {
             .auth-form {
                 padding: 1.5rem
             }
@@ -1834,12 +1861,12 @@
         .caregiver-carousel-container {
             position: relative;
             width: 100%;
-            overflow: hidden; /* Garante que o conteúdo que excede a largura seja cortado */
+            overflow: hidden;
             margin: 1.5rem 0;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-lg);
             background-color: var(--white);
-            display: flex; /* Adicionado para que o inner flex funcione corretamente */
+            display: flex;
             flex-direction: column;
             min-height: 450px;
         }
@@ -1848,13 +1875,13 @@
             display: flex;
             transition: transform .5s cubic-bezier(.25, .46, .45, .94);
             height: 100%;
-            width: 100%; /* Garante que o inner ocupe 100% do container */
+            width: 100%;
         }
 
         .caregiver-carousel-item {
-            min-width: 100%; /* Cada item ocupa 100% da largura do inner */
-            flex-shrink: 0; /* Impede que os itens encolham */
-            flex-basis: 100%; /* Garante que cada item ocupe 100% da largura */
+            min-width: 100%;
+            flex-shrink: 0;
+            flex-basis: 100%;
             height: 100%;
             padding: 0;
             display: flex;
@@ -1866,7 +1893,7 @@
             text-align: center;
             box-sizing: border-box;
             border-radius: var(--radius-lg);
-            overflow: hidden
+            overflow: hidden;
         }
 
         .caregiver-carousel-profile {
@@ -1883,18 +1910,18 @@
             justify-content: center;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
-            margin-bottom: 0
+            margin-bottom: 0;
         }
 
         .caregiver-carousel-profile img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
         }
 
         .caregiver-carousel-profile i {
             font-size: 4rem;
-            color: var(--dark-blue)
+            color: var(--dark-blue);
         }
 
         .caregiver-carousel-content {
@@ -1903,31 +1930,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex-grow: 1
+            flex-grow: 1;
         }
 
         .caregiver-carousel-name {
             font-weight: 700;
             font-size: 1.7rem;
-            margin-bottom: .25rem
+            margin-bottom: .25rem;
         }
 
         .caregiver-carousel-rating {
             display: flex;
             margin-bottom: 1rem;
             align-items: center;
-            justify-content: center
+            justify-content: center;
         }
 
         .caregiver-carousel-rating .stars {
             color: var(--accent-yellow);
             font-size: 1.4rem;
-            margin-right: .5rem
+            margin-right: .5rem;
         }
 
         .caregiver-carousel-rating span {
             font-size: 1rem;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .caregiver-carousel-bio {
@@ -1942,16 +1969,16 @@
             text-align: left;
             box-shadow: var(--shadow);
             font-size: .9rem;
-            word-wrap: break-word
+            word-wrap: break-word;
         }
 
         .caregiver-carousel-bio p {
             margin-bottom: .75rem;
-            line-height: 1.6
+            line-height: 1.6;
         }
 
         .caregiver-carousel-bio strong {
-            color: var(--primary-blue)
+            color: var(--primary-blue);
         }
 
         .caregiver-carousel-nav {
@@ -1963,7 +1990,7 @@
             z-index: 1;
             position: absolute;
             top: 50%;
-            transform: translateY(-50%)
+            transform: translateY(-50%);
         }
 
         .caregiver-carousel-nav .nav-btn {
@@ -1979,20 +2006,20 @@
             justify-content: center;
             cursor: pointer;
             box-shadow: var(--shadow-lg);
-            transition: var(--transition)
+            transition: var(--transition);
         }
 
         .caregiver-carousel-nav .nav-btn:hover {
             transform: scale(1.1);
             background-color: var(--sky-blue);
-            color: var(--dark-blue)
+            color: var(--dark-blue);
         }
 
         .caregiver-carousel-nav .nav-btn:disabled {
             opacity: .5;
             cursor: not-allowed;
             transform: none;
-            box-shadow: none
+            box-shadow: none;
         }
 
         .appointment-summary-overlay {
@@ -2008,12 +2035,12 @@
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity .4s ease-in-out, visibility .4s ease-in-out
+            transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
         }
 
         .appointment-summary-overlay.show {
             opacity: 1;
-            visibility: visible
+            visibility: visible;
         }
 
         .appointment-summary-popup {
@@ -2026,26 +2053,26 @@
             text-align: center;
             transform: translateY(-30px) scale(.9);
             opacity: 0;
-            transition: transform .4s cubic-bezier(.68, -.55, .27, 1.55), opacity .4s ease-in-out
+            transition: transform .4s cubic-bezier(.68, -.55, .27, 1.55), opacity .4s ease-in-out;
         }
 
         .appointment-summary-overlay.show .appointment-summary-popup {
             transform: translateY(0) scale(1);
-            opacity: 1
+            opacity: 1;
         }
 
         .appointment-summary-popup h3 {
             color: var(--dark-blue);
             margin-bottom: 1rem;
             font-size: 1.5rem;
-            font-weight: 700
+            font-weight: 700;
         }
 
         .appointment-summary-popup .summary-photos {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 1.5rem
+            margin-bottom: 1.5rem;
         }
 
         .appointment-summary-popup .summary-photo {
@@ -2054,21 +2081,21 @@
             border-radius: var(--radius-full);
             object-fit: cover;
             border: 3px solid var(--primary-blue);
-            box-shadow: var(--shadow-sm)
+            box-shadow: var(--shadow-sm);
         }
 
         .appointment-summary-popup .summary-details {
             text-align: left;
             margin-bottom: 1.5rem;
-            color: var(--dark-gray)
+            color: var(--dark-gray);
         }
 
         .appointment-summary-popup .summary-details p {
-            margin-bottom: .5rem
+            margin-bottom: .5rem;
         }
 
         .appointment-summary-popup .summary-details strong {
-            color: var(--primary-blue)
+            color: var(--primary-blue);
         }
 
         .appointment-summary-popup .whatsapp-btn {
@@ -2083,24 +2110,24 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
         }
 
         .appointment-summary-popup .whatsapp-btn:hover {
             background-color: #059669;
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .appointment-summary-popup .whatsapp-btn i {
-            font-size: 1.2rem
+            font-size: 1.2rem;
         }
 
         .appointment-summary-popup .disclaimer {
             font-size: .8rem;
             color: var(--medium-gray);
             margin-top: 1rem;
-            line-height: 1.4
+            line-height: 1.4;
         }
 
         .appointment-summary-popup .btn-ok {
@@ -2118,23 +2145,23 @@
             letter-spacing: .5px;
             position: relative;
             overflow: hidden;
-            margin-top: 1.5rem
+            margin-top: 1.5rem;
         }
 
         .appointment-summary-popup .btn-ok:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-lg)
+            box-shadow: var(--shadow-lg);
         }
 
         .admin-list-item .item-actions .btn-view-docs {
             display: flex;
             align-items: center;
-            gap: 5px
+            gap: 5px;
         }
 
         .admin-user-details-popup .document-preview {
             margin-top: 1rem;
-            text-align: center
+            text-align: center;
         }
 
         .admin-user-details-popup .document-preview img {
@@ -2142,7 +2169,7 @@
             height: auto;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
-            margin-bottom: 10px
+            margin-bottom: 10px;
         }
 
         .admin-user-details-popup .document-preview a {
@@ -2150,14 +2177,13 @@
             margin-top: 5px;
             color: var(--primary-blue);
             text-decoration: none;
-            font-weight: 500
+            font-weight: 500;
         }
 
         .admin-user-details-popup .document-preview a:hover {
-            text-decoration: underline
+            text-decoration: underline;
         }
 
-        /* Estilos para o pop-up de opções de foto */
         .photo-options-popup {
             background-color: var(--white);
             border-radius: var(--radius-lg);
@@ -2177,8 +2203,8 @@
 
         .photo-options-popup .option-button {
             width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 0.75rem;
+            padding: .8rem;
+            margin-bottom: .75rem;
             border: 1px solid var(--light-gray);
             border-radius: var(--radius-md);
             background-color: var(--off-white);
@@ -2194,21 +2220,20 @@
         }
 
         .photo-options-popup .option-button i {
-            margin-right: 0.5rem;
+            margin-right: .5rem;
         }
 
         .photo-options-popup .close-button {
             position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: none;
+            top: .75rem;
+            right: .75rem;
+            background: 0 0;
             border: none;
             font-size: 1.2rem;
             color: var(--medium-gray);
             cursor: pointer;
         }
 
-        /* Estilos para o pop-up de visualização de foto */
         .photo-view-popup {
             background-color: var(--white);
             border-radius: var(--radius-lg);
@@ -2232,9 +2257,9 @@
 
         .photo-view-popup .close-button {
             position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: none;
+            top: .75rem;
+            right: .75rem;
+            background: 0 0;
             border: none;
             font-size: 1.5rem;
             color: var(--medium-gray);
@@ -2254,36 +2279,43 @@
                 </div>
             </div>
         </div>
-
-        <!-- Pop-up de Opções de Foto -->
         <div id="photoOptionsOverlay" class="custom-overlay">
             <div class="photo-options-popup">
                 <button class="close-button" id="closePhotoOptionsPopup"><i class="fas fa-times"></i></button>
                 <h3>Opções da Foto</h3>
-                <button class="option-button" id="viewPhotoBtn"><i class="fas fa-eye"></i> Visualizar</button>
-                <button class="option-button" id="editPhotoBtn"><i class="fas fa-edit"></i> Editar</button>
+                <button class="option-button" id="viewPhotoBtn"><i class="fas fa-eye"></i>Visualizar</button>
+                <button class="option-button" id="editPhotoBtn"><i class="fas fa-edit"></i>Editar</button>
                 <input type="file" id="photoUploadInput" class="file-upload-input" accept="image/*" capture="user">
             </div>
         </div>
-
-        <!-- Pop-up de Visualização de Foto -->
         <div id="photoViewOverlay" class="custom-overlay">
             <div class="photo-view-popup">
                 <button class="close-button" id="closePhotoViewPopup"><i class="fas fa-times"></i></button>
                 <img id="photoViewImage" src="" alt="Foto de Perfil">
             </div>
         </div>
-
         <div id="adminUserDetailsOverlay" class="custom-overlay">
             <div class="admin-user-details-popup">
                 <button class="back-button" id="closeAdminUserDetailsPopup"><i class="fas fa-times"></i></button>
                 <h3 id="adminUserDetailsTitle"></h3>
                 <div class="profile-section">
                     <h4>Informações Pessoais</h4>
-                    <div class="input-group"><label for="adminEditFullName">Nome Completo</label><input type="text" id="adminEditFullName"></div>
-                    <div class="input-group"><label for="adminEditEmail">E-mail</label><input type="email" id="adminEditEmail" disabled="disabled"></div>
-                    <div class="input-group"><label for="adminEditPhone">Telefone</label><input type="tel" id="adminEditPhone"></div>
-                    <div class="input-group"><label for="adminEditCpf">CPF</label><input type="text" id="adminEditCpf" disabled="disabled"></div>
+                    <div class="input-group">
+                        <label for="adminEditFullName">Nome Completo</label>
+                        <input type="text" id="adminEditFullName">
+                    </div>
+                    <div class="input-group">
+                        <label for="adminEditEmail">E-mail</label>
+                        <input type="email" id="adminEditEmail" disabled="disabled">
+                    </div>
+                    <div class="input-group">
+                        <label for="adminEditPhone">Telefone</label>
+                        <input type="tel" id="adminEditPhone">
+                    </div>
+                    <div class="input-group">
+                        <label for="adminEditCpf">CPF</label>
+                        <input type="text" id="adminEditCpf" disabled="disabled">
+                    </div>
                     <div class="input-group">
                         <label for="adminEditReligion">Religião</label>
                         <select id="adminEditReligion">
@@ -2302,18 +2334,32 @@
                             <option value="Não Informar">Não Informar</option>
                         </select>
                     </div>
-                    <div class="input-group"><label for="adminEditAddress">Endereço</label><input type="text" id="adminEditAddress"></div>
-                    <div class="input-group" id="adminCaregiverStatusGroup" style="display:none"><label for="adminEditStatus">Status do Cuidador</label><select id="adminEditStatus"><option value="pending">Pendente</option><option value="approved">Aprovado</option><option value="rejected">Rejeitado</option></select></div>
+                    <div class="input-group">
+                        <label for="adminEditAddress">Endereço</label>
+                        <input type="text" id="adminEditAddress">
+                    </div>
+                    <div class="input-group" id="adminCaregiverStatusGroup" style="display:none">
+                        <label for="adminEditStatus">Status do Cuidador</label>
+                        <select id="adminEditStatus">
+                            <option value="pending">Pendente</option>
+                            <option value="approved">Aprovado</option>
+                            <option value="rejected">Rejeitado</option>
+                            <option value="payment_pending">Pagamento Pendente</option>
+                        </select>
+                    </div>
                     <div class="input-group" id="adminCaregiverRatingGroup" style="display:none">
                         <label for="adminEditRating">Avaliação do Cuidador</label>
-                        <div class="rating-input"><input type="number" id="adminEditRating" min="0" max="5" step="0.1">
+                        <div class="rating-input">
+                            <input type="number" id="adminEditRating" min="0" max="5" step="0.1">
                             <div class="stars" id="adminEditRatingStars"></div>
                         </div>
                     </div>
                 </div>
                 <div class="profile-section" id="adminCaregiverBioSection" style="display:none">
                     <h4>Biografia</h4>
-                    <div class="input-group"><textarea id="adminEditBio"></textarea></div>
+                    <div class="input-group">
+                        <textarea id="adminEditBio"></textarea>
+                    </div>
                 </div>
                 <div class="profile-section" id="adminClientMedicationsSection" style="display:none">
                     <h4>Medicações em Uso</h4>
@@ -2321,10 +2367,15 @@
                 </div>
                 <div class="profile-section" id="adminCaregiverDocumentsSection" style="display:none">
                     <h4>Documentos do Cuidador</h4>
-                    <div class="document-preview" id="adminCaregiverProfilePhotoPreview"><strong>Foto de Perfil:</strong><img src="" alt="Foto de Perfil" style="display:none">
+                    <div class="document-preview" id="adminCaregiverProfilePhotoPreview">
+                        <strong>Foto de Perfil:</strong>
+                        <img src="" alt="Foto de Perfil" style="display:none">
                         <p style="color:var(--medium-gray);font-size:.9em">Nenhuma foto de perfil enviada.</p>
                     </div>
-                    <div class="document-preview" id="adminCaregiverDocumentPreview"><strong>Documento de Identificação:</strong><img src="" alt="Documento de Identificação" style="display:none"><a href="#" target="_blank" style="display:none">Ver Documento Completo</a>
+                    <div class="document-preview" id="adminCaregiverDocumentPreview">
+                        <strong>Documento de Identificação:</strong>
+                        <img src="" alt="Documento de Identificação" style="display:none">
+                        <a href="#" target="_blank" style="display:none">Ver Documento Completo</a>
                         <p style="color:var(--medium-gray);font-size:.9em">Nenhum documento enviado.</p>
                     </div>
                 </div>
@@ -2334,16 +2385,19 @@
         <div id="appointmentSummaryOverlay" class="appointment-summary-overlay">
             <div class="appointment-summary-popup">
                 <h3 id="summaryTitle"></h3>
-                <div class="summary-photos"><img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none"> <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none"></div>
-                <div class="summary-details">
-                    <p><strong>Cuidador:</strong> <span id="summaryCaregiverName"></span></p>
-                    <p><strong>Paciente:</strong> <span id="summaryClientName"></span></p>
-                    <p><strong>Local:</strong> <span id="summaryLocation"></span></p>
-                    <p><strong>Período:</strong> <span id="summaryPeriod"></span></p>
-                    <p><strong>Dias:</strong> <span id="summaryDays"></span></p>
-                    <p><strong>Horário:</strong> <span id="summaryTime"></span></p>
+                <div class="summary-photos">
+                    <img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none">
+                    <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none">
                 </div>
-                <a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none;"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a>
+                <div class="summary-details">
+                    <p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p>
+                    <p><strong>Paciente:</strong><span id="summaryClientName"></span></p>
+                    <p><strong>Local:</strong><span id="summaryLocation"></span></p>
+                    <p><strong>Período:</strong><span id="summaryPeriod"></span></p>
+                    <p><strong>Dias:</strong><span id="summaryDays"></span></p>
+                    <p><strong>Horário:</strong><span id="summaryTime"></span></p>
+                </div>
+                <a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a>
                 <p class="disclaimer" id="summaryDisclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p>
                 <button class="btn-ok" id="summaryOkBtn">OK</button>
             </div>
@@ -2355,25 +2409,74 @@
                 <p>Cuidado que Conecta</p>
             </div>
             <div class="auth-form">
-                <div class="form-toggle" id="formToggle"><button class="toggle-btn active" id="loginBtn">Entrar</button><button class="toggle-btn" id="registerBtn">Cadastrar</button></div>
+                <div class="form-toggle" id="formToggle">
+                    <button class="toggle-btn active" id="loginBtn">Entrar</button>
+                    <button class="toggle-btn" id="registerBtn">Cadastrar</button>
+                </div>
                 <div id="userTypeSelection" style="display:none">
                     <p class="input-group">Selecione seu perfil:</p>
-                    <div class="user-type"><button class="user-type-btn active" data-type="client"><i class="fas fa-user"></i>Cliente</button><button class="user-type-btn" data-type="caregiver"><i class="fas fa-user-nurse"></i>Cuidador</button></div>
+                    <div class="user-type">
+                        <button class="user-type-btn active" data-type="client"><i class="fas fa-user"></i>Cliente</button>
+                        <button class="user-type-btn" data-type="caregiver"><i class="fas fa-user-nurse"></i>Cuidador</button>
+                    </div>
                 </div>
-                <div class="input-group" id="emailInputGroup"><label for="email">E-mail</label><input type="email" id="email" placeholder="seu.email@exemplo.com"></div>
-                <div class="input-group"><label for="password">Senha</label><input type="password" id="password" placeholder="••••••••"></div>
+                <div class="input-group" id="emailInputGroup">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="seu.email@exemplo.com">
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
                 <div id="registrationFields" style="display:none">
-                    <div class="input-group"><label for="fullName">Nome Completo</label><input type="text" id="fullName" placeholder="Seu nome completo"></div>
-                    <div class="input-group"><label for="dob">Data de Nascimento</label><input type="text" id="dob" placeholder="DD/MM/AAAA" maxlength="10"></div>
-                    <div class="input-group"><label for="cpf">CPF</label><input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14"></div>
-                    <div class="input-group"><label for="phone">Telefone (WhatsApp)</label><input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" maxlength="15"></div>
-                    <div class="input-group"><label for="confirmPassword">Confirmar Senha</label><input type="password" id="confirmPassword" placeholder="••••••••"></div>
-                    <div class="input-group"><label for="cep">CEP</label><input type="text" id="cep" placeholder="00000-000" maxlength="9"></div>
-                    <div class="input-group"><label for="state">Estado</label><select id="state"><option value="">Selecione o Estado</option></select></div>
-                    <div class="input-group"><label for="city">Cidade</label><select id="city" disabled="disabled"><option value="">Selecione a Cidade</option></select></div>
-                    <div class="input-group"><label for="neighborhood">Bairro</label><input type="text" id="neighborhood" placeholder="Seu bairro"></div>
-                    <div class="input-group"><label for="street">Rua</label><input type="text" id="street" placeholder="Sua rua"></div>
-                    <div class="input-group"><label for="number">Número</label><input type="text" id="number" placeholder="Número do logradouro"></div>
+                    <div class="input-group">
+                        <label for="fullName">Nome Completo</label>
+                        <input type="text" id="fullName" placeholder="Seu nome completo">
+                    </div>
+                    <div class="input-group">
+                        <label for="dob">Data de Nascimento</label>
+                        <input type="text" id="dob" placeholder="DD/MM/AAAA" maxlength="10">
+                    </div>
+                    <div class="input-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Telefone (WhatsApp)</label>
+                        <input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" maxlength="15">
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmPassword">Confirmar Senha</label>
+                        <input type="password" id="confirmPassword" placeholder="••••••••">
+                    </div>
+                    <div class="input-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+                    </div>
+                    <div class="input-group">
+                        <label for="state">Estado</label>
+                        <select id="state">
+                            <option value="">Selecione o Estado</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="city">Cidade</label>
+                        <select id="city" disabled="disabled">
+                            <option value="">Selecione a Cidade</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="neighborhood">Bairro</label>
+                        <input type="text" id="neighborhood" placeholder="Seu bairro">
+                    </div>
+                    <div class="input-group">
+                        <label for="street">Rua</label>
+                        <input type="text" id="street" placeholder="Sua rua">
+                    </div>
+                    <div class="input-group">
+                        <label for="number">Número</label>
+                        <input type="text" id="number" placeholder="Número do logradouro">
+                    </div>
                     <div class="input-group">
                         <label for="religion">Religião</label>
                         <select id="religion">
@@ -2395,13 +2498,30 @@
                     <div id="caregiverFields" style="display:none">
                         <div class="input-group">
                             <label>Possui registro COREN?</label>
-                            <div class="coren-toggle-group"><button type="button" class="coren-toggle-btn active" id="corenYesBtn" data-coren="yes">Sim</button><button type="button" class="coren-toggle-btn" id="corenNoBtn" data-coren="no">Não</button></div>
+                            <div class="coren-toggle-group">
+                                <button type="button" class="coren-toggle-btn active" id="corenYesBtn" data-coren="yes">Sim</button>
+                                <button type="button" class="coren-toggle-btn" id="corenNoBtn" data-coren="no">Não</button>
+                            </div>
                         </div>
-                        <div class="input-group" id="corenNumberGroup"><label for="coren">Número COREN</label><input type="text" id="coren" placeholder="Digite seu número COREN"></div>
-                        <div class="input-group"><label for="documentUploadLabel">Documento de Identificação</label><input type="file" id="documentUpload" class="file-upload-input" accept="image/*,application/pdf"><label for="documentUpload" class="file-upload-label" id="documentUploadLabel"><i class="fas fa-upload"></i><span>Anexar Documento</span></label></div>
-                        <div class="input-group"><label for="professionalPhotoUploadLabel">Foto Profissional</label><input type="file" id="professionalPhotoUpload" class="file-upload-input" accept="image/*"><label for="professionalPhotoUpload" class="file-upload-label" id="professionalPhotoUploadLabel"><i class="fas fa-upload"></i><span>Anexar Foto Profissional</span></label></div>
+                        <div class="input-group" id="corenNumberGroup">
+                            <label for="coren">Número COREN</label>
+                            <input type="text" id="coren" placeholder="Digite seu número COREN">
+                        </div>
+                        <div class="input-group">
+                            <label for="documentUploadLabel">Documento de Identificação</label>
+                            <input type="file" id="documentUpload" class="file-upload-input" accept="image/*,application/pdf">
+                            <label for="documentUpload" class="file-upload-label" id="documentUploadLabel"><i class="fas fa-upload"></i><span>Anexar Documento</span></label>
+                        </div>
+                        <div class="input-group">
+                            <label for="professionalPhotoUploadLabel">Foto Profissional</label>
+                            <input type="file" id="professionalPhotoUpload" class="file-upload-input" accept="image/*">
+                            <label for="professionalPhotoUpload" class="file-upload-label" id="professionalPhotoUploadLabel"><i class="fas fa-upload"></i><span>Anexar Foto Profissional</span></label>
+                        </div>
                     </div>
-                    <div class="terms"><input type="checkbox" id="termsConsent"><label for="termsConsent">Concordo com os<a href="termos.pdf" target="_blank">Termos de Uso</a>e confirmo que as informações fornecidas são verdadeiras e estão sujeitas a análise.</label></div>
+                    <div class="terms">
+                        <input type="checkbox" id="termsConsent">
+                        <label for="termsConsent">Concordo com os<a href="termos.pdf" target="_blank">Termos de Uso</a>e confirmo que as informações fornecidas são verdadeiras e estão sujeitas a análise.</label>
+                    </div>
                 </div>
                 <button class="btn" id="authActionBtn">Entrar na Plataforma</button>
                 <p id="authMessage" class="auth-message"></p>
@@ -2409,14 +2529,17 @@
         </div>
         <div id="caregiverScreen" class="main-screen">
             <div class="header">
-                <div class="header-actions"><button id="caregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div>
+                <div class="header-actions">
+                    <button id="caregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
                 <div class="user-info">
                     <div class="user-avatar" id="caregiverAvatar"><i class="fas fa-user-nurse"></i></div>
                     <div class="user-details">
                         <div class="user-name" id="caregiverNameDisplay">Dr. Ana Silva</div>
                         <div class="user-badge">Cuidador</div>
                         <div class="user-rating">
-                            <div class="stars" id="caregiverStars"></div><span id="caregiverRatingValue">3.0</span>
+                            <div class="stars" id="caregiverStars"></div>
+                            <span id="caregiverRatingValue">3.0</span>
                         </div>
                     </div>
                 </div>
@@ -2467,37 +2590,49 @@
                         <i class="fas fa-camera" id="profilePhotoIcon" style="display:block;font-size:3rem"></i>
                     </div>
                 </div>
-                <p><strong>Nome Completo:</strong> <span id="displayFullName"></span></p>
-                <p><strong>Data de Nascimento:</strong> <span id="displayDOB"></span></p>
-                <p><strong>CPF:</strong> <span id="displayCPF"></span></p>
-                <p><strong>Telefone:</strong> <span id="displayPhoneCaregiver"></span></p>
-                <p><strong>COREN:</strong> <span id="displayCOREN"></span></p>
-                <p><strong>Religião:</strong> <span id="displayReligionCaregiver"></span></p>
-                <p><strong>Localização:</strong> <span id="displayLocation"></span></p>
+                <p><strong>Nome Completo:</strong><span id="displayFullName"></span></p>
+                <p><strong>Data de Nascimento:</strong><span id="displayDOB"></span></p>
+                <p><strong>CPF:</strong><span id="displayCPF"></span></p>
+                <p><strong>Telefone:</strong><span id="displayPhoneCaregiver"></span></p>
+                <p><strong>COREN:</strong><span id="displayCOREN"></span></p>
+                <p><strong>Religião:</strong><span id="displayReligionCaregiver"></span></p>
+                <p><strong>Localização:</strong><span id="displayLocation"></span></p>
             </div>
             <div class="profile-section">
                 <h3>Biografia Resumida</h3>
-                <div class="input-group"><textarea id="editBio" placeholder="Fale um pouco sobre você e sua experiência..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editBio" placeholder="Fale um pouco sobre você e sua experiência..."></textarea>
+                </div>
             </div>
             <div class="profile-section">
                 <h3>Formação Acadêmica e Técnica</h3>
-                <div class="input-group"><textarea id="editEducation" placeholder="Ex: Enfermeiro(a) pela Universidade X, Técnico(a) de Enfermagem pelo Senac..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editEducation" placeholder="Ex: Enfermeiro(a) pela Universidade X, Técnico(a) de Enfermagem pelo Senac..."></textarea>
+                </div>
             </div>
             <div class="profile-section">
                 <h3>Cursos de Formação Continuada</h3>
-                <div class="input-group"><textarea id="editCourses" placeholder="Ex: Curso de Primeiros Socorros, Especialização em Geriatria..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editCourses" placeholder="Ex: Curso de Primeiros Socorros, Especialização em Geriatria..."></textarea>
+                </div>
             </div>
             <div class="profile-section">
                 <h3>Experiências Anteriores</h3>
-                <div class="input-group"><textarea id="editExperience" placeholder="Ex: 5 anos de experiência com idosos, 2 anos com crianças..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editExperience" placeholder="Ex: 5 anos de experiência com idosos, 2 anos com crianças..."></textarea>
+                </div>
             </div>
             <div class="profile-section">
                 <h3>Disponibilidade de Horários</h3>
-                <div class="input-group"><textarea id="editAvailability" placeholder="Ex: Segunda a Sexta, 8h às 18h; Finais de semana sob consulta..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editAvailability" placeholder="Ex: Segunda a Sexta, 8h às 18h; Finais de semana sob consulta..."></textarea>
+                </div>
             </div>
             <div class="profile-section">
                 <h3>Informações Adicionais</h3>
-                <div class="input-group"><textarea id="editAdditionalInfo" placeholder="Ex: Afinidade com cuidados paliativos, experiência com pacientes acamados..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editAdditionalInfo" placeholder="Ex: Afinidade com cuidados paliativos, experiência com pacientes acamados..."></textarea>
+                </div>
             </div>
             <button class="btn" id="saveCaregiverProfile">Salvar Alterações</button>
         </div>
@@ -2524,16 +2659,31 @@
             </div>
             <div class="profile-section">
                 <h3>Medicações em Uso</h3>
-                <div id="caregiverPatientMedicationsList"></div><button class="btn add-medication-btn" id="addCaregiverPatientMedicationBtn" style="display:none">Adicionar Medicação</button>
+                <div id="caregiverPatientMedicationsList"></div>
+                <button class="btn add-medication-btn" id="addCaregiverPatientMedicationBtn" style="display:none">Adicionar Medicação</button>
             </div>
             <div class="profile-section">
                 <h3>Notas do Cuidador para o Paciente</h3>
-                <div class="input-group"><label for="patientRoutines">Rotinas e Hábitos:</label><textarea id="patientRoutines" placeholder="Rotina diária, hábitos alimentares, sono..."></textarea></div>
-                <div class="input-group"><label for="patientSpecificCare">Cuidados e Manejos Específicos:</label><textarea id="patientSpecificCare" placeholder="Cuidados com feridas, mobilidade, higiene..."></textarea></div>
-                <div class="input-group"><label for="patientDailyRecord">Registro Diário:</label><textarea id="patientDailyRecord" placeholder="Anotações diárias sobre o estado do paciente, ocorrências..."></textarea></div>
+                <div class="input-group">
+                    <label for="patientRoutines">Rotinas e Hábitos:</label>
+                    <textarea id="patientRoutines" placeholder="Rotina diária, hábitos alimentares, sono..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="patientSpecificCare">Cuidados e Manejos Específicos:</label>
+                    <textarea id="patientSpecificCare" placeholder="Cuidados com feridas, mobilidade, higiene..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="patientDailyRecord">Registro Diário:</label>
+                    <textarea id="patientDailyRecord" placeholder="Anotações diárias sobre o estado do paciente, ocorrências..."></textarea>
+                </div>
                 <button class="btn" id="savePatientNotes">Salvar Notas do Paciente</button>
             </div>
-            <div class="patient-actions"><button class="btn btn-confirm" id="confirmAppointmentBtn">Confirmar Atendimento</button><button class="btn btn-complete" id="completeAppointmentBtn">Concluir Atendimento</button><button class="btn btn-cancel-appointment" id="cancelAppointmentBtn">Cancelar Atendimento</button><button class="btn btn-cancel-appointment" id="refuseAppointmentBtn">Recusar Atendimento</button></div>
+            <div class="patient-actions">
+                <button class="btn btn-confirm" id="confirmAppointmentBtn">Confirmar Atendimento</button>
+                <button class="btn btn-complete" id="completeAppointmentBtn">Concluir Atendimento</button>
+                <button class="btn btn-cancel-appointment" id="cancelAppointmentBtn">Cancelar Atendimento</button>
+                <button class="btn btn-cancel-appointment" id="refuseAppointmentBtn">Recusar Atendimento</button>
+            </div>
         </div>
         <div id="caregiverPatientHistoryDetailsScreen" class="patient-details-screen">
             <button class="back-button" id="backToCaregiverPatientHistory"><i class="fas fa-arrow-left"></i></button>
@@ -2556,14 +2706,25 @@
             </div>
             <div class="profile-section">
                 <h3>Notas do Cuidador (Histórico)</h3>
-                <div class="input-group"><label>Rotinas e Hábitos:</label><textarea id="historyPatientRoutines" readonly="readonly"></textarea></div>
-                <div class="input-group"><label>Cuidados e Manejos Específicos:</label><textarea id="historyPatientSpecificCare" readonly="readonly"></textarea></div>
-                <div class="input-group"><label>Registro Diário:</label><textarea id="historyPatientDailyRecord" readonly="readonly"></textarea></div>
+                <div class="input-group">
+                    <label>Rotinas e Hábitos:</label>
+                    <textarea id="historyPatientRoutines" readonly="readonly"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Cuidados e Manejos Específicos:</label>
+                    <textarea id="historyPatientSpecificCare" readonly="readonly"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Registro Diário:</label>
+                    <textarea id="historyPatientDailyRecord" readonly="readonly"></textarea>
+                </div>
             </div>
         </div>
         <div id="clientScreen" class="main-screen">
             <div class="header">
-                <div class="header-actions"><button id="clientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div>
+                <div class="header-actions">
+                    <button id="clientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
                 <div class="user-info">
                     <div class="user-avatar" id="clientAvatar"><i class="fas fa-user"></i></div>
                     <div class="user-details">
@@ -2589,7 +2750,10 @@
                     <div class="module-description">Encontre e agende cuidadores disponíveis para atender suas necessidades.</div>
                     <div class="caregiver-carousel-container" id="caregiverCarouselContainer">
                         <div class="caregiver-carousel-inner" id="caregiverCarousel"></div>
-                        <div class="caregiver-carousel-nav"><button class="nav-btn" id="prevCaregiverBtn"><i class="fas fa-arrow-left"></i></button><button class="nav-btn" id="nextCaregiverBtn"><i class="fas fa-arrow-right"></i></button></div>
+                        <div class="caregiver-carousel-nav">
+                            <button class="nav-btn" id="prevCaregiverBtn"><i class="fas fa-arrow-left"></i></button>
+                            <button class="nav-btn" id="nextCaregiverBtn"><i class="fas fa-arrow-right"></i></button>
+                        </div>
                     </div>
                     <button class="btn" id="interestCaregiverBtn" style="margin-top:20px">Tenho interesse nesse cuidador</button>
                 </div>
@@ -2614,20 +2778,23 @@
                         <i class="fas fa-camera" id="clientProfilePhotoIcon" style="display:block;font-size:3rem"></i>
                     </div>
                 </div>
-                <p><strong>Nome Completo:</strong> <span id="clientDisplayFullName"></span></p>
-                <p><strong>CPF:</strong> <span id="clientDisplayCPF"></span></p>
-                <p><strong>Telefone:</strong> <span id="clientDisplayPhone"></span></p>
-                <p><strong>E-mail:</strong> <span id="clientDisplayEmail"></span></p>
-                <p><strong>Religião:</strong> <span id="clientDisplayReligion"></span></p>
-                <p><strong>Endereço:</strong> <span id="clientDisplayAddress"></span></p>
+                <p><strong>Nome Completo:</strong><span id="clientDisplayFullName"></span></p>
+                <p><strong>CPF:</strong><span id="clientDisplayCPF"></span></p>
+                <p><strong>Telefone:</strong><span id="clientDisplayPhone"></span></p>
+                <p><strong>E-mail:</strong><span id="clientDisplayEmail"></span></p>
+                <p><strong>Religião:</strong><span id="clientDisplayReligion"></span></p>
+                <p><strong>Endereço:</strong><span id="clientDisplayAddress"></span></p>
             </div>
             <div class="profile-section">
                 <h3>Medicações em Uso</h3>
-                <div id="clientMedicationsList"></div><button class="btn add-medication-btn" id="addClientMedicationBtn">Adicionar Medicação</button>
+                <div id="clientMedicationsList"></div>
+                <button class="btn add-medication-btn" id="addClientMedicationBtn">Adicionar Medicação</button>
             </div>
             <div class="profile-section">
                 <h3>Recomendações e Necessidades Específicas</h3>
-                <div class="input-group"><textarea id="editClientRecommendations" placeholder="Descreva quaisquer recomendações médicas ou necessidades especiais..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="editClientRecommendations" placeholder="Descreva quaisquer recomendações médicas ou necessidades especiais..."></textarea>
+                </div>
             </div>
             <button class="btn" id="saveClientProfile">Salvar Alterações</button>
         </div>
@@ -2635,7 +2802,10 @@
             <button class="back-button" id="backToCaregiverCarousel"><i class="fas fa-arrow-left"></i></button>
             <h2>Agendar Cuidador</h2>
             <div class="caregiver-info-summary">
-                <div class="avatar"><img id="selectedCaregiverAvatar" src="" alt="Foto do Cuidador" style="display:none"><i class="fas fa-user-nurse" id="selectedCaregiverIcon"></i></div>
+                <div class="avatar">
+                    <img id="selectedCaregiverAvatar" src="" alt="Foto do Cuidador" style="display:none">
+                    <i class="fas fa-user-nurse" id="selectedCaregiverIcon"></i>
+                </div>
                 <div class="details">
                     <div class="name" id="selectedCaregiverName"></div>
                     <div class="rating" id="selectedCaregiverRating"></div>
@@ -2643,20 +2813,45 @@
             </div>
             <div class="form-section">
                 <h3>Período do Atendimento</h3>
-                <div class="input-group"><label for="startDate">Data de Início:</label><input type="text" id="startDate" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/AAAA"></div>
-                <div class="input-group"><label for="endDate">Data de Término:</label><input type="text" id="endDate" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/AAAA"></div>
+                <div class="input-group">
+                    <label for="startDate">Data de Início:</label>
+                    <input type="text" id="startDate" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/AAAA">
+                </div>
+                <div class="input-group">
+                    <label for="endDate">Data de Término:</label>
+                    <input type="text" id="endDate" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/AAAA">
+                </div>
             </div>
             <div class="form-section">
                 <h3>Dias da Semana</h3>
-                <div class="day-selection"><button type="button" class="day-button" data-day="Segunda">Segunda</button><button type="button" class="day-button" data-day="Terça">Terça</button><button type="button" class="day-button" data-day="Quarta">Quarta</button><button type="button" class="day-button" data-day="Quinta">Quinta</button><button type="button" class="day-button" data-day="Sexta">Sexta</button><button type="button" class="day-button" data-day="Sábado">Sábado</button><button type="button" class="day-button" data-day="Domingo">Domingo</button></div>
+                <div class="day-selection">
+                    <button type="button" class="day-button" data-day="Segunda">Segunda</button>
+                    <button type="button" class="day-button" data-day="Terça">Terça</button>
+                    <button type="button" class="day-button" data-day="Quarta">Quarta</button>
+                    <button type="button" class="day-button" data-day="Quinta">Quinta</button>
+                    <button type="button" class="day-button" data-day="Sexta">Sexta</button>
+                    <button type="button" class="day-button" data-day="Sábado">Sábado</button>
+                    <button type="button" class="day-button" data-day="Domingo">Domingo</button>
+                </div>
             </div>
             <div class="form-section">
                 <h3>Horário Diário</h3>
-                <div class="time-selection"><div class="input-group"><label for="startTime">Início:</label><input type="text" id="startTime" inputmode="numeric" pattern="\d{2}:\d{2}" placeholder="HH:MM"></div><div class="input-group"><label for="endTime">Fim:</label><input type="text" id="endTime" inputmode="numeric" pattern="\d{2}:\d{2}" placeholder="HH:MM"></div></div>
+                <div class="time-selection">
+                    <div class="input-group">
+                        <label for="startTime">Início:</label>
+                        <input type="text" id="startTime" inputmode="numeric" pattern="\d{2}:\d{2}" placeholder="HH:MM">
+                    </div>
+                    <div class="input-group">
+                        <label for="endTime">Fim:</label>
+                        <input type="text" id="endTime" inputmode="numeric" pattern="\d{2}:\d{2}" placeholder="HH:MM">
+                    </div>
+                </div>
             </div>
             <div class="form-section">
                 <h3>Observação (Opcional):</h3>
-                <div class="input-group"><textarea id="scheduleObservation" placeholder="Ex: Necessita de ajuda para banho, acompanhamento em consulta..."></textarea></div>
+                <div class="input-group">
+                    <textarea id="scheduleObservation" placeholder="Ex: Necessita de ajuda para banho, acompanhamento em consulta..."></textarea>
+                </div>
             </div>
             <button class="btn" id="confirmScheduleBtn">Confirmar Agendamento</button>
         </div>
@@ -2664,13 +2859,19 @@
             <button class="back-button" id="backToClientDashboardFromRequests"><i class="fas fa-arrow-left"></i></button>
             <h2>Minhas Solicitações</h2>
             <div class="client-requests-list" id="clientRequestsList"></div>
-            <div class="pagination-controls"><button id="prevRequestPageBtn" disabled="disabled">Anterior</button><button id="nextRequestPageBtn" disabled="disabled">Próximo</button></div>
+            <div class="pagination-controls">
+                <button id="prevRequestPageBtn" disabled="disabled">Anterior</button>
+                <button id="nextRequestPageBtn" disabled="disabled">Próximo</button>
+            </div>
         </div>
         <div id="clientRequestDetailsScreen" class="client-request-details-screen">
             <button class="back-button" id="backToClientRequestsHistory"><i class="fas fa-arrow-left"></i></button>
             <h2>Detalhes da Solicitação</h2>
             <div class="caregiver-summary">
-                <div class="avatar"><img id="requestCaregiverAvatar" src="" alt="Foto do Cuidador" style="display:none"><i class="fas fa-user-nurse" id="requestCaregiverIcon"></i></div>
+                <div class="avatar">
+                    <img id="requestCaregiverAvatar" src="" alt="Foto do Cuidador" style="display:none">
+                    <i class="fas fa-user-nurse" id="requestCaregiverIcon"></i>
+                </div>
                 <div class="details">
                     <div class="name" id="requestCaregiverName"></div>
                     <div class="rating" id="requestCaregiverRating"></div>
@@ -2702,7 +2903,9 @@
         </div>
         <div id="adminScreen" class="main-screen">
             <div class="header">
-                <div class="header-actions"><button id="adminLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div>
+                <div class="header-actions">
+                    <button id="adminLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
                 <div class="user-info">
                     <div class="user-avatar"><i class="fas fa-user-shield"></i></div>
                     <div class="user-details">
@@ -2721,7 +2924,10 @@
                     <div class="module-description">Aprove ou rejeite novos cadastros de cuidadores.</div>
                     <div class="admin-section" style="margin:1rem 0 0 0;padding:1rem">
                         <ul id="pendingCaregiversList" class="admin-list"></ul>
-                        <div class="pagination-controls"><button id="prevPendingCaregiverPageBtn" disabled="disabled">Anterior</button><button id="nextPendingCaregiverPageBtn" disabled="disabled">Próximo</button></div>
+                        <div class="pagination-controls">
+                            <button id="prevPendingCaregiverPageBtn" disabled="disabled">Anterior</button>
+                            <button id="nextPendingCaregiverPageBtn" disabled="disabled">Próximo</button>
+                        </div>
                     </div>
                 </div>
                 <div class="module-card" id="adminUserManagementModule">
@@ -2731,9 +2937,15 @@
                     </div>
                     <div class="module-description">Visualize e edite informações de todos os clientes e cuidadores.</div>
                     <div class="admin-section" style="margin:1rem 0 0 0;padding:1rem">
-                        <div class="admin-user-type-toggle"><button id="showCaregiversBtn" class="active">Cuidadores</button><button id="showClientsBtn">Clientes</button></div>
+                        <div class="admin-user-type-toggle">
+                            <button id="showCaregiversBtn" class="active">Cuidadores</button>
+                            <button id="showClientsBtn">Clientes</button>
+                        </div>
                         <div class="admin-user-list-container" id="adminUserListContainer"></div>
-                        <div class="pagination-controls"><button id="prevUserPageBtn" disabled="disabled">Anterior</button><button id="nextUserPageBtn" disabled="disabled">Próximo</button></div>
+                        <div class="pagination-controls">
+                            <button id="prevUserPageBtn" disabled="disabled">Anterior</button>
+                            <button id="nextUserPageBtn" disabled="disabled">Próximo</button>
+                        </div>
                     </div>
                 </div>
                 <div class="module-card" id="adminChartsModule">
@@ -2744,11 +2956,25 @@
                     <div class="module-description">Acompanhe métricas importantes sobre agendamentos e usuários.</div>
                     <div class="charts-container">
                         <div class="chart-card">
-                            <h3>Status dos Agendamentos</h3><canvas id="appointmentStatusChart"></canvas>
+                            <h3>Status dos Agendamentos</h3>
+                            <canvas id="appointmentStatusChart"></canvas>
                         </div>
                         <div class="chart-card">
-                            <h3>Agendamentos por Mês</h3><canvas id="appointmentsPerMonthChart"></canvas>
+                            <h3>Agendamentos por Mês</h3>
+                            <canvas id="appointmentsPerMonthChart"></canvas>
                         </div>
+                    </div>
+                </div>
+                <div class="module-card" id="adminBackupRestoreModule">
+                    <div class="module-header">
+                        <div class="module-icon"><i class="fas fa-database"></i></div>
+                        <div class="module-title">Backup e Restauração</div>
+                    </div>
+                    <div class="module-description">Faça backup ou restaure os dados do Firestore.</div>
+                    <div class="admin-section" style="margin:1rem 0 0 0;padding:1rem">
+                        <button class="btn" id="backupDataBtn" style="margin-bottom: 1rem;">Fazer Backup</button>
+                        <input type="file" id="restoreFileInput" accept=".json" style="display: none;">
+                        <button class="btn" id="restoreDataBtn">Restaurar Dados</button>
                     </div>
                 </div>
             </div>
@@ -2970,10 +3196,10 @@
         const selectedCaregiverName = document.getElementById('selectedCaregiverName');
         const selectedCaregiverRating = document.getElementById('selectedCaregiverRating');
         const startDateInput = document.getElementById('startDate'); // New
-        const endDateInput = document.getElementById('endDate');     // New
+        const endDateInput = document.getElementById('endDate'); // New
         const dayButtons = document.querySelectorAll('.day-button'); // New
         const startTimeInput = document.getElementById('startTime'); // New
-        const endTimeInput = document.getElementById('endTime');     // New
+        const endTimeInput = document.getElementById('endTime'); // New
         const scheduleObservationInput = document.getElementById('scheduleObservation');
         const confirmScheduleBtn = document.getElementById('confirmScheduleBtn');
 
@@ -3077,6 +3303,11 @@
         const photoViewOverlay = document.getElementById('photoViewOverlay');
         const closePhotoViewPopup = document.getElementById('closePhotoViewPopup');
         const photoViewImage = document.getElementById('photoViewImage');
+
+        // Admin Backup/Restore elements
+        const backupDataBtn = document.getElementById('backupDataBtn');
+        const restoreDataBtn = document.getElementById('restoreDataBtn');
+        const restoreFileInput = document.getElementById('restoreFileInput');
 
 
         // --- Utility Functions ---
@@ -3281,14 +3512,30 @@
         }
 
         // Apply masks on input
-        cpfInput.addEventListener('input', (e) => { e.target.value = maskCPF(e.target.value); });
-        phoneInput.addEventListener('input', (e) => { e.target.value = maskPhone(e.target.value); });
-        cepInput.addEventListener('input', (e) => { e.target.value = maskCEP(e.target.value); });
-        dobInput.addEventListener('input', (e) => { e.target.value = maskDate(e.target.value); });
-        startDateInput.addEventListener('input', (e) => { e.target.value = maskDate(e.target.value); });
-        endDateInput.addEventListener('input', (e) => { e.target.value = maskDate(e.target.value); });
-        startTimeInput.addEventListener('input', (e) => { e.target.value = maskTime(e.target.value); });
-        endTimeInput.addEventListener('input', (e) => { e.target.value = maskTime(e.target.value); });
+        cpfInput.addEventListener('input', (e) => {
+            e.target.value = maskCPF(e.target.value);
+        });
+        phoneInput.addEventListener('input', (e) => {
+            e.target.value = maskPhone(e.target.value);
+        });
+        cepInput.addEventListener('input', (e) => {
+            e.target.value = maskCEP(e.target.value);
+        });
+        dobInput.addEventListener('input', (e) => {
+            e.target.value = maskDate(e.target.value);
+        });
+        startDateInput.addEventListener('input', (e) => {
+            e.target.value = maskDate(e.target.value);
+        });
+        endDateInput.addEventListener('input', (e) => {
+            e.target.value = maskDate(e.target.value);
+        });
+        startTimeInput.addEventListener('input', (e) => {
+            e.target.value = maskTime(e.target.value);
+        });
+        endTimeInput.addEventListener('input', (e) => {
+            e.target.value = maskTime(e.target.value);
+        });
 
 
         // --- CEP Autocomplete ---
@@ -3751,7 +3998,10 @@
                 .where('type', '==', 'caregiver')
                 .where('status', '==', 'pending')
                 .onSnapshot(snapshot => {
-                    pendingCaregivers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    pendingCaregivers = snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
                     currentPendingCaregiverPage = 0;
                     renderPendingCaregiversPage();
                 }, error => {
@@ -3836,14 +4086,19 @@
 
         async function updateCaregiverStatus(caregiverId, status, caregiverName) {
             try {
-                await db.collection('users').doc(caregiverId).update({ status: status });
+                await db.collection('users').doc(caregiverId).update({
+                    status: status
+                });
                 let message = '';
                 if (status === 'approved') {
                     message = `Parabéns! Sua conta Vita Integrare foi APROVADA por nossa equipe! Agora você pode acessar todos os módulos e aparecerá para os clientes.`;
                     showAlert('Sucesso', `${caregiverName} foi aprovado(a)!`);
-                } else {
+                } else if (status === 'rejected') {
                     message = `Sua conta Vita Integrare foi REJEITADA. Por favor, entre em contato com o suporte para mais informações.`;
                     showAlert('Sucesso', `${caregiverName} foi rejeitado(a).`);
+                } else if (status === 'payment_pending') {
+                    message = `Seu perfil Vita Integrare está com o pagamento pendente. Por favor, entre em contato com edw.rocha.psi@gmail.com para regularizar e ter seu perfil visível novamente.`;
+                    showAlert('Sucesso', `${caregiverName} agora está com status de Pagamento Pendente.`);
                 }
 
                 // No longer sending notifications to a separate collection, just showing alert
@@ -3879,7 +4134,10 @@
                 unsubscribeAdminAllUsers();
             }
             unsubscribeAdminAllUsers = db.collection('users').onSnapshot(snapshot => {
-                allUsers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                allUsers = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
                 renderAdminUserList();
             }, error => {
                 console.error("Error listening to all users:", error);
@@ -3947,7 +4205,10 @@
                     showAlert('Erro', 'Usuário não encontrado.');
                     return;
                 }
-                currentEditingUser = { id: userDoc.id, ...userDoc.data() };
+                currentEditingUser = {
+                    id: userDoc.id,
+                    ...userDoc.data()
+                };
 
                 adminUserDetailsTitle.textContent = `Detalhes de ${currentEditingUser.fullName}`;
                 adminEditFullName.value = currentEditingUser.fullName || '';
@@ -3977,6 +4238,13 @@
 
                 if (userType === 'caregiver') {
                     adminCaregiverStatusGroup.style.display = 'block';
+                    // Add new option to the select if it doesn't exist
+                    if (!Array.from(adminEditStatus.options).some(option => option.value === 'payment_pending')) {
+                        const option = document.createElement('option');
+                        option.value = 'payment_pending';
+                        option.textContent = 'Pagamento Pendente';
+                        adminEditStatus.appendChild(option);
+                    }
                     adminEditStatus.value = currentEditingUser.status || 'pending';
                     adminCaregiverRatingGroup.style.display = 'block';
                     adminEditRating.value = currentEditingUser.rating || 3.0;
@@ -4082,7 +4350,11 @@
                     const dose = item.querySelector('.medication-dose').value;
                     const posology = item.querySelector('.medication-posology').value;
                     if (name || dose || posology) {
-                        updatedMedications.push({ name, dose, posology });
+                        updatedMedications.push({
+                            name,
+                            dose,
+                            posology
+                        });
                     }
                 });
                 updatedData.medications = updatedMedications;
@@ -4229,6 +4501,7 @@
             const isApproved = currentCaregiverData.status === 'approved';
             const isPending = currentCaregiverData.status === 'pending';
             const isRejected = currentCaregiverData.status === 'rejected';
+            const isPaymentPending = currentCaregiverData.status === 'payment_pending'; // New status
 
             if (isPending) {
                 caregiverWelcomeMessage.innerHTML = `
@@ -4240,6 +4513,11 @@
                 caregiverWelcomeMessage.innerHTML = `
                     Sua conta foi <strong>REJEITADA</strong>. Por favor, entre em contato com o suporte para mais informações.
                 `;
+            } else if (isPaymentPending) { // New message for payment pending
+                caregiverWelcomeMessage.innerHTML = `
+                    Seu perfil está com <strong>PAGAMENTO PENDENTE</strong>. Todos os módulos estão desabilitados e seu perfil não será mostrado para clientes.
+                    Por favor, entre em contato com <a href="mailto:edw.rocha.psi@gmail.com">edw.rocha.psi@gmail.com</a> para regularizar.
+                `;
             } else { // Approved
                 caregiverWelcomeMessage.innerHTML = `
                     Mantenha seu perfil sempre atualizado para conseguir melhores avaliações e mais pacientes!
@@ -4248,10 +4526,23 @@
 
             // Control module visibility and "Em breve" badge
             const modulesToControl = [
-                { element: caregiverProfileModule, alwaysEnabled: false },
-                { element: caregiverPatientsModule, alwaysEnabled: false },
-                { element: caregiverPatientHistoryModule, alwaysEnabled: false },
-                { element: caregiverEducaModule, alwaysEnabled: true, isComingSoon: true }
+                {
+                    element: caregiverProfileModule,
+                    alwaysEnabled: false
+                },
+                {
+                    element: caregiverPatientsModule,
+                    alwaysEnabled: false
+                },
+                {
+                    element: caregiverPatientHistoryModule,
+                    alwaysEnabled: false
+                },
+                {
+                    element: caregiverEducaModule,
+                    alwaysEnabled: true,
+                    isComingSoon: true
+                }
             ];
 
             modulesToControl.forEach(module => {
@@ -4407,20 +4698,20 @@
                 loadCaregiverProfileForEdit();
                 showScreen('caregiverProfileEditScreen');
             } else {
-                showAlert('Acesso Negado', 'Seu perfil está pendente de aprovação ou foi rejeitado. Você não pode editar seu perfil no momento.');
+                showAlert('Acesso Negado', 'Seu perfil está pendente de aprovação, foi rejeitado ou está com pagamento pendente. Você não pode editar seu perfil no momento.');
             }
         });
 
         caregiverPatientsModule.addEventListener('click', () => {
             if (currentCaregiverData.status !== 'approved') {
-                showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação ou foi rejeitada.');
+                showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação, foi rejeitada ou está com pagamento pendente.');
                 return;
             }
         });
 
         caregiverPatientHistoryModule.addEventListener('click', () => {
             if (currentCaregiverData.status !== 'approved') {
-                showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação ou foi rejeitada.');
+                showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação, foi rejeitada ou está com pagamento pendente.');
                 return;
             }
         });
@@ -4496,7 +4787,10 @@
                     showAlert('Erro', 'Agendamento não encontrado.');
                     return;
                 }
-                currentSelectedAppointment = { id: appointmentDoc.id, ...appointmentDoc.data() };
+                currentSelectedAppointment = {
+                    id: appointmentDoc.id,
+                    ...appointmentDoc.data()
+                };
 
                 const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                 if (!clientDoc.exists) {
@@ -4594,13 +4888,19 @@
 
         addCaregiverPatientMedicationBtn.addEventListener('click', () => {
             let currentMeds = currentSelectedAppointment.clientData.medications || [];
-            currentMeds.push({ name: '', dose: '', posology: '' });
+            currentMeds.push({
+                name: '',
+                dose: '',
+                posology: ''
+            });
             updateClientMedications(currentSelectedAppointment.clientId, currentMeds);
         });
 
         async function updateClientMedications(clientId, medications) {
             try {
-                await db.collection('users').doc(clientId).update({ medications: medications });
+                await db.collection('users').doc(clientId).update({
+                    medications: medications
+                });
                 const clientDoc = await db.collection('users').doc(clientId).get();
                 if (clientDoc.exists) {
                     currentSelectedAppointment.clientData = clientDoc.data();
@@ -4662,7 +4962,9 @@
             const confirmed = await showConfirm('Confirmar Atendimento', 'Deseja confirmar este agendamento?');
             if (confirmed) {
                 try {
-                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'confirmed' });
+                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({
+                        status: 'confirmed'
+                    });
 
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
@@ -4685,7 +4987,9 @@
             const confirmed = await showConfirm('Concluir Atendimento', 'Deseja marcar este agendamento como concluído?');
             if (confirmed) {
                 try {
-                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'completed' });
+                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({
+                        status: 'completed'
+                    });
 
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
@@ -4708,7 +5012,9 @@
             const confirmed = await showConfirm('Cancelar Atendimento', 'Tem certeza que deseja cancelar este agendamento?');
             if (confirmed) {
                 try {
-                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'cancelled' });
+                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({
+                        status: 'cancelled'
+                    });
 
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
@@ -4731,7 +5037,9 @@
             const confirmed = await showConfirm('Recusar Atendimento', 'Tem certeza que deseja recusar este pedido de agendamento?');
             if (confirmed) {
                 try {
-                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({ status: 'refused' });
+                    await db.collection('appointments').doc(currentSelectedAppointment.id).update({
+                        status: 'refused'
+                    });
 
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
@@ -4932,7 +5240,11 @@
 
         addClientMedicationBtn.addEventListener('click', () => {
             let currentMeds = currentClientData.medications || [];
-            currentMeds.push({ name: '', dose: '', posology: '' });
+            currentMeds.push({
+                name: '',
+                dose: '',
+                posology: ''
+            });
             currentClientData.medications = currentMeds;
             renderClientMedications(currentMeds);
         });
@@ -4946,7 +5258,11 @@
                 const dose = item.querySelector('.medication-dose').value;
                 const posology = item.querySelector('.medication-posology').value;
                 if (name || dose || posology) {
-                    updatedMedications.push({ name, dose, posology });
+                    updatedMedications.push({
+                        name,
+                        dose,
+                        posology
+                    });
                 }
             });
 
@@ -4972,15 +5288,19 @@
 
 
         clientAppointmentsModule.addEventListener('click', () => {
+            // This module is always enabled, so no status check needed here.
         });
 
         async function loadAllCaregivers() {
             try {
                 const caregiversSnapshot = await db.collection('users')
                     .where('type', '==', 'caregiver')
-                    .where('status', '==', 'approved')
+                    .where('status', '==', 'approved') // Only show approved caregivers
                     .onSnapshot(snapshot => { // Use onSnapshot for real-time updates
-                        allCaregivers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                        allCaregivers = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
                         if (allCaregivers.length > 0) {
                             renderCaregiverCarousel();
                         } else {
@@ -5291,7 +5611,10 @@
                     .orderBy('requestedAt', 'desc')
                     .get();
 
-                clientRequests = requestsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                clientRequests = requestsSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
                 renderClientRequestsPage();
 
             } catch (error) {
@@ -5430,12 +5753,23 @@
 
                 let statusText = '';
                 switch (requestData.status) {
-                    case 'pending': statusText = 'Pendente'; break;
-                    case 'confirmed': statusText = 'Confirmado'; break;
-                    case 'cancelled': statusText = 'Cancelado'; break;
-                    case 'completed': statusText = 'Concluído'; break;
-                    case 'refused': statusText = 'Recusado'; break;
-                    default: statusText = 'Desconhecido';
+                    case 'pending':
+                        statusText = 'Pendente';
+                        break;
+                    case 'confirmed':
+                        statusText = 'Confirmado';
+                        break;
+                    case 'cancelled':
+                        statusText = 'Cancelado';
+                        break;
+                    case 'completed':
+                        statusText = 'Concluído';
+                        break;
+                    case 'refused':
+                        statusText = 'Recusado';
+                        break;
+                    default:
+                        statusText = 'Desconhecido';
                 }
                 requestStatus.textContent = statusText;
                 requestPeriod.textContent = `${formatDateToDisplay(requestData.startDate)} a ${formatDateToDisplay(requestData.endDate)}`;
@@ -5574,12 +5908,16 @@
                     const newPhotoUrl = await uploadImageToImgur(file);
                     if (newPhotoUrl) {
                         if (currentPhotoTarget === 'caregiver') {
-                            await db.collection('users').doc(currentUser.uid).update({ profilePhotoUrl: newPhotoUrl });
+                            await db.collection('users').doc(currentUser.uid).update({
+                                profilePhotoUrl: newPhotoUrl
+                            });
                             profilePhotoPreview.src = newPhotoUrl;
                             profilePhotoPreview.style.display = 'block';
                             profilePhotoIcon.style.display = 'none';
                         } else if (currentPhotoTarget === 'client') {
-                            await db.collection('users').doc(currentUser.uid).update({ profilePhotoUrl: newPhotoUrl });
+                            await db.collection('users').doc(currentUser.uid).update({
+                                profilePhotoUrl: newPhotoUrl
+                            });
                             clientProfilePhotoPreview.src = newPhotoUrl;
                             clientProfilePhotoPreview.style.display = 'block';
                             clientProfilePhotoIcon.style.display = 'none';
@@ -5620,6 +5958,118 @@
             }
         });
 
+        // --- Backup and Restore Functions ---
+        backupDataBtn.addEventListener('click', async () => {
+            const confirmed = await showConfirm('Confirmar Backup', 'Deseja fazer backup de todos os dados de usuários e agendamentos?');
+            if (!confirmed) return;
+
+            try {
+                showAlert('Backup', 'Iniciando backup dos dados...');
+                const usersSnapshot = await db.collection('users').get();
+                const appointmentsSnapshot = await db.collection('appointments').get();
+
+                const usersData = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const appointmentsData = appointmentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                const backupData = {
+                    users: usersData,
+                    appointments: appointmentsData,
+                    timestamp: new Date().toISOString()
+                };
+
+                const filename = `firestore_backup_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+                const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showAlert('Sucesso', 'Backup concluído e arquivo baixado!');
+            } catch (error) {
+                console.error('Erro ao fazer backup:', error);
+                showAlert('Erro', `Erro ao fazer backup: ${error.message}`);
+            }
+        });
+
+        restoreDataBtn.addEventListener('click', () => {
+            restoreFileInput.click(); // Trigger file input click
+        });
+
+        restoreFileInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (!file) {
+                showAlert('Nenhum arquivo', 'Nenhum arquivo selecionado para restauração.');
+                return;
+            }
+
+            const confirmed = await showConfirm('Confirmar Restauração', 'ATENÇÃO: A restauração irá APAGAR TODOS os dados atuais e substituí-los pelos dados do arquivo. Esta ação é irreversível. Deseja continuar?');
+            if (!confirmed) {
+                restoreFileInput.value = ''; // Clear selected file
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.users || !data.appointments) {
+                        showAlert('Erro', 'Arquivo JSON inválido. Ele deve conter as coleções "users" e "appointments".');
+                        restoreFileInput.value = '';
+                        return;
+                    }
+
+                    showAlert('Restauração', 'Iniciando restauração dos dados. Isso pode levar um tempo...');
+
+                    // Delete existing data
+                    await deleteAllCollectionData('users');
+                    await deleteAllCollectionData('appointments');
+
+                    // Restore new data
+                    await restoreCollectionData('users', data.users);
+                    await restoreCollectionData('appointments', data.appointments);
+
+                    showAlert('Sucesso', 'Restauração concluída! Os dados foram substituídos.');
+                    restoreFileInput.value = ''; // Clear selected file
+                    // Force a re-authentication or refresh to load new data
+                    auth.signOut(); // Sign out to force re-login with new data
+                } catch (error) {
+                    console.error('Erro ao restaurar dados:', error);
+                    showAlert('Erro', `Erro ao restaurar dados: ${error.message}`);
+                    restoreFileInput.value = '';
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        async function deleteAllCollectionData(collectionName) {
+            const collectionRef = db.collection(collectionName);
+            const snapshot = await collectionRef.get();
+            const batch = db.batch();
+            snapshot.docs.forEach(doc => {
+                batch.delete(doc.ref);
+            });
+            await batch.commit();
+            console.log(`Coleção ${collectionName} limpa.`);
+        }
+
+        async function restoreCollectionData(collectionName, data) {
+            const collectionRef = db.collection(collectionName);
+            const batch = db.batch();
+            data.forEach(item => {
+                const docRef = collectionRef.doc(item.id);
+                // Remove 'id' field as it's the document ID
+                const { id, ...docData } = item;
+                batch.set(docRef, docData);
+            });
+            await batch.commit();
+            console.log(`Coleção ${collectionName} restaurada com ${data.length} documentos.`);
+        }
+
+
         // --- Logout Functionality ---
         caregiverLogoutBtn.addEventListener('click', () => {
             auth.signOut();
@@ -5638,85 +6088,20 @@
             if (user) {
                 try {
                     const userDoc = await db.collection('users').doc(user.uid).get();
-                    if (userDoc.exists) {
-                        const userData = userDoc.data();
+                    if (userDoc.exists) { const userData = userDoc.data();
                         handleAuthSuccess(user, userData.type);
                     } else {
-                        console.error("User data not found in Firestore for authenticated user. Signing out.");
-                        auth.signOut();
-                        showScreen('authScreen');
+                        console.error("User  data not found for UID:", user.uid);
+                        await auth.signOut();
                     }
                 } catch (error) {
-                    console.error("Error fetching user data on auth state change:", error);
-                    auth.signOut();
-                    showScreen('authScreen');
+                    console.error("Error fetching user data:", error);
+                    await auth.signOut();
                 }
             } else {
                 showScreen('authScreen');
-                emailInput.value = '';
-                passwordInput.value = '';
-                fullNameInput.value = '';
-                dobInput.value = '';
-                cpfInput.value = '';
-                phoneInput.value = '';
-                cepInput.value = '';
-                stateSelect.value = '';
-                citySelect.innerHTML = '<option value="">Selecione a Cidade</option>';
-                citySelect.disabled = true;
-                neighborhoodInput.value = '';
-                streetInput.value = '';
-                numberInput.value = '';
-                religionSelect.value = '';
-                confirmPasswordInput.value = '';
-                corenInput.value = '';
-                corenYesBtn.classList.add('active');
-                corenNoBtn.classList.remove('active');
-                hasCoren = true;
-                corenNumberGroup.style.display = 'block';
-
-                documentUploadInput.value = '';
-                professionalPhotoUploadInput.value = '';
-                documentUploadLabel.querySelector('span').textContent = 'Anexar Documento';
-                documentUploadLabel.classList.remove('uploaded');
-                professionalPhotoUploadLabel.querySelector('span').textContent = 'Anexar Foto Profissional';
-                professionalPhotoUploadLabel.classList.remove('uploaded');
-                termsConsentCheckbox.checked = false;
-                authMessage.textContent = '';
-                authMessage.classList.remove('loading-message');
-                loginBtn.click();
-                screenHistory = [];
-                if (unsubscribeAppointments) {
-                    unsubscribeAppointments();
-                    unsubscribeAppointments = null;
-                }
-                if (unsubscribeAdminPendingCaregivers) {
-                    unsubscribeAdminPendingCaregivers();
-                    unsubscribeAdminPendingCaregivers = null;
-                }
-                if (unsubscribeAdminAllUsers) {
-                    unsubscribeAdminAllUsers();
-                    unsubscribeAdminAllUsers = null;
-                }
-                if (unsubscribeCaregiverData) {
-                    unsubscribeCaregiverData();
-                    unsubscribeCaregiverData = null;
-                }
-                if (unsubscribeClientData) {
-                    unsubscribeClientData();
-                    unsubscribeClientData = null;
-                }
-                if (appointmentStatusChart) {
-                    appointmentStatusChart.destroy();
-                    appointmentStatusChart = null;
-                }
-                if (appointmentsPerMonthChart) {
-                    appointmentsPerMonthChart.destroy();
-                    appointmentsPerMonthChart = null;
-                }
             }
         });
-
-        loadStates();
     </script>
 </body>
 </html>
