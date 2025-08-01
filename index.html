@@ -1077,7 +1077,8 @@
             object-fit: cover;
             border-radius: var(--radius-full);
             border: 4px solid var(--light-blue);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
+            cursor: pointer; /* Adicionado para indicar clicável */
         }
 
         .custom-overlay {
@@ -2155,6 +2156,90 @@
         .admin-user-details-popup .document-preview a:hover {
             text-decoration: underline
         }
+
+        /* Estilos para o pop-up de opções de foto */
+        .photo-options-popup {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+            max-width: 300px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-options-popup h3 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .photo-options-popup .option-button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius-md);
+            background-color: var(--off-white);
+            color: var(--dark-gray);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .photo-options-popup .option-button:hover {
+            background-color: var(--sky-blue);
+            color: var(--primary-blue);
+        }
+
+        .photo-options-popup .option-button i {
+            margin-right: 0.5rem;
+        }
+
+        .photo-options-popup .close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            cursor: pointer;
+        }
+
+        /* Estilos para o pop-up de visualização de foto */
+        .photo-view-popup {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo-view-popup img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+        }
+
+        .photo-view-popup .close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--medium-gray);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -2169,6 +2254,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- Pop-up de Opções de Foto -->
+        <div id="photoOptionsOverlay" class="custom-overlay">
+            <div class="photo-options-popup">
+                <button class="close-button" id="closePhotoOptionsPopup"><i class="fas fa-times"></i></button>
+                <h3>Opções da Foto</h3>
+                <button class="option-button" id="viewPhotoBtn"><i class="fas fa-eye"></i> Visualizar</button>
+                <button class="option-button" id="editPhotoBtn"><i class="fas fa-edit"></i> Editar</button>
+                <input type="file" id="photoUploadInput" class="file-upload-input" accept="image/*" capture="user">
+            </div>
+        </div>
+
+        <!-- Pop-up de Visualização de Foto -->
+        <div id="photoViewOverlay" class="custom-overlay">
+            <div class="photo-view-popup">
+                <button class="close-button" id="closePhotoViewPopup"><i class="fas fa-times"></i></button>
+                <img id="photoViewImage" src="" alt="Foto de Perfil">
+            </div>
+        </div>
+
         <div id="adminUserDetailsOverlay" class="custom-overlay">
             <div class="admin-user-details-popup">
                 <button class="back-button" id="closeAdminUserDetailsPopup"><i class="fas fa-times"></i></button>
@@ -2231,12 +2336,12 @@
                 <h3 id="summaryTitle"></h3>
                 <div class="summary-photos"><img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none"> <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none"></div>
                 <div class="summary-details">
-                    <p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p>
-                    <p><strong>Paciente:</strong><span id="summaryClientName"></span></p>
-                    <p><strong>Local:</strong><span id="summaryLocation"></span></p>
-                    <p><strong>Período:</strong><span id="summaryPeriod"></span></p>
-                    <p><strong>Dias:</strong><span id="summaryDays"></span></p>
-                    <p><strong>Horário:</strong><span id="summaryTime"></span></p>
+                    <p><strong>Cuidador:</strong> <span id="summaryCaregiverName"></span></p>
+                    <p><strong>Paciente:</strong> <span id="summaryClientName"></span></p>
+                    <p><strong>Local:</strong> <span id="summaryLocation"></span></p>
+                    <p><strong>Período:</strong> <span id="summaryPeriod"></span></p>
+                    <p><strong>Dias:</strong> <span id="summaryDays"></span></p>
+                    <p><strong>Horário:</strong> <span id="summaryTime"></span></p>
                 </div>
                 <a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none;"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a>
                 <p class="disclaimer" id="summaryDisclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p>
@@ -2357,15 +2462,18 @@
                 <h3>Informações Pessoais</h3>
                 <div class="input-group">
                     <label>Foto Profissional:</label>
-                    <div class="user-avatar" style="margin:10px auto"><img id="profilePhotoPreview" src="" alt="Foto Profissional" style="display:none"><i class="fas fa-camera" id="profilePhotoIcon" style="display:block;font-size:3rem"></i></div><input type="file" id="editProfessionalPhotoUpload" class="file-upload-input" accept="image/*"><label for="editProfessionalPhotoUpload" class="file-upload-label" id="editProfessionalPhotoUploadLabel"><i class="fas fa-upload"></i><span>Anexar Nova Foto</span></label>
+                    <div class="user-avatar" style="margin:10px auto">
+                        <img id="profilePhotoPreview" src="" alt="Foto Profissional" style="display:none">
+                        <i class="fas fa-camera" id="profilePhotoIcon" style="display:block;font-size:3rem"></i>
+                    </div>
                 </div>
-                <p><strong>Nome Completo:</strong><span id="displayFullName"></span></p>
-                <p><strong>Data de Nascimento:</strong><span id="displayDOB"></span></p>
-                <p><strong>CPF:</strong><span id="displayCPF"></span></p>
-                <p><strong>Telefone:</strong><span id="displayPhoneCaregiver"></span></p>
-                <p><strong>COREN:</strong><span id="displayCOREN"></span></p>
-                <p><strong>Religião:</strong><span id="displayReligionCaregiver"></span></p>
-                <p><strong>Localização:</strong><span id="displayLocation"></span></p>
+                <p><strong>Nome Completo:</strong> <span id="displayFullName"></span></p>
+                <p><strong>Data de Nascimento:</strong> <span id="displayDOB"></span></p>
+                <p><strong>CPF:</strong> <span id="displayCPF"></span></p>
+                <p><strong>Telefone:</strong> <span id="displayPhoneCaregiver"></span></p>
+                <p><strong>COREN:</strong> <span id="displayCOREN"></span></p>
+                <p><strong>Religião:</strong> <span id="displayReligionCaregiver"></span></p>
+                <p><strong>Localização:</strong> <span id="displayLocation"></span></p>
             </div>
             <div class="profile-section">
                 <h3>Biografia Resumida</h3>
@@ -2501,14 +2609,17 @@
                 <h3>Informações Pessoais</h3>
                 <div class="input-group">
                     <label>Foto de Perfil:</label>
-                    <div class="user-avatar" style="margin:10px auto"><img id="clientProfilePhotoPreview" src="" alt="Foto de Perfil" style="display:none"><i class="fas fa-camera" id="clientProfilePhotoIcon" style="display:block;font-size:3rem"></i></div><input type="file" id="editClientProfilePhotoUpload" class="file-upload-input" accept="image/*"><label for="editClientProfilePhotoUpload" class="file-upload-label" id="editClientProfilePhotoUploadLabel"><i class="fas fa-upload"></i><span>Anexar Nova Foto</span></label>
+                    <div class="user-avatar" style="margin:10px auto">
+                        <img id="clientProfilePhotoPreview" src="" alt="Foto de Perfil" style="display:none">
+                        <i class="fas fa-camera" id="clientProfilePhotoIcon" style="display:block;font-size:3rem"></i>
+                    </div>
                 </div>
-                <p><strong>Nome Completo:</strong><span id="clientDisplayFullName"></span></p>
-                <p><strong>CPF:</strong><span id="clientDisplayCPF"></span></p>
-                <p><strong>Telefone:</strong><span id="clientDisplayPhone"></span></p>
-                <p><strong>E-mail:</strong><span id="clientDisplayEmail"></span></p>
-                <p><strong>Religião:</strong><span id="clientDisplayReligion"></span></p>
-                <p><strong>Endereço:</strong><span id="clientDisplayAddress"></span></p>
+                <p><strong>Nome Completo:</strong> <span id="clientDisplayFullName"></span></p>
+                <p><strong>CPF:</strong> <span id="clientDisplayCPF"></span></p>
+                <p><strong>Telefone:</strong> <span id="clientDisplayPhone"></span></p>
+                <p><strong>E-mail:</strong> <span id="clientDisplayEmail"></span></p>
+                <p><strong>Religião:</strong> <span id="clientDisplayReligion"></span></p>
+                <p><strong>Endereço:</strong> <span id="clientDisplayAddress"></span></p>
             </div>
             <div class="profile-section">
                 <h3>Medicações em Uso</h3>
@@ -2773,8 +2884,8 @@
         const backToCaregiverDashboardBtn = document.getElementById('backToCaregiverDashboard');
         const profilePhotoPreview = document.getElementById('profilePhotoPreview');
         const profilePhotoIcon = document.getElementById('profilePhotoIcon');
-        const editProfessionalPhotoUpload = document.getElementById('editProfessionalPhotoUpload');
-        const editProfessionalPhotoUploadLabel = document.getElementById('editProfessionalPhotoUploadLabel');
+        // const editProfessionalPhotoUpload = document.getElementById('editProfessionalPhotoUpload'); // REMOVIDO
+        // const editProfessionalPhotoUploadLabel = document.getElementById('editProfessionalPhotoUploadLabel'); // REMOVIDO
         const displayFullName = document.getElementById('displayFullName');
         const displayDOB = document.getElementById('displayDOB');
         const displayCPF = document.getElementById('displayCPF');
@@ -2839,8 +2950,8 @@
         const backToClientDashboardBtn = document.getElementById('backToClientDashboard');
         const clientProfilePhotoPreview = document.getElementById('clientProfilePhotoPreview');
         const clientProfilePhotoIcon = document.getElementById('clientProfilePhotoIcon');
-        const editClientProfilePhotoUpload = document.getElementById('editClientProfilePhotoUpload');
-        const editClientProfilePhotoUploadLabel = document.getElementById('editClientProfilePhotoUploadLabel');
+        // const editClientProfilePhotoUpload = document.getElementById('editClientProfilePhotoUpload'); // REMOVIDO
+        // const editClientProfilePhotoUploadLabel = document.getElementById('editClientProfilePhotoUploadLabel'); // REMOVIDO
         const clientDisplayFullName = document.getElementById('clientDisplayFullName');
         const clientDisplayCPF = document.getElementById('clientDisplayCPF');
         const clientDisplayPhone = document.getElementById('clientDisplayPhone'); // Added for client profile
@@ -2954,6 +3065,18 @@
         const summaryWhatsappBtn = document.getElementById('summaryWhatsappBtn');
         const summaryOkBtn = document.getElementById('summaryOkBtn');
         const summaryDisclaimer = document.getElementById('summaryDisclaimer');
+
+        // Photo Options Pop-up elements
+        const photoOptionsOverlay = document.getElementById('photoOptionsOverlay');
+        const closePhotoOptionsPopup = document.getElementById('closePhotoOptionsPopup');
+        const viewPhotoBtn = document.getElementById('viewPhotoBtn');
+        const editPhotoBtn = document.getElementById('editPhotoBtn');
+        const photoUploadInput = document.getElementById('photoUploadInput');
+
+        // Photo View Pop-up elements
+        const photoViewOverlay = document.getElementById('photoViewOverlay');
+        const closePhotoViewPopup = document.getElementById('closePhotoViewPopup');
+        const photoViewImage = document.getElementById('photoViewImage');
 
 
         // --- Utility Functions ---
@@ -3287,59 +3410,8 @@
             }
         });
 
-        editProfessionalPhotoUpload.addEventListener('change', () => {
-            if (editProfessionalPhotoUpload.files.length > 0) {
-                editProfessionalPhotoUploadLabel.querySelector('span').textContent = editProfessionalPhotoUpload.files[0].name;
-                editProfessionalPhotoUploadLabel.classList.add('uploaded');
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    profilePhotoPreview.src = e.target.result;
-                    profilePhotoPreview.style.display = 'block';
-                    profilePhotoIcon.style.display = 'none';
-                };
-                reader.readAsDataURL(editProfessionalPhotoUpload.files[0]);
-            } else {
-                profilePhotoPreview.style.display = 'none';
-                profilePhotoIcon.style.display = 'block';
-                editProfessionalPhotoUploadLabel.querySelector('span').textContent = 'Anexar Nova Foto';
-                editProfessionalPhotoUploadLabel.classList.remove('uploaded');
-                if (currentCaregiverData && currentCaregiverData.profilePhotoUrl) {
-                    profilePhotoPreview.src = currentCaregiverData.profilePhotoUrl;
-                    profilePhotoPreview.style.display = 'block';
-                    profilePhotoIcon.style.display = 'none';
-                } else {
-                    profilePhotoPreview.style.display = 'none';
-                    profilePhotoIcon.style.display = 'block';
-                }
-            }
-        });
-
-        editClientProfilePhotoUpload.addEventListener('change', () => {
-            if (editClientProfilePhotoUpload.files.length > 0) {
-                editClientProfilePhotoUploadLabel.querySelector('span').textContent = editClientProfilePhotoUpload.files[0].name;
-                editClientProfilePhotoUploadLabel.classList.add('uploaded');
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    clientProfilePhotoPreview.src = e.target.result;
-                    clientProfilePhotoPreview.style.display = 'block';
-                    clientProfilePhotoIcon.style.display = 'none';
-                };
-                reader.readAsDataURL(editClientProfilePhotoUpload.files[0]);
-            } else {
-                clientProfilePhotoPreview.style.display = 'none';
-                clientProfilePhotoIcon.style.display = 'block';
-                editClientProfilePhotoUploadLabel.querySelector('span').textContent = 'Anexar Nova Foto';
-                editClientProfilePhotoUploadLabel.classList.remove('uploaded');
-                if (currentClientData && currentClientData.profilePhotoUrl) {
-                    clientProfilePhotoPreview.src = currentClientData.profilePhotoUrl;
-                    clientProfilePhotoPreview.style.display = 'block';
-                    clientProfilePhotoIcon.style.display = 'none';
-                } else {
-                    clientProfilePhotoPreview.style.display = 'none';
-                    clientProfilePhotoIcon.style.display = 'block';
-                }
-            }
-        });
+        // REMOVIDO: editProfessionalPhotoUpload.addEventListener e editClientProfilePhotoUpload.addEventListener
+        // A lógica de upload de foto agora será tratada pelo photoUploadInput e os pop-ups.
 
 
         // --- Authentication Logic ---
@@ -3398,9 +3470,9 @@
                     if (currentUserType === 'caregiver') {
                         caregiverFields.style.display = 'block';
                         corenNumberGroup.style.display = hasCoren ? 'block' : 'none';
-                    } else {
-                        caregiverFields.style.display = 'none';
                     }
+                } else {
+                    caregiverFields.style.display = 'none';
                 }
             });
         });
@@ -4375,15 +4447,20 @@
                 profilePhotoPreview.src = currentCaregiverData.profilePhotoUrl;
                 profilePhotoPreview.style.display = 'block';
                 profilePhotoIcon.style.display = 'none';
-                editProfessionalPhotoUploadLabel.querySelector('span').textContent = 'Alterar Foto';
-                editProfessionalPhotoUploadLabel.classList.add('uploaded');
             } else {
                 profilePhotoPreview.style.display = 'none';
                 profilePhotoIcon.style.display = 'block';
-                editProfessionalPhotoUploadLabel.querySelector('span').textContent = 'Anexar Nova Foto';
-                editProfessionalPhotoUploadLabel.classList.remove('uploaded');
             }
         }
+
+        // Event listener para o clique na foto de perfil do cuidador
+        profilePhotoPreview.addEventListener('click', () => {
+            showPhotoOptions(profilePhotoPreview.src, 'caregiver');
+        });
+        profilePhotoIcon.addEventListener('click', () => {
+            showPhotoOptions(null, 'caregiver');
+        });
+
 
         saveCaregiverProfileBtn.addEventListener('click', async () => {
             if (!currentUser || currentUserType !== 'caregiver') return;
@@ -4397,21 +4474,8 @@
                 additionalInfo: editAdditionalInfo.value,
             };
 
-            if (editProfessionalPhotoUpload.files[0]) {
-                showAlert('Upload de Foto', 'Fazendo upload da nova foto de perfil...');
-                try {
-                    const newPhotoUrl = await uploadImageToImgur(editProfessionalPhotoUpload.files[0]);
-                    if (newPhotoUrl) {
-                        updatedData.profilePhotoUrl = newPhotoUrl;
-                    } else {
-                        showAlert('Erro no Upload', 'Falha ao fazer upload da nova foto.');
-                        return;
-                    }
-                } catch (uploadError) {
-                    showAlert('Erro no Upload', `Erro no upload da foto: ${uploadError.message}`);
-                    return;
-                }
-            }
+            // A lógica de upload de foto agora é tratada pelo photoUploadInput e os pop-ups.
+            // Não há mais um campo de input de arquivo direto aqui.
 
             try {
                 await db.collection('users').doc(currentUser.uid).update(updatedData);
@@ -4814,15 +4878,19 @@
                 clientProfilePhotoPreview.src = currentClientData.profilePhotoUrl;
                 clientProfilePhotoPreview.style.display = 'block';
                 clientProfilePhotoIcon.style.display = 'none';
-                editClientProfilePhotoUploadLabel.querySelector('span').textContent = 'Alterar Foto';
-                editClientProfilePhotoUploadLabel.classList.add('uploaded');
             } else {
                 clientProfilePhotoPreview.style.display = 'none';
                 clientProfilePhotoIcon.style.display = 'block';
-                editClientProfilePhotoUploadLabel.querySelector('span').textContent = 'Anexar Nova Foto';
-                editClientProfilePhotoUploadLabel.classList.remove('uploaded');
             }
         }
+
+        // Event listener para o clique na foto de perfil do cliente
+        clientProfilePhotoPreview.addEventListener('click', () => {
+            showPhotoOptions(clientProfilePhotoPreview.src, 'client');
+        });
+        clientProfilePhotoIcon.addEventListener('click', () => {
+            showPhotoOptions(null, 'client');
+        });
 
         function renderClientMedications(medications) {
             clientMedicationsList.innerHTML = '';
@@ -4887,21 +4955,8 @@
                 recommendations: editClientRecommendations.value,
             };
 
-            if (editClientProfilePhotoUpload.files[0]) {
-                showAlert('Upload de Foto', 'Fazendo upload da nova foto de perfil...');
-                try {
-                    const newPhotoUrl = await uploadImageToImgur(editClientProfilePhotoUpload.files[0]);
-                    if (newPhotoUrl) {
-                        updatedData.profilePhotoUrl = newPhotoUrl;
-                    } else {
-                        showAlert('Erro no Upload', 'Falha ao fazer upload da nova foto.');
-                        return;
-                    }
-                } catch (uploadError) {
-                    showAlert('Erro no Upload', `Erro no upload da foto: ${uploadError.message}`);
-                    return;
-                }
-            }
+            // A lógica de upload de foto agora é tratada pelo photoUploadInput e os pop-ups.
+            // Não há mais um campo de input de arquivo direto aqui.
 
             try {
                 await db.collection('users').doc(currentUser.uid).update(updatedData);
@@ -5479,6 +5534,68 @@
             appointmentSummaryOverlay.classList.remove('show');
         });
 
+        // --- Photo Options and View Popups Logic ---
+        let currentPhotoTarget = null; // 'caregiver' or 'client'
+
+        function showPhotoOptions(currentPhotoUrl, targetType) {
+            currentPhotoTarget = targetType;
+            if (currentPhotoUrl && currentPhotoUrl !== '') {
+                viewPhotoBtn.style.display = 'block';
+                viewPhotoBtn.onclick = () => {
+                    photoViewImage.src = currentPhotoUrl;
+                    photoViewOverlay.classList.add('show');
+                    photoOptionsOverlay.classList.remove('show');
+                };
+            } else {
+                viewPhotoBtn.style.display = 'none';
+            }
+            photoOptionsOverlay.classList.add('show');
+        }
+
+        closePhotoOptionsPopup.addEventListener('click', () => {
+            photoOptionsOverlay.classList.remove('show');
+        });
+
+        closePhotoViewPopup.addEventListener('click', () => {
+            photoViewOverlay.classList.remove('show');
+            photoViewImage.src = ''; // Clear image
+        });
+
+        editPhotoBtn.addEventListener('click', () => {
+            photoUploadInput.click(); // Trigger file input
+        });
+
+        photoUploadInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                photoOptionsOverlay.classList.remove('show');
+                showAlert('Upload de Foto', 'Fazendo upload da nova foto de perfil...');
+                try {
+                    const newPhotoUrl = await uploadImageToImgur(file);
+                    if (newPhotoUrl) {
+                        if (currentPhotoTarget === 'caregiver') {
+                            await db.collection('users').doc(currentUser.uid).update({ profilePhotoUrl: newPhotoUrl });
+                            profilePhotoPreview.src = newPhotoUrl;
+                            profilePhotoPreview.style.display = 'block';
+                            profilePhotoIcon.style.display = 'none';
+                        } else if (currentPhotoTarget === 'client') {
+                            await db.collection('users').doc(currentUser.uid).update({ profilePhotoUrl: newPhotoUrl });
+                            clientProfilePhotoPreview.src = newPhotoUrl;
+                            clientProfilePhotoPreview.style.display = 'block';
+                            clientProfilePhotoIcon.style.display = 'none';
+                        }
+                        showAlert('Sucesso', 'Foto de perfil atualizada com sucesso!');
+                    } else {
+                        showAlert('Erro no Upload', 'Falha ao fazer upload da nova foto.');
+                    }
+                } catch (uploadError) {
+                    showAlert('Erro no Upload', `Erro no upload da foto: ${uploadError.message}`);
+                } finally {
+                    photoUploadInput.value = ''; // Clear the input
+                }
+            }
+        });
+
 
         // --- Swipe Navigation (iOS-like) ---
         let startX = 0;
@@ -5497,7 +5614,7 @@
             const diffX = endX - startX;
 
             if (diffX > 70 && screenHistory.length > 0) {
-                if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show') && !appointmentSummaryOverlay.classList.contains('show')) {
+                if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show') && !appointmentSummaryOverlay.classList.contains('show') && !photoOptionsOverlay.classList.contains('show') && !photoViewOverlay.classList.contains('show')) {
                     goBack();
                 }
             }
