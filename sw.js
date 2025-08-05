@@ -1,8 +1,8 @@
-const CACHE_NAME = 'vita-integrare-cache-v1';
+const CACHE_NAME = 'vita-integrare-cache-v2.1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/icone.jpg',
+  '/icone.png',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap',
   'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css',
