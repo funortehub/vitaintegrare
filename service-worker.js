@@ -3,11 +3,8 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/icone.jpg',
-  '/styles.css', // Adicione aqui seus arquivos CSS
-  '/script.js',  // Adicione aqui seus arquivos JavaScript
-  // Adicione outros arquivos que você deseja armazenar em cache
-];
-
+  '/termos.pdf', // Adicione aqui seus arquivos CSS
+  ];
 // Instala o Service Worker e faz o cache dos arquivos
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -17,7 +14,6 @@ self.addEventListener('install', (event) => {
       })
   );
 });
-
 // Ativa o Service Worker e limpa caches antigos
 self.addEventListener('activate', (event) => {
   event.waitUntil(
@@ -32,7 +28,6 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
-
 // Intercepta requisições e retorna do cache se disponível
 self.addEventListener('fetch', (event) => {
   event.respondWith(
