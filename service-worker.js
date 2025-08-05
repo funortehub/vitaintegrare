@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vita-integrare-cache-v2';
+const CACHE_NAME = 'vita-integrare-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
