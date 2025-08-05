@@ -1,8 +1,8 @@
 const CACHE_NAME = 'vita-integrare-cache-v2';
 const urlsToCache = [
   '/',
-  '/index.html', // Ou o nome do seu arquivo HTML principal
-  '/manifest.json',
+  '/index.html',
+  '/Vita 2.0.txt', // If your main HTML is named differently, adjust accordingly
   '/icone.jpg',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap',
@@ -11,64 +11,15 @@ const urlsToCache = [
   'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js',
   'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js',
   'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js',
+  'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js',
   'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js',
   'https://cdn.jsdelivr.net/npm/chart.js'
 ];
-
+// Install event: cache files
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).then(
-          function(response) {
-            // Check if we received a valid response
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // IMPORTANT: Clone the response. A response is a stream
-            // and can only be consumed once. We must clone it so that
-            // the browser can consume the original response and we can
-            // consume the clone.
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          }
-        );
-      })
-    );
-});
-
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
   );
 });
