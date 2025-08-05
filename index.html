@@ -9,26 +9,26 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icone.jpg">
-    <link rel="icon" href="/icone.jpg" type="image/jpg">
+    <link rel="icon" href="/icone.jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     <style>
-        :root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255, 255, 255, 0.08);--glass-border:rgba(255, 255, 255, 0.18);--shadow-sm:0 1px 2px rgba(0, 0, 0, 0.05);--shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06);--shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);--shadow-xl:0 20px 25px -5px rgba(0, 0, 0, 0.1),0 10px 10px -5px rgba(0, 0, 0, 0.04);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}
-        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
-        input, textarea, select, button, a, .user-type-btn, .toggle-btn, .day-button, .module-card, .appointment-item, .client-request-item, .admin-list-item, .admin-user-item, .option-button, .filter-button, .close-button, .back-button, .logout-button, .pagination-controls button, .whatsapp-btn, .btn-ok, .btn-cancel, .btn-approve, .btn-reject, .btn-view-docs, .btn-save-user, .add-medication-btn, .remove-medication-btn, .coren-toggle-btn, .admin-user-type-toggle button { -webkit-user-select: auto; -moz-user-select: auto; -ms-user-select: auto; user-select: auto; }
+        :root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255,255,255,.08);--glass-border:rgba(255,255,255,.18);--shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);--shadow-lg:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);--shadow-xl:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);--transition:all .3s cubic-bezier(.4,0,.2,1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+        input,textarea,select,button,a,.user-type-btn,.toggle-btn,.day-button,.module-card,.appointment-item,.client-request-item,.admin-list-item,.admin-user-item,.option-button,.filter-button,.close-button,.back-button,.logout-button,.pagination-controls button,.whatsapp-btn,.btn-ok,.btn-cancel,.btn-approve,.btn-reject,.btn-view-docs,.btn-save-user,.add-medication-btn,.remove-medication-btn,.coren-toggle-btn,.admin-user-type-toggle button{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto}
         body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#f0f9ff 0,#e0f2fe 100%);color:var(--dark-gray);line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;justify-content:center;align-items:center}
         ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:rgba(255,255,255,.1);border-radius:10px}::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:10px;transition:background .3s ease}::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.4)}
         html{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) rgba(255,255,255,.1)}.app-container{max-width:480px;width:100%;margin:0 auto;background-color:var(--white);box-shadow:var(--shadow-xl);position:relative;overflow:hidden;min-height:100vh;border-radius:0;display:flex;flex-direction:column}
         @media (min-width:768px){.app-container{border-radius:var(--radius-xl);margin:2rem auto;min-height:90vh;height:auto;overflow:hidden}}
         .auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;min-height:100vh;background:linear-gradient(135deg,var(--primary-blue) 0,var(--dark-blue) 100%);color:var(--white);text-align:center;flex-grow:1}
         .logo-container{margin-bottom:2.5rem;animation:fadeInDown .8s ease-out}.logo-container .logo-icon{width:100px;height:100px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(255,255,255,.2);box-shadow:var(--shadow-lg)}
-        .logo-container .logo-icon i{font-size:3.5rem;color:var(--white)!important;}
-        .logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--white),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0, 0, 0, .2))}
+        .logo-container .logo-icon i{font-size:3.5rem;color:var(--white)!important}
+        .logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--white),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
         .logo-container p{font-size:1rem;opacity:.9;font-weight:300}.auth-form{width:100%;max-width:400px;background:var(--glass);backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-lg);animation:fadeInUp .8s ease-out;border:1px solid var(--glass-border)}
         .form-toggle{display:flex;margin-bottom:1.5rem;background-color:var(--glass);border-radius:var(--radius-full);overflow:hidden;position:relative;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}.form-toggle::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:var(--light-blue);border-radius:var(--radius-full);transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);z-index:0}.form-toggle.register-active::before{transform:translateX(100%)}
         .toggle-btn{flex:1;padding:.8rem;text-align:center;background:0 0;border:none;color:var(--white);font-weight:500;font-size:.95rem;cursor:pointer;transition:var(--transition);position:relative;z-index:1}.toggle-btn.active{color:var(--white);font-weight:600}
@@ -38,10 +38,11 @@
         .file-upload-label{display:flex;align-items:center;justify-content:center;width:100%;padding:.9rem 1.2rem;border:2px dashed rgba(255,255,255,.4);border-radius:var(--radius-md);background-color:var(--glass);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);font-size:.9rem}.file-upload-label:hover{background-color:rgba(255,255,255,.15);border-color:var(--accent-yellow)}.file-upload-label.uploaded{background-color:rgba(16,185,129,.2);border-color:var(--success);color:var(--white)}
         .file-upload-input{display:none}.coren-toggle-group{display:flex;gap:.75rem;margin-top:.5rem}.coren-toggle-btn{flex:1;padding:.7rem;background-color:var(--glass);border:2px solid transparent;border-radius:var(--radius-md);color:var(--white);font-weight:500;font-size:.85rem;cursor:pointer;transition:var(--transition)}.coren-toggle-btn.active{background-color:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow)}
         .user-type{display:flex;gap:1rem;margin-bottom:1.5rem}.user-type-btn{flex:1;padding:1.25rem .75rem;background:var(--glass);border:2px solid transparent;border-radius:var(--radius-lg);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);text-align:center;box-shadow:var(--shadow)}.user-type-btn.active{background:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
-        .user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--white)!important;}
+        .user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--white)!important}
         .terms{display:flex;align-items:flex-start;margin-bottom:1.5rem;font-size:.85rem;color:var(--white)}.terms input{margin-right:.75rem;margin-top:.25rem;min-width:18px;min-height:18px;accent-color:var(--accent-yellow)}.terms label{text-align:justify;font-weight:400;opacity:.9}.terms label a{color:var(--accent-yellow);text-decoration:underline;font-weight:600;transition:color .2s ease}.terms label a:hover{color:var(--white)}
         .btn{width:100%;padding:1rem;border:none;border-radius:var(--radius-lg);background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);letter-spacing:.5px;position:relative;overflow:hidden}.btn:after{content:'';position:absolute;top:-50%;left:-60%;width:20px;height:200%;background:rgba(255,255,255,.3);transform:rotate(25deg);transition:all .6s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}.btn:active{transform:translateY(0);box-shadow:var(--shadow)}
-        .main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}
+        .main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}
+        .header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:4rem}
         .user-info{display:flex;align-items:center;margin-bottom:1.25rem}.user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}
         .user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--white)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}
         .user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin-top:1rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}
@@ -114,7 +115,7 @@
         .fade-in{animation:fadeIn .5s ease forwards}@media (max-width:480px){.auth-form{padding:1.5rem}.user-type{flex-direction:column}.carousel-container{height:480px}.header-actions{right:1rem;gap:.75rem}.day-button{flex:1 1 calc(50% - .5rem)}}
         .caregiver-carousel-container{position:relative;width:100%;overflow:hidden;margin:1.5rem 0;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);background-color:var(--white);display:flex;flex-direction:column;min-height:450px}
         .caregiver-carousel-inner{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);height:100%;width:100%}.caregiver-carousel-item{min-width:100%;flex-shrink:0;flex-basis:100%;height:100%;padding:0;display:flex;flex-direction:column;align-items:center;position:relative;background:linear-gradient(135deg,var(--dark-blue) 0,var(--primary-blue) 100%);color:var(--white);text-align:center;box-sizing:border-box;border-radius:var(--radius-lg);overflow:hidden}
-        .caregiver-carousel-profile{width:100%;height:180px;border-radius:var(--radius-lg);border-bottom-left-radius:0;border-bottom-right-radius:0;border:4px solid var(--white);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:0}.caregiver-carousel-profile img{width:100%;height:100%;object-fit:cover}.caregiver-carousel-profile i{font-size:4rem;color:var(--dark-blue)}
+        .caregiver-carousel-profile{width:100%;height:180px;border-radius:var(--radius-lg);border-bottom-left-radius:0;border-bottom-right-radius:0;border:4px solid var(--white);border-bottom:none;background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:0}.caregiver-carousel-profile img{width:100%;height:100%;object-fit:cover}.caregiver-carousel-profile i{font-size:4rem;color:var(--dark-blue)}
         .caregiver-carousel-content{padding:1rem 1.5rem;width:100%;display:flex;flex-direction:column;align-items:center;flex-grow:1}.caregiver-carousel-name{font-weight:700;font-size:1.7rem;margin-bottom:.25rem}
         .caregiver-carousel-rating{display:flex;margin-bottom:1rem;align-items:center;justify-content:center}.caregiver-carousel-rating .stars{color:var(--accent-yellow);font-size:1.4rem;margin-right:.5rem}.caregiver-carousel-rating span{font-size:1rem;font-weight:600}
         .caregiver-carousel-bio{background-color:rgba(255,255,255,.95);border-radius:var(--radius-lg);padding:1.25rem;width:100%;margin-top:1rem;color:var(--dark-gray);overflow-y:auto;max-height:170px;text-align:left;box-shadow:var(--shadow);font-size:.9rem;word-wrap:break-word}.caregiver-carousel-bio p{margin-bottom:.75rem;line-height:1.6}.caregiver-carousel-bio strong{color:var(--primary-blue)}
@@ -139,61 +140,6 @@
         .filter-popup .input-group label{color:var(--dark-gray);margin-bottom:.5rem}.filter-popup .input-group select,.filter-popup .input-group input[type="number"]{width:100%;padding:.8rem;border:1px solid var(--light-gray);border-radius:var(--radius-md);font-size:.95rem;color:var(--dark-gray)}
         .filter-popup .filter-buttons{display:flex;gap:1rem;margin-top:1.5rem}.filter-popup .filter-buttons .btn{flex:1}
         .filter-popup .close-button{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;color:var(--medium-gray);cursor:pointer}
-        .sticky-header {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background-color: #2563eb;
-            color: var(--white);
-            padding: 0.75rem 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: var(--shadow-lg);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-        .sticky-header.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .sticky-header .user-info {
-            display: flex;
-            align-items: center;
-        }
-        .sticky-header .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-full);
-            background-color: var(--sky-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 0.75rem;
-            font-size: 1.2rem;
-            color: var(--dark-blue);
-            border: 2px solid var(--white);
-            overflow: hidden;
-        }
-        .sticky-header .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .sticky-header .user-name {
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--white);
-        }
-        .sticky-header .logout-button {
-            font-size: 1.2rem;
-            color: var(--white);
-        }
     </style>
 </head>
 <body>
@@ -204,15 +150,6 @@
         <div id="adminUserDetailsOverlay" class="custom-overlay"><div class="admin-user-details-popup"><button class="back-button" id="closeAdminUserDetailsPopup"><i class="fas fa-times"></i></button><h3 id="adminUserDetailsTitle"></h3><div class="profile-section"><h4>Informações Pessoais</h4><div class="input-group"><label for="adminEditFullName">Nome Completo</label><input type="text" id="adminEditFullName"></div><div class="input-group"><label for="adminEditEmail">E-mail</label><input type="email" id="adminEditEmail" disabled="disabled"></div><div class="input-group"><label for="adminEditPhone">Telefone</label><input type="tel" id="adminEditPhone"></div><div class="input-group"><label for="adminEditCpf">CPF</label><input type="text" id="adminEditCpf" disabled="disabled"></div><div class="input-group"><label for="adminEditReligion">Religião</label><select id="adminEditReligion"><option value="">Selecione a Religião</option><option value="Católica">Católica</option><option value="Evangélica">Evangélica</option><option value="Espírita">Espírita</option><option value="Umbanda">Umbanda</option><option value="Candomblé">Candomblé</option><option value="Judaísmo">Judaísmo</option><option value="Islamismo">Islamismo</option><option value="Budismo">Budismo</option><option value="Hinduísmo">Hinduísmo</option><option value="Ateu">Ateu</option><option value="Outra">Outra</option><option value="Não Informar">Não Informar</option></select></div><div class="input-group"><label for="adminEditAddress">Endereço</label><input type="text" id="adminEditAddress"></div><div class="input-group" id="adminCaregiverStatusGroup" style="display:none"><label for="adminEditStatus">Status do Cuidador</label><select id="adminEditStatus"><option value="pending">Pendente</option><option value="approved">Aprovado</option><option value="rejected">Rejeitado</option><option value="payment_pending">Pagamento Pendente</option></select></div><div class="input-group" id="adminCaregiverRatingGroup" style="display:none"><label for="adminEditRating">Avaliação do Cuidador</label><div class="rating-input"><input type="number" id="adminEditRating" min="0" max="5" step="0.1"><div class="stars" id="adminEditRatingStars"></div></div></div></div><div class="profile-section" id="adminCaregiverBioSection" style="display:none"><h4>Biografia</h4><div class="input-group"><textarea id="adminEditBio"></textarea></div></div><div class="profile-section" id="adminClientMedicationsSection" style="display:none"><h4>Medicações em Uso</h4><div id="adminEditMedicationsList"></div></div><div class="profile-section" id="adminCaregiverDocumentsSection" style="display:none"><h4>Documentos do Cuidador</h4><div class="document-preview" id="adminCaregiverProfilePhotoPreview"><strong>Foto de Perfil:</strong><img src="" alt="Foto de Perfil" style="display:none"><p style="color:var(--medium-gray);font-size:.9em">Nenhuma foto de perfil enviada.</p></div><div class="document-preview" id="adminCaregiverDocumentPreview"><strong>Documento de Identificação:</strong><img src="" alt="Documento de Identificação" style="display:none"><a href="#" target="_blank" style="display:none">Ver Documento Completo</a><p style="color:var(--medium-gray);font-size:.9em">Nenhum documento enviado.</p></div></div><button class="btn btn-save-user" id="adminSaveUserDetailsBtn">Salvar Alterações</button></div></div>
         <div id="appointmentSummaryOverlay" class="appointment-summary-overlay"><div class="appointment-summary-popup"><h3 id="summaryTitle"></h3><div class="summary-photos"><img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none"> <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none"></div><div class="summary-details"><p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p><p><strong>Paciente:</strong><span id="summaryClientName"></span></p><p><strong>Local:</strong><span id="summaryLocation"></span></p><p><strong>Período:</strong><span id="summaryPeriod"></span></p><p><strong>Dias:</strong><span id="summaryDays"></span></p><p><strong>Horário:</strong><span id="summaryTime"></span></p></div><a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a><p class="disclaimer" id="summaryDisclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p><button class="btn-ok" id="summaryOkBtn">OK</button></div></div>
         <div id="caregiverFilterOverlay" class="filter-overlay"><div class="filter-popup"><button class="close-button" id="closeCaregiverFilterPopup"><i class="fas fa-times"></i></button><h3>Filtrar Cuidadores</h3><div class="input-group"><label for="filterReligion">Religião:</label><select id="filterReligion"><option value="">Todas</option><option value="Católica">Católica</option><option value="Evangélica">Evangélica</option><option value="Espírita">Espírita</option><option value="Umbanda">Umbanda</option><option value="Candomblé">Candomblé</option><option value="Judaísmo">Judaísmo</option><option value="Islamismo">Islamismo</option><option value="Budismo">Budismo</option><option value="Hinduísmo">Hinduísmo</option><option value="Ateu">Ateu</option><option value="Outra">Outra</option><option value="Não Informar">Não Informar</option></select></div><div class="input-group"><label for="filterCity">Cidade:</label><select id="filterCity"><option value="">Todas</option></select></div><div class="input-group"><label for="filterRating">Avaliação Mínima:</label><input type="number" id="filterRating" min="0" max="5" step="0.5" value="0"></div><div class="filter-buttons"><button class="btn" id="applyCaregiverFilters">Aplicar Filtros</button><button class="btn" id="clearCaregiverFilters">Limpar Filtros</button></div></div></div>
-        
-        <div id="stickyHeader" class="sticky-header">
-            <div class="user-info">
-                <div class="user-avatar" id="stickyUserAvatar"></div>
-                <div class="user-name" id="stickyUserName"></div>
-            </div>
-            <button id="stickyLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-        </div>
-
         <div id="authScreen" class="auth-screen">
             <div class="logo-container"><div class="logo-icon"><i class="fas fa-hands-helping"></i></div><h1>Vita Integrare</h1><p>Cuidado que Conecta</p></div>
             <div class="auth-form">
@@ -373,15 +310,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Register service worker for PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(reg => console.log('Service Worker Registered', reg))
-                    .catch(err => console.error('Service Worker Registration Failed', err));
-            });
-        }
-
         // Firebase Configuration (Replace with your actual Firebase project config)
         const firebaseConfig = {
             apiKey: "AIzaSyB8MtoEA9DNeQOR-CYDfjCAIEFUfpWvg8o",
@@ -720,12 +648,6 @@
         const filterRatingInput = document.getElementById('filterRating');
         const applyCaregiverFiltersBtn = document.getElementById('applyCaregiverFilters');
         const clearCaregiverFiltersBtn = document.getElementById('clearCaregiverFilters');
-
-        // Sticky Header elements
-        const stickyHeader = document.getElementById('stickyHeader');
-        const stickyUserAvatar = document.getElementById('stickyUserAvatar');
-        const stickyUserName = document.getElementById('stickyUserName');
-        const stickyLogoutBtn = document.getElementById('stickyLogoutBtn');
 
 
         // --- Utility Functions ---
@@ -1997,7 +1919,6 @@
 
             showScreen('caregiverScreen');
             setupCaregiverAppointmentsListener(currentUser.uid);
-            updateStickyHeader(currentCaregiverData.fullName, currentCaregiverData.profilePhotoUrl, 'caregiver');
         }
 
         function setupCaregiverAppointmentsListener(caregiverId) {
@@ -2595,7 +2516,6 @@
                     module.element.style.pointerEvents = 'auto';
                 }
             });
-            updateStickyHeader(currentClientData.fullName, currentClientData.profilePhotoUrl, 'client');
         }
 
         clientProfileModule.addEventListener('click', () => {
@@ -3571,70 +3491,15 @@
             auth.signOut();
         });
 
-        stickyLogoutBtn.addEventListener('click', () => {
-            auth.signOut();
-        });
-
-        // --- Sticky Header Logic ---
-        let headerObserver;
-        const mainScreens = [caregiverScreen, clientScreen, adminScreen];
-
-        function setupStickyHeaderObserver() {
-            if (headerObserver) {
-                headerObserver.disconnect();
-            }
-
-            const currentMainScreen = mainScreens.find(screen => screen.style.display === 'flex');
-            if (!currentMainScreen) {
-                stickyHeader.classList.remove('show');
-                return;
-            }
-
-            const headerElement = currentMainScreen.querySelector('.header');
-            if (!headerElement) {
-                stickyHeader.classList.remove('show');
-                return;
-            }
-
-            headerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        stickyHeader.classList.remove('show');
-                    } else {
-                        stickyHeader.classList.add('show');
-                    }
-                });
-            }, { threshold: 0 }); // Trigger when 0% of the header is visible
-
-            headerObserver.observe(headerElement);
-        }
-
-        function updateStickyHeader(userName, userPhotoUrl, userType) {
-            stickyUserName.textContent = userName;
-            stickyUserAvatar.innerHTML = '';
-            if (userPhotoUrl) {
-                const img = document.createElement('img');
-                img.src = userPhotoUrl;
-                img.alt = 'Foto de Perfil';
-                stickyUserAvatar.appendChild(img);
-            } else {
-                const icon = document.createElement('i');
-                icon.className = `fas fa-user${userType === 'caregiver' ? '-nurse' : (userType === 'admin' ? '-shield' : '')}`;
-                stickyUserAvatar.appendChild(icon);
-            }
-            setupStickyHeaderObserver();
-        }
-
         // --- Initial Load / Check Auth State ---
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {
                     const userDoc = await db.collection('users').doc(user.uid).get();
-                    if (userDoc.exists) { 
-                        const userData = userDoc.data();
+                    if (userDoc.exists) { const userData = userDoc.data();
                         handleAuthSuccess(user, userData.type);
                     } else {
-                        console.error("User data not found for UID:", user.uid);
+                        console.error("User  data not found for UID:", user.uid);
                         await auth.signOut();
                     }
                 } catch (error) {
@@ -3643,80 +3508,8 @@
                 }
             } else {
                 showScreen('authScreen');
-                stickyHeader.classList.remove('show'); // Hide sticky header on auth screen
             }
         });
-    </script>
-    <script>
-        // service-worker.js content
-        self.addEventListener('install', (event) => {
-            event.waitUntil(
-                caches.open('vita-integrare-cache-v1').then((cache) => {
-                    return cache.addAll([
-                        '/',
-                        '/index.html',
-                        '/icone.jpg',
-                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-                        'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap',
-                        'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css',
-                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js',
-                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js',
-                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js',
-                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js',
-                        'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js',
-                        'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js',
-                        'https://cdn.jsdelivr.net/npm/chart.js'
-                    ]);
-                })
-            );
-        });
-
-        self.addEventListener('fetch', (event) => {
-            event.respondWith(
-                caches.match(event.request).then((response) => {
-                    return response || fetch(event.request);
-                })
-            );
-        });
-    </script>
-    <script>
-        // manifest.json content
-        const manifestContent = {
-            "name": "Vita Integrare",
-            "short_name": "Vita",
-            "description": "Cuidado que Conecta",
-            "start_url": "/",
-            "display": "standalone",
-            "background_color": "#f0f9ff",
-            "theme_color": "#2563eb",
-            "icons": [
-                {
-                    "src": "/icone.jpg",
-                    "sizes": "192x192",
-                    "type": "image/jpg"
-                },
-                {
-                    "src": "/icone.jpg",
-                    "sizes": "512x512",
-                    "type": "image/jpg"
-                }
-            ]
-        };
-
-        // Create a Blob for the manifest and set its URL
-        const manifestBlob = new Blob([JSON.stringify(manifestContent)], { type: 'application/json' });
-        const manifestURL = URL.createObjectURL(manifestBlob);
-
-        // Update the manifest link in the HTML head
-        const manifestLink = document.querySelector('link[rel="manifest"]');
-        if (manifestLink) {
-            manifestLink.href = manifestURL;
-        } else {
-            const newManifestLink = document.createElement('link');
-            newManifestLink.rel = 'manifest';
-            newManifestLink.href = manifestURL;
-            document.head.appendChild(newManifestLink);
-        }
     </script>
 </body>
 </html>
