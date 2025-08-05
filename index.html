@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>Vita Integrare - Cuidado que Conecta.</title>
+    <title>Vita Integrare - Cuidado que Conecta</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icone.jpg">
     <link rel="icon" href="/icone.jpg">
@@ -305,11 +301,21 @@
             </div>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Firebase Configuration (Replace with your actual Firebase project config)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registrado com sucesso:', reg))
+                    .catch(err => console.error('Falha ao registrar Service Worker:', err));
+            });
+        }
         const firebaseConfig = {
             apiKey: "AIzaSyB8MtoEA9DNeQOR-CYDfjCAIEFUfpWvg8o",
             authDomain: "vitaintegrare.firebaseapp.com",
@@ -319,75 +325,55 @@
             appId: "1:138494228136:web:729d9fac1ae365af72b49d",
             measurementId: "G-NQYCL90H73"
         };
-
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
         const storage = firebase.storage();
-
-        // Imgur Configuration (Client ID for anonymous uploads)
         const IMGUR_CLIENT_ID = '4ae8b96c539d446';
-
-        // --- Global Variables / State Management ---
         let currentUser = null;
-        let currentUserType = null; // 'client', 'caregiver', or 'admin'
-        let currentCaregiverData = null; // Data of the logged-in caregiver
-        let currentClientData = null; // Data of the logged-in client
-        let allCaregivers = []; // List of all caregivers for client carousel
-        let filteredCaregivers = []; // Filtered list for carousel
-        let currentCaregiverIndex = 0; // For client carousel
-        let selectedCaregiverForScheduling = null; // For client scheduling
-        let hasCoren = true; // Default for COREN buttons
-        let screenHistory = []; // For swipe navigation
-        let currentAppointments = []; // Stores all appointments for the current caregiver
-        let currentSelectedAppointment = null; // Stores the appointment object when viewing patient details
-        let unsubscribeAppointments = null; // To store the unsubscribe function for real-time listener (caregiver)
-        let unsubscribeAdminPendingCaregivers = null; // New: for admin pending caregivers listener
-        let unsubscribeAdminAllUsers = null; // New: for admin all users listener
-        let unsubscribeCaregiverData = null; // New: for real-time caregiver data updates
-        let unsubscribeClientData = null; // New: for real-time client data updates
-
-        // Client Requests History Pagination
+        let currentUserType = null;
+        let currentCaregiverData = null;
+        let currentClientData = null;
+        let allCaregivers = [];
+        let filteredCaregivers = [];
+        let currentCaregiverIndex = 0;
+        let selectedCaregiverForScheduling = null;
+        let hasCoren = true;
+        let screenHistory = [];
+        let currentAppointments = [];
+        let currentSelectedAppointment = null;
+        let unsubscribeAppointments = null;
+        let unsubscribeAdminPendingCaregivers = null;
+        let unsubscribeAdminAllUsers = null;
+        let unsubscribeCaregiverData = null;
+        let unsubscribeClientData = null;
         const REQUESTS_PER_PAGE = 3;
         let clientRequests = [];
         let currentRequestPage = 0;
-
-        // Admin Pending Caregivers Pagination
         const ADMIN_USERS_PER_PAGE = 5;
         let pendingCaregivers = [];
         let currentPendingCaregiverPage = 0;
-
-        // Admin All Users Pagination
         let allUsers = [];
         let currentAdminUserPage = 0;
-        let currentAdminUserTypeFilter = 'caregiver'; // 'caregiver' or 'client'
-        let adminUserSearchQuery = ''; // New: Search query for admin user management
-
-        // Caregiver Filter State
+        let currentAdminUserTypeFilter = 'caregiver';
+        let adminUserSearchQuery = '';
         let caregiverFilterReligion = '';
         let caregiverFilterCity = '';
         let caregiverFilterRating = 0;
-
-        // Chart.js instances
         let appointmentStatusChart = null;
         let appointmentsPerMonthChart = null;
-
-
-        // --- DOM Elements ---
-        const appContainer = document.querySelector('.app-container'); // For swipe navigation
+        const appContainer = document.querySelector('.app-container');
         const authScreen = document.getElementById('authScreen');
         const caregiverScreen = document.getElementById('caregiverScreen');
         const clientScreen = document.getElementById('clientScreen');
         const caregiverProfileEditScreen = document.getElementById('caregiverProfileEditScreen');
         const caregiverPatientDetailsScreen = document.getElementById('caregiverPatientDetailsScreen');
-        const caregiverPatientHistoryDetailsScreen = document.getElementById('caregiverPatientHistoryDetailsScreen'); // New history details screen
+        const caregiverPatientHistoryDetailsScreen = document.getElementById('caregiverPatientHistoryDetailsScreen');
         const clientProfileEditScreen = document.getElementById('clientProfileEditScreen');
         const scheduleCaregiverScreen = document.getElementById('scheduleCaregiverScreen');
-        const clientRequestsHistoryScreen = document.getElementById('clientRequestsHistoryScreen'); // New client requests history screen
-        const clientRequestDetailsScreen = document.getElementById('clientRequestDetailsScreen'); // New client request details screen
-        const adminScreen = document.getElementById('adminScreen'); // New: Admin Screen
-
+        const clientRequestsHistoryScreen = document.getElementById('clientRequestsHistoryScreen');
+        const clientRequestDetailsScreen = document.getElementById('clientRequestDetailsScreen');
+        const adminScreen = document.getElementById('adminScreen');
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
         const authActionBtn = document.getElementById('authActionBtn');
@@ -400,12 +386,10 @@
         const authMessage = document.getElementById('authMessage');
         const registrationFields = document.getElementById('registrationFields');
         const formToggle = document.getElementById('formToggle');
-
-        // Auth fields
         const fullNameInput = document.getElementById('fullName');
-        const dobInput = document.getElementById('dob'); // Date of Birth input
+        const dobInput = document.getElementById('dob');
         const cpfInput = document.getElementById('cpf');
-        const phoneInput = document.getElementById('phone'); // Updated to include WhatsApp
+        const phoneInput = document.getElementById('phone');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
@@ -415,7 +399,7 @@
         const neighborhoodInput = document.getElementById('neighborhood');
         const streetInput = document.getElementById('street');
         const numberInput = document.getElementById('number');
-        const religionSelect = document.getElementById('religion'); // New religion select
+        const religionSelect = document.getElementById('religion');
         const corenInput = document.getElementById('coren');
         const documentUploadInput = document.getElementById('documentUpload');
         const documentUploadLabel = document.getElementById('documentUploadLabel');
@@ -423,31 +407,27 @@
         const professionalPhotoUploadLabel = document.getElementById('professionalPhotoUploadLabel');
         const termsConsentCheckbox = document.getElementById('termsConsent');
         const emailInputGroup = document.getElementById('emailInputGroup');
-
-        // Caregiver Dashboard elements
         const caregiverNameDisplay = document.getElementById('caregiverNameDisplay');
         const caregiverAvatar = document.getElementById('caregiverAvatar');
         const caregiverStars = document.getElementById('caregiverStars');
         const caregiverRatingValue = document.getElementById('caregiverRatingValue');
         const caregiverProfileModule = document.getElementById('caregiverProfileModule');
         const caregiverPatientsModule = document.getElementById('caregiverPatientsModule');
-        const caregiverPatientList = document.getElementById('caregiverPatientList'); // New element for patient lists
-        const caregiverPatientHistoryModule = document.getElementById('caregiverPatientHistoryModule'); // New module
-        const caregiverPatientHistoryList = document.getElementById('caregiverPatientHistoryList'); // New list
+        const caregiverPatientList = document.getElementById('caregiverPatientList');
+        const caregiverPatientHistoryModule = document.getElementById('caregiverPatientHistoryModule');
+        const caregiverPatientHistoryList = document.getElementById('caregiverPatientHistoryList');
         const caregiverLogoutBtn = document.getElementById('caregiverLogoutBtn');
-        const caregiverWelcomeMessage = document.getElementById('caregiverWelcomeMessage'); // New: Welcome message for caregiver
-        const caregiverEducaModule = document.getElementById('caregiverEducaModule'); // New: Edu-educa module
-
-        // Caregiver Profile Edit elements
+        const caregiverWelcomeMessage = document.getElementById('caregiverWelcomeMessage');
+        const caregiverEducaModule = document.getElementById('caregiverEducaModule');
         const backToCaregiverDashboardBtn = document.getElementById('backToCaregiverDashboard');
         const profilePhotoPreview = document.getElementById('profilePhotoPreview');
         const profilePhotoIcon = document.getElementById('profilePhotoIcon');
         const displayFullName = document.getElementById('displayFullName');
         const displayDOB = document.getElementById('displayDOB');
         const displayCPF = document.getElementById('displayCPF');
-        const displayPhoneCaregiver = document.getElementById('displayPhoneCaregiver'); // Added for caregiver profile
+        const displayPhoneCaregiver = document.getElementById('displayPhoneCaregiver');
         const displayCOREN = document.getElementById('displayCOREN');
-        const displayReligionCaregiver = document.getElementById('displayReligionCaregiver'); // New religion display
+        const displayReligionCaregiver = document.getElementById('displayReligionCaregiver');
         const displayLocation = document.getElementById('displayLocation');
         const editBio = document.getElementById('editBio');
         const editEducation = document.getElementById('editEducation');
@@ -456,18 +436,16 @@
         const editAvailability = document.getElementById('editAvailability');
         const editAdditionalInfo = document.getElementById('editAdditionalInfo');
         const saveCaregiverProfileBtn = document.getElementById('saveCaregiverProfile');
-
-        // Caregiver Patient Details elements
         const backToCaregiverPatientsBtn = document.getElementById('backToCaregiverPatients');
-        const patientDetailsName = document.getElementById('patientDetailsName'); // Now a span
+        const patientDetailsName = document.getElementById('patientDetailsName');
         const patientFullName = document.getElementById('patientFullName');
         const patientAge = document.getElementById('patientAge');
-        const patientReligion = document.getElementById('patientReligion'); // New patient religion display
+        const patientReligion = document.getElementById('patientReligion');
         const patientAddress = document.getElementById('patientAddress');
-        const patientScheduledTime = document.getElementById('patientScheduledTime'); // Will display days/times
-        const patientObservation = document.getElementById('patientObservation'); // Patient's observation
-        const caregiverPatientMedicationsList = document.getElementById('caregiverPatientMedicationsList'); // For caregiver to view/edit patient meds
-        const addCaregiverPatientMedicationBtn = document.getElementById('addCaregiverPatientMedicationBtn'); // Button to add medication for caregiver
+        const patientScheduledTime = document.getElementById('patientScheduledTime');
+        const patientObservation = document.getElementById('patientObservation');
+        const caregiverPatientMedicationsList = document.getElementById('caregiverPatientMedicationsList');
+        const addCaregiverPatientMedicationBtn = document.getElementById('addCaregiverPatientMedicationBtn');
         const patientRoutines = document.getElementById('patientRoutines');
         const patientSpecificCare = document.getElementById('patientSpecificCare');
         const patientDailyRecord = document.getElementById('patientDailyRecord');
@@ -475,9 +453,7 @@
         const confirmAppointmentBtn = document.getElementById('confirmAppointmentBtn');
         const completeAppointmentBtn = document.getElementById('completeAppointmentBtn');
         const cancelAppointmentBtn = document.getElementById('cancelAppointmentBtn');
-        const refuseAppointmentBtn = document.getElementById('refuseAppointmentBtn'); // New Refuse Button
-
-        // Caregiver Patient History Details elements
+        const refuseAppointmentBtn = document.getElementById('refuseAppointmentBtn');
         const backToCaregiverPatientHistoryBtn = document.getElementById('backToCaregiverPatientHistory');
         const historyPatientDetailsName = document.getElementById('historyPatientDetailsName');
         const historyPatientFullName = document.getElementById('historyPatientFullName');
@@ -488,56 +464,45 @@
         const historyPatientRoutines = document.getElementById('historyPatientRoutines');
         const historyPatientSpecificCare = document.getElementById('historyPatientSpecificCare');
         const historyPatientDailyRecord = document.getElementById('historyPatientDailyRecord');
-
-
-        // Client Dashboard elements
         const clientNameDisplay = document.getElementById('clientNameDisplay');
         const clientAvatar = document.getElementById('clientAvatar');
         const clientProfileModule = document.getElementById('clientProfileModule');
         const clientAppointmentsModule = document.getElementById('clientAppointmentsModule');
-        const caregiverCarousel = document.getElementById('caregiverCarousel'); // Renamed to caregiverCarousel (inner)
+        const caregiverCarousel = document.getElementById('caregiverCarousel');
         const prevCaregiverBtn = document.getElementById('prevCaregiverBtn');
         const nextCaregiverBtn = document.getElementById('nextCaregiverBtn');
         const interestCaregiverBtn = document.getElementById('interestCaregiverBtn');
         const clientLogoutBtn = document.getElementById('clientLogoutBtn');
-        const clientRequestsHistoryModule = document.getElementById('clientRequestsHistoryModule'); // New module for client requests history
-
-        // Client Profile Edit elements
+        const clientRequestsHistoryModule = document.getElementById('clientRequestsHistoryModule');
         const backToClientDashboardBtn = document.getElementById('backToClientDashboard');
         const clientProfilePhotoPreview = document.getElementById('clientProfilePhotoPreview');
         const clientProfilePhotoIcon = document.getElementById('clientProfilePhotoIcon');
         const clientDisplayFullName = document.getElementById('clientDisplayFullName');
         const clientDisplayCPF = document.getElementById('clientDisplayCPF');
-        const clientDisplayPhone = document.getElementById('clientDisplayPhone'); // Added for client profile
+        const clientDisplayPhone = document.getElementById('clientDisplayPhone');
         const clientDisplayEmail = document.getElementById('clientDisplayEmail');
-        const clientDisplayReligion = document.getElementById('clientDisplayReligion'); // New client religion display
+        const clientDisplayReligion = document.getElementById('clientDisplayReligion');
         const clientDisplayAddress = document.getElementById('clientDisplayAddress');
-        const clientMedicationsList = document.getElementById('clientMedicationsList'); // For client to manage meds
-        const addClientMedicationBtn = document.getElementById('addClientMedicationBtn'); // Button to add medication for client
+        const clientMedicationsList = document.getElementById('clientMedicationsList');
+        const addClientMedicationBtn = document.getElementById('addClientMedicationBtn');
         const editClientRecommendations = document.getElementById('editClientRecommendations');
         const saveClientProfileBtn = document.getElementById('saveClientProfile');
-
-        // Client Schedule Caregiver elements (UPDATED)
         const backToCaregiverCarouselBtn = document.getElementById('backToCaregiverCarousel');
         const selectedCaregiverAvatar = document.getElementById('selectedCaregiverAvatar');
         const selectedCaregiverIcon = document.getElementById('selectedCaregiverIcon');
         const selectedCaregiverName = document.getElementById('selectedCaregiverName');
         const selectedCaregiverRating = document.getElementById('selectedCaregiverRating');
-        const startDateInput = document.getElementById('startDate'); // New
-        const endDateInput = document.getElementById('endDate'); // New
-        const dayButtons = document.querySelectorAll('.day-button'); // New
-        const startTimeInput = document.getElementById('startTime'); // New
-        const endTimeInput = document.getElementById('endTime'); // New
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+        const dayButtons = document.querySelectorAll('.day-button');
+        const startTimeInput = document.getElementById('startTime');
+        const endTimeInput = document.getElementById('endTime');
         const scheduleObservationInput = document.getElementById('scheduleObservation');
         const confirmScheduleBtn = document.getElementById('confirmScheduleBtn');
-
-        // Client Requests History elements
         const backToClientDashboardFromRequestsBtn = document.getElementById('backToClientDashboardFromRequests');
         const clientRequestsList = document.getElementById('clientRequestsList');
         const prevRequestPageBtn = document.getElementById('prevRequestPageBtn');
         const nextRequestPageBtn = document.getElementById('nextRequestPageBtn');
-
-        // Client Request Details elements
         const backToClientRequestsHistoryBtn = document.getElementById('backToClientRequestsHistory');
         const requestCaregiverAvatar = document.getElementById('requestCaregiverAvatar');
         const requestCaregiverIcon = document.getElementById('requestCaregiverIcon');
@@ -550,31 +515,22 @@
         const requestObservation = document.getElementById('requestObservation');
         const requestCaregiverBio = document.getElementById('requestCaregiverBio');
         const requestCaregiverNotes = document.getElementById('requestCaregiverNotes');
-
-
-        // Custom Alert/Confirm elements
         const customAlertOverlay = document.getElementById('customAlertOverlay');
         const customAlertTitle = document.getElementById('customAlertTitle');
         const customAlertMessage = document.getElementById('customAlertMessage');
         const customAlertOkBtn = document.getElementById('customAlertOkBtn');
         const customAlertCancelBtn = document.getElementById('customAlertCancelBtn');
-
-        // Admin Screen elements
         const adminLogoutBtn = document.getElementById('adminLogoutBtn');
         const pendingCaregiversList = document.getElementById('pendingCaregiversList');
         const prevPendingCaregiverPageBtn = document.getElementById('prevPendingCaregiverPageBtn');
         const nextPendingCaregiverPageBtn = document.getElementById('nextPendingCaregiverPageBtn');
-
-        // Admin User Management elements
         const adminUserManagementModule = document.getElementById('adminUserManagementModule');
-        const adminUserSearchInput = document.getElementById('adminUserSearch'); // New search input
+        const adminUserSearchInput = document.getElementById('adminUserSearch');
         const showCaregiversBtn = document.getElementById('showCaregiversBtn');
         const showClientsBtn = document.getElementById('showClientsBtn');
         const adminUserListContainer = document.getElementById('adminUserListContainer');
         const prevUserPageBtn = document.getElementById('prevUserPageBtn');
         const nextUserPageBtn = document.getElementById('nextUserPageBtn');
-
-        // Admin User Details Pop-up elements
         const adminUserDetailsOverlay = document.getElementById('adminUserDetailsOverlay');
         const closeAdminUserDetailsPopupBtn = document.getElementById('closeAdminUserDetailsPopup');
         const adminUserDetailsTitle = document.getElementById('adminUserDetailsTitle');
@@ -593,19 +549,15 @@
         const adminEditBio = document.getElementById('adminEditBio');
         const adminClientMedicationsSection = document.getElementById('adminClientMedicationsSection');
         const adminEditMedicationsList = document.getElementById('adminEditMedicationsList');
-        const adminCaregiverDocumentsSection = document.getElementById('adminCaregiverDocumentsSection'); // New
-        const adminCaregiverProfilePhotoPreview = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverProfilePhotoPreview img'); // New
-        const adminCaregiverProfilePhotoText = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverProfilePhotoPreview p'); // New
-        const adminCaregiverDocumentPreview = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverDocumentPreview img'); // New
-        const adminCaregiverDocumentLink = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverDocumentPreview a'); // New
-        const adminCaregiverDocumentText = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverDocumentPreview p'); // New
+        const adminCaregiverDocumentsSection = document.getElementById('adminCaregiverDocumentsSection');
+        const adminCaregiverProfilePhotoPreview = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverProfilePhotoPreview img');
+        const adminCaregiverProfilePhotoText = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverProfilePhotoPreview p');
+        const adminCaregiverDocumentPreview = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverDocumentPreview img');
+        const adminCaregiverDocumentLink = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverDocumentPreview a');
+        const adminCaregiverDocumentText = document.querySelector('#adminCaregiverDocumentsSection #adminCaregiverDocumentPreview p');
         const adminSaveUserDetailsBtn = document.getElementById('adminSaveUserDetailsBtn');
-
-        // Admin Charts elements
         const appointmentStatusChartCtx = document.getElementById('appointmentStatusChart')?.getContext('2d');
         const appointmentsPerMonthChartCtx = document.getElementById('appointmentsPerMonthChart')?.getContext('2d');
-
-        // Appointment Summary Popup elements (NEW)
         const appointmentSummaryOverlay = document.getElementById('appointmentSummaryOverlay');
         const appointmentSummaryPopup = document.getElementById('appointmentSummaryPopup');
         const summaryTitle = document.getElementById('summaryTitle');
@@ -620,25 +572,17 @@
         const summaryWhatsappBtn = document.getElementById('summaryWhatsappBtn');
         const summaryOkBtn = document.getElementById('summaryOkBtn');
         const summaryDisclaimer = document.getElementById('summaryDisclaimer');
-
-        // Photo Options Pop-up elements
         const photoOptionsOverlay = document.getElementById('photoOptionsOverlay');
         const closePhotoOptionsPopup = document.getElementById('closePhotoOptionsPopup');
         const viewPhotoBtn = document.getElementById('viewPhotoBtn');
         const editPhotoBtn = document.getElementById('editPhotoBtn');
         const photoUploadInput = document.getElementById('photoUploadInput');
-
-        // Photo View Pop-up elements
         const photoViewOverlay = document.getElementById('photoViewOverlay');
         const closePhotoViewPopup = document.getElementById('closePhotoViewPopup');
         const photoViewImage = document.getElementById('photoViewImage');
-
-        // Admin Backup/Restore elements
         const backupDataBtn = document.getElementById('backupDataBtn');
         const restoreDataBtn = document.getElementById('restoreDataBtn');
         const restoreFileInput = document.getElementById('restoreFileInput');
-
-        // Caregiver Filter elements
         const openCaregiverFilterPopupBtn = document.getElementById('openCaregiverFilterPopup');
         const caregiverFilterOverlay = document.getElementById('caregiverFilterOverlay');
         const closeCaregiverFilterPopupBtn = document.getElementById('closeCaregiverFilterPopup');
@@ -647,10 +591,6 @@
         const filterRatingInput = document.getElementById('filterRating');
         const applyCaregiverFiltersBtn = document.getElementById('applyCaregiverFilters');
         const clearCaregiverFiltersBtn = document.getElementById('clearCaregiverFilters');
-
-
-        // --- Utility Functions ---
-
         function showScreen(screenId) {
             const screens = [
                 authScreen, caregiverScreen, clientScreen, caregiverProfileEditScreen,
@@ -658,12 +598,10 @@
                 clientProfileEditScreen, scheduleCaregiverScreen, clientRequestsHistoryScreen,
                 clientRequestDetailsScreen, adminScreen
             ];
-
             const currentScreen = screens.find(screen => screen.style.display === 'flex');
             if (currentScreen && currentScreen.id !== screenId) {
                 screenHistory.push(currentScreen.id);
             }
-
             screens.forEach(screen => {
                 if (screen.id === screenId) {
                     screen.style.display = 'flex';
@@ -675,7 +613,6 @@
                 }
             });
         }
-
         function goBack() {
             if (screenHistory.length > 0) {
                 const prevScreenId = screenHistory.pop();
@@ -697,18 +634,14 @@
                 });
             }
         }
-
-        // Attach goBack to all back-buttons
         document.querySelectorAll('.back-button').forEach(button => {
             button.addEventListener('click', goBack);
         });
-
         function displayStars(rating, element) {
             element.innerHTML = '';
             const fullStars = Math.floor(rating);
             const halfStar = rating % 1 >= 0.5;
             const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
             for (let i = 0; i < fullStars; i++) {
                 element.innerHTML += '<i class="fas fa-star"></i>';
             }
@@ -719,16 +652,13 @@
                 element.innerHTML += '<i class="far fa-star"></i>';
             }
         }
-
         async function uploadImageToImgur(file) {
             if (!file) {
                 console.warn("Nenhum arquivo fornecido para upload.");
                 return null;
             }
-
             const formData = new FormData();
             formData.append('image', file);
-
             try {
                 const response = await fetch('https://api.imgur.com/3/image', {
                     method: 'POST',
@@ -737,13 +667,11 @@
                     },
                     body: formData
                 });
-
                 if (!response.ok) {
                     const errorData = await response.json();
                     console.error("Erro na resposta do Imgur:", errorData);
                     throw new Error(`Falha no upload do Imgur: ${errorData.data.error || response.statusText}`);
                 }
-
                 const data = await response.json();
                 return data.data.link;
             } catch (error) {
@@ -751,24 +679,19 @@
                 throw new Error(`Erro ao fazer upload da imagem: ${error.message}`);
             }
         }
-
-        // --- Custom Alert/Confirm Functions ---
         function showAlert(title, message) {
             return new Promise(resolve => {
                 customAlertTitle.textContent = title;
                 customAlertMessage.textContent = message;
                 customAlertCancelBtn.style.display = 'none';
                 customAlertOkBtn.textContent = 'OK';
-
                 customAlertOkBtn.onclick = () => {
                     customAlertOverlay.classList.remove('show');
                     resolve(true);
                 };
-
                 customAlertOverlay.classList.add('show');
             });
         }
-
         function showConfirm(title, message) {
             return new Promise(resolve => {
                 customAlertTitle.textContent = title;
@@ -776,51 +699,41 @@
                 customAlertCancelBtn.style.display = 'inline-block';
                 customAlertOkBtn.textContent = 'Confirmar';
                 customAlertCancelBtn.textContent = 'Cancelar';
-
                 customAlertOkBtn.onclick = () => {
                     customAlertOverlay.classList.remove('show');
                     resolve(true);
                 };
-
                 customAlertCancelBtn.onclick = () => {
                     customAlertOverlay.classList.remove('show');
                     resolve(false);
                 };
-
                 customAlertOverlay.classList.add('show');
             });
         }
-
-        // --- Date Formatting Functions (DD/MM/YYYY) ---
         function formatDateToDisplay(isoDateString) {
             if (!isoDateString) return '';
-            const date = new Date(isoDateString + 'T00:00:00'); // Treat as local date
+            const date = new Date(isoDateString + 'T00:00:00');
             const day = String(date.getDate()).padStart(2, '0');
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
         }
-
         function formatDateToISO(displayDateString) {
             if (!displayDateString) return '';
             const [day, month, year] = displayDateString.split('/');
             return `${year}-${month}-${day}`;
         }
-
         function maskDate(value) {
             value = value.replace(/\D/g, "");
             value = value.replace(/(\d{2})(\d)/, "$1/$2");
             value = value.replace(/(\d{2})(\d)/, "$1/$2");
             return value;
         }
-
         function maskTime(value) {
             value = value.replace(/\D/g, "");
             value = value.replace(/(\d{2})(\d)/, "$1:$2");
             return value;
         }
-
-        // --- Input Masking Functions ---
         function maskCPF(value) {
             value = value.replace(/\D/g, "");
             value = value.replace(/(\d{3})(\d)/, "$1.$2");
@@ -828,29 +741,24 @@
             value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
             return value;
         }
-
         function maskPhone(value) {
             value = value.replace(/\D/g, "");
-            if (value.length > 10) { // (XX) XXXXX-XXXX
+            if (value.length > 10) {
                 value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
-            } else if (value.length > 5) { // (XX) XXXX-XXXX
+            } else if (value.length > 5) {
                 value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
-            } else if (value.length > 2) { // (XX) XXXX
+            } else if (value.length > 2) {
                 value = value.replace(/^(\d*)/, "($1");
-            } else { // (XX
+            } else {
                 value = value.replace(/^(\d*)/, "($1");
             }
             return value;
         }
-
-
         function maskCEP(value) {
             value = value.replace(/\D/g, "");
             value = value.replace(/^(\d{5})(\d)/, "$1-$2");
             return value;
         }
-
-        // Apply masks on input
         cpfInput.addEventListener('input', (e) => {
             e.target.value = maskCPF(e.target.value);
         });
@@ -875,9 +783,6 @@
         endTimeInput.addEventListener('input', (e) => {
             e.target.value = maskTime(e.target.value);
         });
-
-
-        // --- CEP Autocomplete ---
         cepInput.addEventListener('blur', async () => {
             const cep = cepInput.value.replace(/\D/g, '');
             if (cep.length === 8) {
@@ -886,12 +791,10 @@
                 try {
                     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
                     const data = await response.json();
-
                     if (!data.erro) {
                         streetInput.value = data.logradouro;
                         neighborhoodInput.value = data.bairro;
-                        // Load states first if not already loaded
-                        if (stateSelect.options.length <= 1) { // Only "Selecione o Estado" option
+                        if (stateSelect.options.length <= 1) {
                             await loadStates();
                         }
                         const stateOption = Array.from(stateSelect.options).find(option => option.value === data.uf);
@@ -919,7 +822,6 @@
                 clearAddressFields();
             }
         });
-
         function clearAddressFields() {
             streetInput.value = '';
             neighborhoodInput.value = '';
@@ -927,13 +829,10 @@
             citySelect.innerHTML = '<option value="">Selecione a Cidade</option>';
             citySelect.disabled = true;
         }
-
-        // --- State and City Selects ---
         async function loadStates() {
             try {
                 const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
                 const states = await response.json();
-
                 stateSelect.innerHTML = '<option value="">Selecione o Estado</option>';
                 states.forEach(state => {
                     const option = document.createElement('option');
@@ -946,14 +845,12 @@
                 showAlert('Erro', 'Erro ao carregar estados.');
             }
         }
-
         async function loadCitiesByState(stateSigla) {
             citySelect.innerHTML = '<option value="">Carregando Cidades...</option>';
             citySelect.disabled = true;
             try {
                 const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${stateSigla}/municipios?orderBy=nome`);
                 const cities = await response.json();
-
                 citySelect.innerHTML = '<option value="">Selecione a Cidade</option>';
                 cities.forEach(city => {
                     const option = document.createElement('option');
@@ -968,7 +865,6 @@
                 citySelect.innerHTML = '<option value="">Erro ao carregar Cidades</option>';
             }
         }
-
         stateSelect.addEventListener('change', (e) => {
             const selectedState = e.target.value;
             if (selectedState) {
@@ -978,8 +874,6 @@
                 citySelect.disabled = true;
             }
         });
-
-        // --- Custom File Upload Button Logic ---
         documentUploadInput.addEventListener('change', () => {
             if (documentUploadInput.files.length > 0) {
                 documentUploadLabel.querySelector('span').textContent = documentUploadInput.files[0].name;
@@ -989,7 +883,6 @@
                 documentUploadLabel.classList.remove('uploaded');
             }
         });
-
         professionalPhotoUploadInput.addEventListener('change', () => {
             if (professionalPhotoUploadInput.files.length > 0) {
                 professionalPhotoUploadLabel.querySelector('span').textContent = professionalPhotoUploadInput.files[0].name;
@@ -999,20 +892,13 @@
                 professionalPhotoUploadLabel.classList.remove('uploaded');
             }
         });
-
-
-        // --- Authentication Logic ---
-
         let isRegisterMode = false;
         const ADMIN_EMAIL = "edw.rocha.psi@gmail.com";
-
         function toggleRegistrationFields(show) {
             registrationFields.style.display = show ? 'block' : 'none';
             userTypeSelection.style.display = show ? 'block' : 'none';
-
             const emailLabel = emailInputGroup.querySelector('label');
             emailLabel.textContent = show ? 'E-mail (Opcional para Cliente)' : 'E-mail';
-
             if (!show) {
                 caregiverFields.style.display = 'none';
             } else {
@@ -1023,8 +909,6 @@
                 }
             }
         }
-
-
         loginBtn.addEventListener('click', () => {
             formToggle.classList.remove('register-active');
             loginBtn.classList.add('active');
@@ -1035,7 +919,6 @@
             authMessage.textContent = '';
             authMessage.classList.remove('loading-message');
         });
-
         registerBtn.addEventListener('click', () => {
             formToggle.classList.add('register-active');
             registerBtn.classList.add('active');
@@ -1045,15 +928,13 @@
             toggleRegistrationFields(true);
             authMessage.textContent = '';
             authMessage.classList.remove('loading-message');
-            loadStates(); // Ensure states are loaded when entering registration mode
+            loadStates();
         });
-
         userTypeBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 userTypeBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentUserType = this.dataset.type;
-
                 if (isRegisterMode) {
                     if (currentUserType === 'caregiver') {
                         caregiverFields.style.display = 'block';
@@ -1066,7 +947,6 @@
                 }
             });
         });
-
         corenYesBtn.addEventListener('click', () => {
             corenYesBtn.classList.add('active');
             corenNoBtn.classList.remove('active');
@@ -1074,7 +954,6 @@
             corenInput.value = '';
             corenNumberGroup.style.display = 'block';
         });
-
         corenNoBtn.addEventListener('click', () => {
             corenNoBtn.classList.add('active');
             corenYesBtn.classList.remove('active');
@@ -1082,23 +961,19 @@
             corenInput.value = 'Não possui COREN';
             corenNumberGroup.style.display = 'none';
         });
-
-
         authActionBtn.addEventListener('click', async () => {
             authMessage.textContent = '';
             authMessage.classList.remove('loading-message');
             const email = emailInput.value;
             const password = passwordInput.value;
-
             let selectedUserType = document.querySelector('.user-type-btn.active')?.dataset.type;
-
             if (isRegisterMode) {
                 const confirmPassword = confirmPasswordInput.value;
                 const fullName = fullNameInput.value;
                 const dobDisplay = dobInput.value;
                 const dobISO = formatDateToISO(dobDisplay);
                 const cpf = cpfInput.value;
-                const phone = phoneInput.value; // Get phone number
+                const phone = phoneInput.value;
                 const cep = cepInput.value;
                 const state = stateSelect.value;
                 const city = citySelect.value;
@@ -1107,7 +982,6 @@
                 const number = numberInput.value;
                 const religion = religionSelect.value;
                 const termsAccepted = termsConsentCheckbox.checked;
-
                 if (!fullName || !dobDisplay || !cpf || !phone || !cep || !state || !city || !neighborhood || !street || !number || !password || !confirmPassword || !religion) {
                     showAlert('Campos Obrigatórios', 'Por favor, preencha todos os campos obrigatórios.');
                     return;
@@ -1134,11 +1008,9 @@
                         return;
                     }
                 }
-
                 try {
                     let documentUrl = null;
                     let professionalPhotoUrl = null;
-
                     if (selectedUserType === 'caregiver') {
                         authMessage.textContent = 'Fazendo upload de documentos... Isso pode levar alguns segundos.';
                         authMessage.classList.add('loading-message');
@@ -1152,7 +1024,6 @@
                             console.error("Erro durante o upload de documentos:", uploadError);
                             return;
                         }
-
                         if (!documentUrl || !professionalPhotoUrl) {
                             showAlert('Erro no Upload', "Falha no upload de um ou mais documentos. Por favor, tente novamente.");
                             authMessage.textContent = '';
@@ -1160,24 +1031,21 @@
                             return;
                         }
                     }
-
                     let authEmail = email;
                     if (selectedUserType === 'client' && !email) {
                         authEmail = `${cpf.replace(/\D/g, '')}@vitaintegrare.com`;
                     }
-
                     authMessage.textContent = 'Criando sua conta...';
                     authMessage.classList.add('loading-message');
                     const userCredential = await auth.createUserWithEmailAndPassword(authEmail, password);
                     const user = userCredential.user;
-
                     const userData = {
                         uid: user.uid,
                         type: selectedUserType,
                         fullName: fullName,
                         dob: dobISO,
                         cpf: cpf,
-                        phone: phone, // Save phone number
+                        phone: phone,
                         email: email || null,
                         cep: cep,
                         city: city,
@@ -1189,7 +1057,6 @@
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                         profilePhotoUrl: professionalPhotoUrl || null
                     };
-
                     if (selectedUserType === 'caregiver') {
                         userData.coren = hasCoren ? corenInput.value : null;
                         userData.documentUrl = documentUrl;
@@ -1205,13 +1072,11 @@
                         userData.medications = [];
                         userData.recommendations = '';
                     }
-
                     await db.collection('users').doc(user.uid).set(userData);
                     authMessage.textContent = 'Cadastro realizado com sucesso! Redirecionando...';
                     authMessage.classList.remove('loading-message');
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     handleAuthSuccess(user, selectedUserType);
-
                 } catch (error) {
                     console.error("Erro no cadastro:", error);
                     authMessage.textContent = '';
@@ -1228,8 +1093,7 @@
                     }
                     showAlert('Erro no Cadastro', errorMessage);
                 }
-
-            } else { // Login Mode
+            } else {
                 if (!email || !password) {
                     showAlert('Campos Obrigatórios', 'Por favor, insira seu e-mail e senha.');
                     return;
@@ -1239,7 +1103,6 @@
                 try {
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     const user = userCredential.user;
-
                     const userDoc = await db.collection('users').doc(user.uid).get();
                     if (!userDoc.exists) {
                         await auth.signOut();
@@ -1250,7 +1113,6 @@
                     authMessage.classList.remove('loading-message');
                     await new Promise(resolve => setTimeout(resolve, 1000));
                     handleAuthSuccess(user, userData.type);
-
                 } catch (error) {
                     console.error("Erro no login:", error);
                     authMessage.textContent = '';
@@ -1267,12 +1129,10 @@
                 }
             }
         });
-
         async function handleAuthSuccess(user, type) {
             currentUser = user;
             currentUserType = type;
             screenHistory = [];
-
             if (user.email === ADMIN_EMAIL) {
                 currentUserType = 'admin';
                 loadAdminDashboard();
@@ -1282,8 +1142,6 @@
                 setupClientRealtimeListener(user.uid);
             }
         }
-
-        // --- Real-time Listeners for User Data ---
         function setupCaregiverRealtimeListener(uid) {
             if (unsubscribeCaregiverData) unsubscribeCaregiverData();
             unsubscribeCaregiverData = db.collection('users').doc(uid).onSnapshot(doc => {
@@ -1301,7 +1159,6 @@
                 auth.signOut();
             });
         }
-
         function setupClientRealtimeListener(uid) {
             if (unsubscribeClientData) unsubscribeClientData();
             unsubscribeClientData = db.collection('users').doc(uid).onSnapshot(doc => {
@@ -1319,24 +1176,19 @@
                 auth.signOut();
             });
         }
-
-        // --- Admin Dashboard Logic ---
         async function loadAdminDashboard() {
             showScreen('adminScreen');
             setupAdminPendingCaregiversListener();
             setupAdminAllUsersListener();
             setupAdminCharts();
         }
-
         adminLogoutBtn.addEventListener('click', () => {
             auth.signOut();
         });
-
         function setupAdminPendingCaregiversListener() {
             if (unsubscribeAdminPendingCaregivers) {
                 unsubscribeAdminPendingCaregivers();
             }
-
             unsubscribeAdminPendingCaregivers = db.collection('users')
                 .where('type', '==', 'caregiver')
                 .where('status', '==', 'pending')
@@ -1352,13 +1204,11 @@
                     showAlert('Erro', 'Erro ao carregar cuidadores pendentes.');
                 });
         }
-
         function renderPendingCaregiversPage() {
             pendingCaregiversList.innerHTML = '';
             const startIndex = currentPendingCaregiverPage * ADMIN_USERS_PER_PAGE;
             const endIndex = startIndex + ADMIN_USERS_PER_PAGE;
             const caregiversToDisplay = pendingCaregivers.slice(startIndex, endIndex);
-
             if (caregiversToDisplay.length === 0) {
                 pendingCaregiversList.innerHTML = '<p style="text-align: center; color: var(--medium-gray);">Nenhum cuidador pendente de aprovação.</p>';
             } else {
@@ -1382,36 +1232,29 @@
             }
             updatePendingCaregiverPaginationButtons();
         }
-
         function updatePendingCaregiverPaginationButtons() {
             prevPendingCaregiverPageBtn.disabled = currentPendingCaregiverPage === 0;
             nextPendingCaregiverPageBtn.disabled = (currentPendingCaregiverPage + 1) * ADMIN_USERS_PER_PAGE >= pendingCaregivers.length;
         }
-
         prevPendingCaregiverPageBtn.addEventListener('click', () => {
             if (currentPendingCaregiverPage > 0) {
                 currentPendingCaregiverPage--;
                 renderPendingCaregiversPage();
             }
         });
-
         nextPendingCaregiverPageBtn.addEventListener('click', () => {
-            if ((currentPendingCaregiverPage + 1) * ADMIN_USERS_PER_PAGE < pendingCaregivers.length) { // Corrected condition
+            if ((currentPendingCaregiverPage + 1) * ADMIN_USERS_PER_PAGE < pendingCaregivers.length) {
                 currentPendingCaregiverPage++;
                 renderPendingCaregiversPage();
             }
         });
-
         pendingCaregiversList.addEventListener('click', async (e) => {
             const target = e.target;
-            const button = target.closest('button'); // Get the closest button element
-
-            if (!button) return; // If no button was clicked, exit
-
+            const button = target.closest('button');
+            if (!button) return;
             const caregiverId = button.dataset.id;
             const caregiverName = button.dataset.name;
             const userType = button.dataset.type;
-
             if (button.classList.contains('btn-approve')) {
                 const confirmed = await showConfirm('Aprovar Cuidador', `Tem certeza que deseja aprovar ${caregiverName}?`);
                 if (confirmed) {
@@ -1426,7 +1269,6 @@
                 showAdminUserDetails(caregiverId, userType);
             }
         });
-
         async function updateCaregiverStatus(caregiverId, status, caregiverName) {
             try {
                 await db.collection('users').doc(caregiverId).update({
@@ -1443,19 +1285,14 @@
                     message = `Seu perfil Vita Integrare está com o pagamento pendente. Por favor, entre em contato com edw.rocha.psi@gmail.com para regularizar e ter seu perfil visível novamente.`;
                     showAlert('Sucesso', `${caregiverName} agora está com status de Pagamento Pendente.`);
                 }
-
-                // No longer sending notifications to a separate collection, just showing alert
             } catch (error) {
                 console.error(`Error updating caregiver status to ${status}:`, error);
                 showAlert('Erro', `Erro ao ${status === 'approved' ? 'aprovar' : 'rejeitar'} cuidador: ${error.message}`);
             }
         }
-
-        // Admin User Management
         adminUserManagementModule.addEventListener('click', () => {
             renderAdminUserList();
         });
-
         showCaregiversBtn.addEventListener('click', () => {
             currentAdminUserTypeFilter = 'caregiver';
             showCaregiversBtn.classList.add('active');
@@ -1463,7 +1300,6 @@
             currentAdminUserPage = 0;
             renderAdminUserList();
         });
-
         showClientsBtn.addEventListener('click', () => {
             currentAdminUserTypeFilter = 'client';
             showClientsBtn.classList.add('active');
@@ -1471,13 +1307,11 @@
             currentAdminUserPage = 0;
             renderAdminUserList();
         });
-
         adminUserSearchInput.addEventListener('input', () => {
             adminUserSearchQuery = adminUserSearchInput.value.toLowerCase();
-            currentAdminUserPage = 0; // Reset pagination on search
+            currentAdminUserPage = 0;
             renderAdminUserList();
         });
-
         function setupAdminAllUsersListener() {
             if (unsubscribeAdminAllUsers) {
                 unsubscribeAdminAllUsers();
@@ -1493,11 +1327,9 @@
                 showAlert('Erro', 'Erro ao carregar lista de usuários.');
             });
         }
-
         function renderAdminUserList() {
             adminUserListContainer.innerHTML = '';
             let filteredUsers = allUsers.filter(user => user.type === currentAdminUserTypeFilter);
-
             if (adminUserSearchQuery) {
                 filteredUsers = filteredUsers.filter(user =>
                     user.fullName.toLowerCase().includes(adminUserSearchQuery) ||
@@ -1505,11 +1337,9 @@
                     (user.cpf && user.cpf.includes(adminUserSearchQuery.replace(/\D/g, '')))
                 );
             }
-
             const startIndex = currentAdminUserPage * ADMIN_USERS_PER_PAGE;
             const endIndex = startIndex + ADMIN_USERS_PER_PAGE;
             const usersToDisplay = filteredUsers.slice(startIndex, endIndex);
-
             if (usersToDisplay.length === 0) {
                 adminUserListContainer.innerHTML = `<p style="text-align: center; color: var(--medium-gray);">Nenhum ${currentAdminUserTypeFilter === 'caregiver' ? 'cuidador' : 'cliente'} encontrado.</p>`;
             } else {
@@ -1533,19 +1363,16 @@
             }
             updateAdminUserPaginationButtons(filteredUsers.length);
         }
-
         function updateAdminUserPaginationButtons(totalUsers) {
             prevUserPageBtn.disabled = currentAdminUserPage === 0;
             nextUserPageBtn.disabled = (currentAdminUserPage + 1) * ADMIN_USERS_PER_PAGE >= totalUsers;
         }
-
         prevUserPageBtn.addEventListener('click', () => {
             if (currentAdminUserPage > 0) {
                 currentAdminUserPage--;
                 renderAdminUserList();
             }
         });
-
         nextUserPageBtn.addEventListener('click', () => {
             const filteredUsers = allUsers.filter(user => user.type === currentAdminUserTypeFilter);
             if ((currentAdminUserPage + 1) * ADMIN_USERS_PER_PAGE < filteredUsers.length) {
@@ -1553,9 +1380,7 @@
                 renderAdminUserList();
             }
         });
-
         let currentEditingUser = null;
-
         async function showAdminUserDetails(userId, userType) {
             try {
                 const userDoc = await db.collection('users').doc(userId).get();
@@ -1567,36 +1392,28 @@
                     id: userDoc.id,
                     ...userDoc.data()
                 };
-
                 adminUserDetailsTitle.textContent = `Detalhes de ${currentEditingUser.fullName}`;
                 adminEditFullName.value = currentEditingUser.fullName || '';
                 adminEditEmail.value = currentEditingUser.email || '';
-                adminEditPhone.value = currentEditingUser.phone || ''; // Populate phone
+                adminEditPhone.value = currentEditingUser.phone || '';
                 adminEditCpf.value = currentEditingUser.cpf || '';
                 adminEditReligion.value = currentEditingUser.religion || '';
                 adminEditAddress.value = `${currentEditingUser.street || ''}, ${currentEditingUser.number || ''}, ${currentEditingUser.neighborhood || ''}, ${currentEditingUser.city || ''} - ${currentEditingUser.state || ''}`;
-
                 adminCaregiverStatusGroup.style.display = 'none';
                 adminCaregiverRatingGroup.style.display = 'none';
                 adminCaregiverBioSection.style.display = 'none';
                 adminClientMedicationsSection.style.display = 'none';
-                adminCaregiverDocumentsSection.style.display = 'none'; // Hide by default
-
-                // Reset document previews
+                adminCaregiverDocumentsSection.style.display = 'none';
                 adminCaregiverProfilePhotoPreview.style.display = 'none';
                 adminCaregiverProfilePhotoPreview.src = '';
                 adminCaregiverProfilePhotoText.style.display = 'block';
-
                 adminCaregiverDocumentPreview.style.display = 'none';
                 adminCaregiverDocumentPreview.src = '';
                 adminCaregiverDocumentLink.style.display = 'none';
                 adminCaregiverDocumentLink.href = '#';
                 adminCaregiverDocumentText.style.display = 'block';
-
-
                 if (userType === 'caregiver') {
                     adminCaregiverStatusGroup.style.display = 'block';
-                    // Add new option to the select if it doesn't exist
                     if (!Array.from(adminEditStatus.options).some(option => option.value === 'payment_pending')) {
                         const option = document.createElement('option');
                         option.value = 'payment_pending';
@@ -1609,16 +1426,12 @@
                     displayStars(currentEditingUser.rating || 3.0, adminEditRatingStars);
                     adminCaregiverBioSection.style.display = 'block';
                     adminEditBio.value = currentEditingUser.bio || '';
-                    adminCaregiverDocumentsSection.style.display = 'block'; // Show for caregivers
-
-                    // Display profile photo
+                    adminCaregiverDocumentsSection.style.display = 'block';
                     if (currentEditingUser.profilePhotoUrl) {
                         adminCaregiverProfilePhotoPreview.src = currentEditingUser.profilePhotoUrl;
                         adminCaregiverProfilePhotoPreview.style.display = 'block';
                         adminCaregiverProfilePhotoText.style.display = 'none';
                     }
-
-                    // Display document
                     if (currentEditingUser.documentUrl) {
                         const isImage = /\.(jpeg|jpg|gif|png)$/i.test(currentEditingUser.documentUrl);
                         if (isImage) {
@@ -1626,32 +1439,26 @@
                             adminCaregiverDocumentPreview.style.display = 'block';
                             adminCaregiverDocumentText.style.display = 'none';
                         } else {
-                            // If it's not an image (e.g., PDF), show a link
                             adminCaregiverDocumentLink.href = currentEditingUser.documentUrl;
                             adminCaregiverDocumentLink.textContent = 'Ver Documento Completo';
                             adminCaregiverDocumentLink.style.display = 'inline-block';
                             adminCaregiverDocumentText.style.display = 'none';
                         }
                     }
-
                 } else if (userType === 'client') {
                     adminClientMedicationsSection.style.display = 'block';
                     renderAdminEditMedications(currentEditingUser.medications || []);
                 }
-
                 adminUserDetailsOverlay.classList.add('show');
-
             } catch (error) {
                 console.error("Error showing admin user details:", error);
                 showAlert('Erro', `Erro ao carregar detalhes do usuário: ${error.message}`);
             }
         }
-
         closeAdminUserDetailsPopupBtn.addEventListener('click', () => {
             adminUserDetailsOverlay.classList.remove('show');
             currentEditingUser = null;
         });
-
         adminEditRating.addEventListener('input', (e) => {
             const rating = parseFloat(e.target.value);
             if (!isNaN(rating)) {
@@ -1660,7 +1467,6 @@
                 adminEditRatingStars.innerHTML = '';
             }
         });
-
         function renderAdminEditMedications(medications) {
             adminEditMedicationsList.innerHTML = '';
             if (!Array.isArray(medications) || medications.length === 0) {
@@ -1687,16 +1493,13 @@
                 adminEditMedicationsList.appendChild(medItem);
             });
         }
-
         adminSaveUserDetailsBtn.addEventListener('click', async () => {
             if (!currentEditingUser) return;
-
             const updatedData = {
                 fullName: adminEditFullName.value,
-                phone: adminEditPhone.value, // Save updated phone
+                phone: adminEditPhone.value,
                 religion: adminEditReligion.value,
             };
-
             if (currentEditingUser.type === 'caregiver') {
                 updatedData.status = adminEditStatus.value;
                 updatedData.rating = parseFloat(adminEditRating.value) || 0;
@@ -1717,7 +1520,6 @@
                 });
                 updatedData.medications = updatedMedications;
             }
-
             try {
                 await db.collection('users').doc(currentEditingUser.id).update(updatedData);
                 showAlert('Sucesso', 'Informações do usuário atualizadas!');
@@ -1728,20 +1530,15 @@
                 showAlert('Erro', `Erro ao salvar detalhes do usuário: ${error.message}`);
             }
         });
-
-        // Admin Charts
         function setupAdminCharts() {
             if (appointmentStatusChart) appointmentStatusChart.destroy();
             if (appointmentsPerMonthChart) appointmentsPerMonthChart.destroy();
-
             db.collection('appointments').get().then(snapshot => {
                 const appointments = snapshot.docs.map(doc => doc.data());
-
                 const statusCounts = appointments.reduce((acc, app) => {
                     acc[app.status] = (acc[app.status] || 0) + 1;
                     return acc;
                 }, {});
-
                 const statusLabels = {
                     'pending': 'Pendentes',
                     'confirmed': 'Confirmados',
@@ -1749,7 +1546,6 @@
                     'completed': 'Concluídos',
                     'refused': 'Recusados'
                 };
-
                 const statusData = Object.keys(statusLabels).map(key => statusCounts[key] || 0);
                 const statusBackgroundColors = [
                     'rgba(255, 206, 86, 0.6)',
@@ -1765,7 +1561,6 @@
                     'rgba(54, 162, 235, 1)',
                     'rgba(153, 102, 255, 1)'
                 ];
-
                 appointmentStatusChart = new Chart(appointmentStatusChartCtx, {
                     type: 'pie',
                     data: {
@@ -1790,17 +1585,14 @@
                         }
                     }
                 });
-
                 const monthlyCounts = {};
                 appointments.filter(app => app.status === 'confirmed').forEach(app => {
                     const date = new Date(app.startDate);
                     const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                     monthlyCounts[monthYear] = (monthlyCounts[monthYear] || 0) + 1;
                 });
-
                 const sortedMonths = Object.keys(monthlyCounts).sort();
                 const monthlyData = sortedMonths.map(month => monthlyCounts[month]);
-
                 appointmentsPerMonthChart = new Chart(appointmentsPerMonthChartCtx, {
                     type: 'bar',
                     data: {
@@ -1834,19 +1626,13 @@
                         }
                     }
                 });
-
             }).catch(error => {
                 console.error("Error fetching data for charts:", error);
                 showAlert('Erro', 'Erro ao carregar dados para os gráficos.');
             });
         }
-
-
-        // --- Caregiver Dashboard Logic ---
-
         async function loadCaregiverDashboardUI() {
             if (!currentCaregiverData) return;
-
             caregiverNameDisplay.textContent = currentCaregiverData.fullName;
             if (currentCaregiverData.profilePhotoUrl) {
                 caregiverAvatar.innerHTML = `<img src="${currentCaregiverData.profilePhotoUrl}" alt="Foto de Perfil">`;
@@ -1855,12 +1641,10 @@
             }
             displayStars(currentCaregiverData.rating || 3.0, caregiverStars);
             caregiverRatingValue.textContent = (currentCaregiverData.rating || 3.0).toFixed(1);
-
             const isApproved = currentCaregiverData.status === 'approved';
             const isPending = currentCaregiverData.status === 'pending';
             const isRejected = currentCaregiverData.status === 'rejected';
-            const isPaymentPending = currentCaregiverData.status === 'payment_pending'; // New status
-
+            const isPaymentPending = currentCaregiverData.status === 'payment_pending';
             if (isPending) {
                 caregiverWelcomeMessage.innerHTML = `
                     Sua conta está <strong>PENDENTE DE APROVAÇÃO</strong> pela nossa equipe!
@@ -1871,18 +1655,16 @@
                 caregiverWelcomeMessage.innerHTML = `
                     Sua conta foi <strong>REJEITADA</strong>. Por favor, entre em contato com o suporte para mais informações.
                 `;
-            } else if (isPaymentPending) { // New message for payment pending
+            } else if (isPaymentPending) {
                 caregiverWelcomeMessage.innerHTML = `
                     Seu perfil está com <strong>PAGAMENTO PENDENTE</strong>. Todos os módulos estão desabilitados e seu perfil não será mostrado para clientes.
                     Por favor, entre em contato com <a href="mailto:edw.rocha.psi@gmail.com">edw.rocha.psi@gmail.com</a> para regularizar.
                 `;
-            } else { // Approved
+            } else {
                 caregiverWelcomeMessage.innerHTML = `
                     Mantenha seu perfil sempre atualizado para conseguir melhores avaliações e mais pacientes!
                 `;
             }
-
-            // Control module visibility and "Em breve" badge
             const modulesToControl = [
                 {
                     element: caregiverProfileModule,
@@ -1902,7 +1684,6 @@
                     isComingSoon: true
                 }
             ];
-
             modulesToControl.forEach(module => {
                 if (module.isComingSoon) {
                     module.element.classList.add('disabled-module');
@@ -1917,16 +1698,13 @@
                     }
                 }
             });
-
             showScreen('caregiverScreen');
             setupCaregiverAppointmentsListener(currentUser.uid);
         }
-
         function setupCaregiverAppointmentsListener(caregiverId) {
             if (unsubscribeAppointments) {
                 unsubscribeAppointments();
             }
-
             unsubscribeAppointments = db.collection('appointments')
                 .where('caregiverId', '==', caregiverId)
                 .onSnapshot(snapshot => {
@@ -1942,46 +1720,37 @@
                     showAlert('Erro', 'Erro ao carregar agendamentos em tempo real.');
                 });
         }
-
         function displayCaregiverPatients() {
             caregiverPatientList.innerHTML = '';
             caregiverPatientHistoryList.innerHTML = '';
-
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-
             const activeAppointments = [];
             const historyAppointments = [];
-
             currentAppointments.forEach(app => {
-                const endDate = new Date(app.endDate + 'T00:00:00'); // Treat as local date
+                const endDate = new Date(app.endDate + 'T00:00:00');
                 endDate.setHours(0, 0, 0, 0);
-
                 if ((app.status === 'pending' || app.status === 'confirmed') && endDate >= today) {
                     activeAppointments.push(app);
                 } else if (app.status === 'completed' || app.status === 'cancelled' || app.status === 'refused' || (app.status === 'confirmed' && endDate < today)) {
                     historyAppointments.push(app);
                 }
             });
-
             const sortAppointments = (a, b) => {
                 if (a.requestedAt && b.requestedAt) {
                     return b.requestedAt.toDate() - a.requestedAt.toDate();
                 }
                 return 0;
             };
-
             if (activeAppointments.length > 0) {
                 const activeCategory = document.createElement('div');
                 activeCategory.className = 'appointment-category';
                 activeCategory.innerHTML = `<div class="category-title">Agendamentos Ativos</div>`;
-
                 activeAppointments.sort(sortAppointments).forEach(app => {
                     const item = document.createElement('div');
                     item.className = 'appointment-item';
                     const daysText = app.daysOfWeek ? app.daysOfWeek.join(', ') : 'Não informado';
                     const timeText = app.startTime && app.endTime ? `${app.startTime} - ${app.endTime}` : 'Não informado';
-
                     let statusClass = '';
                     let statusText = '';
                     if (app.status === 'pending') {
@@ -1991,7 +1760,6 @@
                         statusClass = 'status-confirmed';
                         statusText = 'Confirmado';
                     }
-
                     item.innerHTML = `
                         <div class="patient-name">${app.clientName}</div>
                         <div class="appointment-time">Período: ${formatDateToDisplay(app.startDate)} a ${formatDateToDisplay(app.endDate)}</div>
@@ -2007,12 +1775,10 @@
             } else {
                 caregiverPatientList.innerHTML = `<p style="text-align: center; color: var(--medium-gray);">Nenhum agendamento ativo.</p>`;
             }
-
             if (historyAppointments.length > 0) {
                 const historyCategory = document.createElement('div');
                 historyCategory.className = 'appointment-category';
                 historyCategory.innerHTML = `<div class="category-title">Histórico de Pacientes</div>`;
-
                 const uniqueClients = {};
                 historyAppointments.forEach(app => {
                     if (!uniqueClients[app.clientId]) {
@@ -2028,11 +1794,9 @@
                         uniqueClients[app.clientId].lastAppointmentDate = app.requestedAt.toDate();
                     }
                 });
-
                 const sortedClients = Object.values(uniqueClients).sort((a, b) => {
                     return b.lastAppointmentDate - a.lastAppointmentDate;
                 });
-
                 sortedClients.forEach(client => {
                     const item = document.createElement('div');
                     item.className = 'appointment-item';
@@ -2050,7 +1814,6 @@
                 caregiverPatientHistoryList.innerHTML = `<p style="text-align: center; color: var(--medium-gray);">Nenhum paciente no histórico.</p>`;
             }
         }
-
         caregiverProfileModule.addEventListener('click', () => {
             if (currentCaregiverData.status === 'approved') {
                 loadCaregiverProfileForEdit();
@@ -2059,39 +1822,33 @@
                 showAlert('Acesso Negado', 'Seu perfil está pendente de aprovação, foi rejeitado ou está com pagamento pendente. Você não pode editar seu perfil no momento.');
             }
         });
-
         caregiverPatientsModule.addEventListener('click', () => {
             if (currentCaregiverData.status !== 'approved') {
                 showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação, foi rejeitada ou está com pagamento pendente.');
                 return;
             }
         });
-
         caregiverPatientHistoryModule.addEventListener('click', () => {
             if (currentCaregiverData.status !== 'approved') {
                 showAlert('Acesso Negado', 'Este módulo está desabilitado enquanto sua conta está pendente de aprovação, foi rejeitada ou está com pagamento pendente.');
                 return;
             }
         });
-
         async function loadCaregiverProfileForEdit() {
             if (!currentCaregiverData) return;
-
             displayFullName.textContent = currentCaregiverData.fullName || 'N/A';
             displayCPF.textContent = currentCaregiverData.cpf || 'N/A';
-            displayPhoneCaregiver.textContent = currentCaregiverData.phone || 'N/A'; // Display phone
+            displayPhoneCaregiver.textContent = currentCaregiverData.phone || 'N/A';
             displayCOREN.textContent = currentCaregiverData.coren || 'Não possui';
             displayReligionCaregiver.textContent = currentCaregiverData.religion || 'Não informado';
             displayLocation.textContent = `${currentCaregiverData.city || ''}, ${currentCaregiverData.neighborhood || ''}, ${currentCaregiverData.street || ''}, ${currentCaregiverData.number || ''}, ${currentCaregiverData.state || ''}`;
             displayDOB.textContent = formatDateToDisplay(currentCaregiverData.dob) || 'N/A';
-
             editBio.value = currentCaregiverData.bio || '';
             editEducation.value = currentCaregiverData.education || '';
             editCourses.value = currentCaregiverData.courses || '';
             editExperience.value = currentCaregiverData.experience || '';
             editAvailability.value = currentCaregiverData.availability || '';
             editAdditionalInfo.value = currentCaregiverData.additionalInfo || '';
-
             if (currentCaregiverData.profilePhotoUrl) {
                 profilePhotoPreview.src = currentCaregiverData.profilePhotoUrl;
                 profilePhotoPreview.style.display = 'block';
@@ -2101,19 +1858,14 @@
                 profilePhotoIcon.style.display = 'block';
             }
         }
-
-        // Event listener para o clique na foto de perfil do cuidador
         profilePhotoPreview.addEventListener('click', () => {
             showPhotoOptions(profilePhotoPreview.src, 'caregiver');
         });
         profilePhotoIcon.addEventListener('click', () => {
             showPhotoOptions(null, 'caregiver');
         });
-
-
         saveCaregiverProfileBtn.addEventListener('click', async () => {
             if (!currentUser || currentUserType !== 'caregiver') return;
-
             const updatedData = {
                 bio: editBio.value,
                 education: editEducation.value,
@@ -2122,7 +1874,6 @@
                 availability: editAvailability.value,
                 additionalInfo: editAdditionalInfo.value,
             };
-
             try {
                 await db.collection('users').doc(currentUser.uid).update(updatedData);
                 showAlert('Sucesso', 'Perfil atualizado com sucesso!');
@@ -2134,7 +1885,6 @@
                 showAlert('Erro', `Erro ao salvar perfil: ${error.message}`);
             }
         });
-
         async function showPatientDetails(appointmentId) {
             try {
                 const appointmentDoc = await db.collection('appointments').doc(appointmentId).get();
@@ -2146,7 +1896,6 @@
                     id: appointmentDoc.id,
                     ...appointmentDoc.data()
                 };
-
                 const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                 if (!clientDoc.exists) {
                     showAlert('Erro', 'Dados do cliente não encontrados.');
@@ -2154,10 +1903,8 @@
                 }
                 const clientData = clientDoc.data();
                 currentSelectedAppointment.clientData = clientData;
-
                 patientDetailsName.textContent = clientData.fullName;
                 patientFullName.textContent = clientData.fullName;
-
                 const dobDate = new Date(clientData.dob);
                 const today = new Date();
                 let age = today.getFullYear() - dobDate.getFullYear();
@@ -2166,10 +1913,8 @@
                     age--;
                 }
                 patientAge.textContent = `${age} anos`;
-
                 patientReligion.textContent = clientData.religion || 'Não informado';
                 patientAddress.textContent = `${clientData.street || ''}, ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
-
                 const daysText = currentSelectedAppointment.daysOfWeek ? currentSelectedAppointment.daysOfWeek.join(', ') : 'Não informado';
                 const timeText = currentSelectedAppointment.startTime && currentSelectedAppointment.endTime ? `${currentSelectedAppointment.startTime} - ${currentSelectedAppointment.endTime}` : 'Não informado';
                 patientScheduledTime.innerHTML = `
@@ -2178,38 +1923,31 @@
                     Horário: ${timeText}
                 `;
                 patientObservation.textContent = currentSelectedAppointment.observation || 'Nenhuma observação.';
-
                 patientRoutines.value = currentSelectedAppointment.patientNotes?.routines || '';
                 patientSpecificCare.value = currentSelectedAppointment.patientNotes?.specificCare || '';
                 patientDailyRecord.value = currentSelectedAppointment.patientNotes?.dailyRecord || '';
-
                 renderCaregiverPatientMedications(clientData.medications || []);
                 const canEditMedications = currentSelectedAppointment.status === 'pending' || currentSelectedAppointment.status === 'confirmed';
                 addCaregiverPatientMedicationBtn.style.display = canEditMedications ? 'block' : 'none';
                 caregiverPatientMedicationsList.querySelectorAll('input, button.remove-medication-btn').forEach(el => {
                     el.disabled = !canEditMedications;
                 });
-
                 confirmAppointmentBtn.style.display = currentSelectedAppointment.status === 'pending' ? 'block' : 'none';
                 completeAppointmentBtn.style.display = currentSelectedAppointment.status === 'confirmed' ? 'block' : 'none';
                 cancelAppointmentBtn.style.display = (currentSelectedAppointment.status === 'pending' || currentSelectedAppointment.status === 'confirmed') ? 'block' : 'none';
                 refuseAppointmentBtn.style.display = currentSelectedAppointment.status === 'pending' ? 'block' : 'none';
-
                 showScreen('caregiverPatientDetailsScreen');
-
             } catch (error) {
                 console.error("Error showing patient details:", error);
                 showAlert('Erro', `Erro ao carregar detalhes do paciente: ${error.message}`);
             }
         }
-
         function renderCaregiverPatientMedications(medications) {
             caregiverPatientMedicationsList.innerHTML = '';
             if (!Array.isArray(medications) || medications.length === 0) {
                 caregiverPatientMedicationsList.innerHTML = '<p style="color: var(--medium-gray);">Nenhuma medicação registrada.</p>';
                 return;
             }
-
             medications.forEach((med, index) => {
                 const medItem = document.createElement('div');
                 medItem.className = 'medication-item';
@@ -2230,7 +1968,6 @@
                 `;
                 caregiverPatientMedicationsList.appendChild(medItem);
             });
-
             caregiverPatientMedicationsList.querySelectorAll('.remove-medication-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const indexToRemove = parseInt(e.target.closest('.remove-medication-btn').dataset.index);
@@ -2240,7 +1977,6 @@
                 });
             });
         }
-
         addCaregiverPatientMedicationBtn.addEventListener('click', () => {
             let currentMeds = currentSelectedAppointment.clientData.medications || [];
             currentMeds.push({
@@ -2250,7 +1986,6 @@
             });
             updateClientMedications(currentSelectedAppointment.clientId, currentMeds);
         });
-
         async function updateClientMedications(clientId, medications) {
             try {
                 await db.collection('users').doc(clientId).update({
@@ -2267,15 +2002,12 @@
                 showAlert('Erro', `Erro ao atualizar medicações: ${error.message}`);
             }
         }
-
         caregiverPatientMedicationsList.addEventListener('input', (e) => {
             if (e.target.classList.contains('medication-name') ||
                 e.target.classList.contains('medication-dose') ||
                 e.target.classList.contains('medication-posology')) {
-
                 const medItem = e.target.closest('.medication-item');
                 const index = Array.from(caregiverPatientMedicationsList.children).indexOf(medItem);
-
                 if (index !== -1 && currentSelectedAppointment && currentSelectedAppointment.clientData) {
                     let currentMeds = currentSelectedAppointment.clientData.medications || [];
                     if (currentMeds[index]) {
@@ -2290,17 +2022,13 @@
                 }
             }
         });
-
-
         savePatientNotesBtn.addEventListener('click', async () => {
             if (!currentSelectedAppointment) return;
-
             const updatedNotes = {
                 routines: patientRoutines.value,
                 specificCare: patientSpecificCare.value,
                 dailyRecord: patientDailyRecord.value,
             };
-
             try {
                 await db.collection('appointments').doc(currentSelectedAppointment.id).update({
                     patientNotes: updatedNotes
@@ -2311,7 +2039,6 @@
                 showAlert('Erro', `Erro ao salvar notas: ${error.message}`);
             }
         });
-
         confirmAppointmentBtn.addEventListener('click', async () => {
             if (!currentSelectedAppointment) return;
             const confirmed = await showConfirm('Confirmar Atendimento', 'Deseja confirmar este agendamento?');
@@ -2320,14 +2047,11 @@
                     await db.collection('appointments').doc(currentSelectedAppointment.id).update({
                         status: 'confirmed'
                     });
-
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
                     const caregiverDoc = await db.collection('users').doc(currentSelectedAppointment.caregiverId).get();
                     const caregiverData = caregiverDoc.data();
-
                     showAppointmentSummaryPopup(currentSelectedAppointment, caregiverData, clientData, 'Agendamento Confirmado!');
-
                     showAlert('Sucesso', 'Agendamento confirmado!');
                     goBack();
                 } catch (error) {
@@ -2336,7 +2060,6 @@
                 }
             }
         });
-
         completeAppointmentBtn.addEventListener('click', async () => {
             if (!currentSelectedAppointment) return;
             const confirmed = await showConfirm('Concluir Atendimento', 'Deseja marcar este agendamento como concluído?');
@@ -2345,14 +2068,11 @@
                     await db.collection('appointments').doc(currentSelectedAppointment.id).update({
                         status: 'completed'
                     });
-
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
                     const caregiverDoc = await db.collection('users').doc(currentSelectedAppointment.caregiverId).get();
                     const caregiverData = caregiverDoc.data();
-
                     showAppointmentSummaryPopup(currentSelectedAppointment, caregiverData, clientData, 'Atendimento Concluído!');
-
                     showAlert('Sucesso', 'Agendamento concluído!');
                     goBack();
                 } catch (error) {
@@ -2361,7 +2081,6 @@
                 }
             }
         });
-
         cancelAppointmentBtn.addEventListener('click', async () => {
             if (!currentSelectedAppointment) return;
             const confirmed = await showConfirm('Cancelar Atendimento', 'Tem certeza que deseja cancelar este agendamento?');
@@ -2370,14 +2089,11 @@
                     await db.collection('appointments').doc(currentSelectedAppointment.id).update({
                         status: 'cancelled'
                     });
-
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
                     const caregiverDoc = await db.collection('users').doc(currentSelectedAppointment.caregiverId).get();
                     const caregiverData = caregiverDoc.data();
-
                     showAppointmentSummaryPopup(currentSelectedAppointment, caregiverData, clientData, 'Agendamento Cancelado!');
-
                     showAlert('Sucesso', 'Agendamento cancelado!');
                     goBack();
                 } catch (error) {
@@ -2386,7 +2102,6 @@
                 }
             }
         });
-
         refuseAppointmentBtn.addEventListener('click', async () => {
             if (!currentSelectedAppointment) return;
             const confirmed = await showConfirm('Recusar Atendimento', 'Tem certeza que deseja recusar este pedido de agendamento?');
@@ -2395,14 +2110,11 @@
                     await db.collection('appointments').doc(currentSelectedAppointment.id).update({
                         status: 'refused'
                     });
-
                     const clientDoc = await db.collection('users').doc(currentSelectedAppointment.clientId).get();
                     const clientData = clientDoc.data();
                     const caregiverDoc = await db.collection('users').doc(currentSelectedAppointment.caregiverId).get();
                     const caregiverData = caregiverDoc.data();
-
                     showAppointmentSummaryPopup(currentSelectedAppointment, caregiverData, clientData, 'Pedido Recusado!');
-
                     showAlert('Sucesso', 'Pedido de agendamento recusado!');
                     goBack();
                 } catch (error) {
@@ -2411,7 +2123,6 @@
                 }
             }
         });
-
         async function showPatientHistoryDetails(clientId) {
             try {
                 const clientDoc = await db.collection('users').doc(clientId).get();
@@ -2420,10 +2131,8 @@
                     return;
                 }
                 const clientData = clientDoc.data();
-
                 historyPatientDetailsName.textContent = clientData.fullName;
                 historyPatientFullName.textContent = clientData.fullName;
-
                 const dobDate = new Date(clientData.dob);
                 const today = new Date();
                 let age = today.getFullYear() - dobDate.getFullYear();
@@ -2432,12 +2141,9 @@
                     age--;
                 }
                 historyPatientAge.textContent = `${age} anos`;
-
                 historyPatientReligion.textContent = clientData.religion || 'Não informado';
                 historyPatientAddress.textContent = `${clientData.street || ''}, ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
-
                 renderHistoryPatientMedications(clientData.medications || []);
-
                 const latestCompletedAppointmentSnapshot = await db.collection('appointments')
                     .where('clientId', '==', clientId)
                     .where('caregiverId', '==', currentUser.uid)
@@ -2445,31 +2151,25 @@
                     .orderBy('requestedAt', 'desc')
                     .limit(1)
                     .get();
-
                 let latestNotes = {};
                 if (!latestCompletedAppointmentSnapshot.empty) {
                     latestNotes = latestCompletedAppointmentSnapshot.docs[0].data().patientNotes || {};
                 }
-
                 historyPatientRoutines.value = latestNotes.routines || 'Nenhuma rotina registrada.';
                 historyPatientSpecificCare.value = latestNotes.specificCare || 'Nenhum cuidado específico registrado.';
                 historyPatientDailyRecord.value = latestNotes.dailyRecord || 'Nenhum registro diário.';
-
                 showScreen('caregiverPatientHistoryDetailsScreen');
-
             } catch (error) {
                 console.error("Error loading patient history details:", error);
                 showAlert('Erro', `Erro ao carregar detalhes do histórico do paciente: ${error.message}`);
             }
         }
-
         function renderHistoryPatientMedications(medications) {
             historyPatientMedicationsList.innerHTML = '';
             if (!Array.isArray(medications) || medications.length === 0) {
                 historyPatientMedicationsList.innerHTML = '<p style="color: var(--medium-gray);">Nenhuma medicação registrada.</p>';
                 return;
             }
-
             medications.forEach(med => {
                 const medItem = document.createElement('div');
                 medItem.className = 'medication-item';
@@ -2487,13 +2187,8 @@
                 historyPatientMedicationsList.appendChild(medItem);
             });
         }
-
-
-        // --- Client Dashboard Logic ---
-
         async function loadClientDashboardUI() {
             if (!currentClientData) return;
-
             clientNameDisplay.textContent = currentClientData.fullName;
             if (currentClientData.profilePhotoUrl) {
                 clientAvatar.innerHTML = `<img src="${currentClientData.profilePhotoUrl}" alt="Foto de Perfil">`;
@@ -2502,12 +2197,7 @@
             }
             showScreen('clientScreen');
             loadAllCaregivers();
-
-            // Control "Em breve" badge for client modules
-            const clientModulesToControl = [
-                // { element: clientChatModule, isComingSoon: true } // Removed chat module
-            ];
-
+            const clientModulesToControl = [];
             clientModulesToControl.forEach(module => {
                 if (module.isComingSoon) {
                     module.element.classList.add('disabled-module');
@@ -2518,25 +2208,20 @@
                 }
             });
         }
-
         clientProfileModule.addEventListener('click', () => {
             loadClientProfileForEdit();
             showScreen('clientProfileEditScreen');
         });
-
         async function loadClientProfileForEdit() {
             if (!currentClientData) return;
-
             clientDisplayFullName.textContent = currentClientData.fullName || 'N/A';
             clientDisplayCPF.textContent = currentClientData.cpf || 'N/A';
-            clientDisplayPhone.textContent = currentClientData.phone || 'N/A'; // Display phone
+            clientDisplayPhone.textContent = currentClientData.phone || 'N/A';
             clientDisplayEmail.textContent = currentClientData.email || 'N/A';
             clientDisplayReligion.textContent = currentClientData.religion || 'Não informado';
             clientDisplayAddress.textContent = `${currentClientData.street || ''}, ${currentClientData.number || ''}, ${currentClientData.neighborhood || ''}, ${currentClientData.city || ''} - ${currentClientData.state || ''}`;
-
             renderClientMedications(currentClientData.medications || []);
             editClientRecommendations.value = currentClientData.recommendations || '';
-
             if (currentClientData.profilePhotoUrl) {
                 clientProfilePhotoPreview.src = currentClientData.profilePhotoUrl;
                 clientProfilePhotoPreview.style.display = 'block';
@@ -2546,21 +2231,17 @@
                 clientProfilePhotoIcon.style.display = 'block';
             }
         }
-
-        // Event listener para o clique na foto de perfil do cliente
         clientProfilePhotoPreview.addEventListener('click', () => {
             showPhotoOptions(clientProfilePhotoPreview.src, 'client');
         });
         clientProfilePhotoIcon.addEventListener('click', () => {
             showPhotoOptions(null, 'client');
         });
-
         function renderClientMedications(medications) {
             clientMedicationsList.innerHTML = '';
             if (!Array.isArray(medications)) {
                 medications = [];
             }
-
             medications.forEach((med, index) => {
                 const medItem = document.createElement('div');
                 medItem.className = 'medication-item';
@@ -2581,7 +2262,6 @@
                 `;
                 clientMedicationsList.appendChild(medItem);
             });
-
             clientMedicationsList.querySelectorAll('.remove-medication-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const indexToRemove = parseInt(e.target.closest('.remove-medication-btn').dataset.index);
@@ -2592,7 +2272,6 @@
                 });
             });
         }
-
         addClientMedicationBtn.addEventListener('click', () => {
             let currentMeds = currentClientData.medications || [];
             currentMeds.push({
@@ -2603,10 +2282,8 @@
             currentClientData.medications = currentMeds;
             renderClientMedications(currentMeds);
         });
-
         saveClientProfileBtn.addEventListener('click', async () => {
             if (!currentUser || currentUserType !== 'client') return;
-
             const updatedMedications = [];
             clientMedicationsList.querySelectorAll('.medication-item').forEach(item => {
                 const name = item.querySelector('.medication-name').value;
@@ -2620,12 +2297,10 @@
                     });
                 }
             });
-
             const updatedData = {
                 medications: updatedMedications,
                 recommendations: editClientRecommendations.value,
             };
-
             try {
                 await db.collection('users').doc(currentUser.uid).update(updatedData);
                 showAlert('Sucesso', 'Perfil atualizado com sucesso!');
@@ -2637,23 +2312,19 @@
                 showAlert('Erro', `Erro ao salvar perfil: ${error.message}`);
             }
         });
-
-
         clientAppointmentsModule.addEventListener('click', () => {
-            // This module is always enabled, so no status check needed here.
         });
-
         async function loadAllCaregivers() {
             try {
                 const caregiversSnapshot = await db.collection('users')
                     .where('type', '==', 'caregiver')
-                    .where('status', '==', 'approved') // Only show approved caregivers
-                    .onSnapshot(snapshot => { // Use onSnapshot for real-time updates
+                    .where('status', '==', 'approved')
+                    .onSnapshot(snapshot => {
                         allCaregivers = snapshot.docs.map(doc => ({
                             id: doc.id,
                             ...doc.data()
-                        })).filter(caregiver => caregiver.email !== ADMIN_EMAIL); // Filter out admin
-                        applyCaregiverFilters(); // Apply filters after loading
+                        })).filter(caregiver => caregiver.email !== ADMIN_EMAIL);
+                        applyCaregiverFilters();
                     }, error => {
                         console.error("Error listening to caregivers:", error);
                         caregiverCarousel.innerHTML = '<p style="text-align: center; color: var(--error);">Erro ao carregar cuidadores.</p>';
@@ -2663,7 +2334,6 @@
                 caregiverCarousel.innerHTML = '<p style="text-align: center; color: var(--error);">Erro ao carregar cuidadores.</p>';
             }
         }
-
         function applyCaregiverFilters() {
             filteredCaregivers = allCaregivers.filter(caregiver => {
                 const matchesReligion = caregiverFilterReligion === '' || caregiver.religion === caregiverFilterReligion;
@@ -2671,17 +2341,15 @@
                 const matchesRating = (caregiver.rating || 0) >= caregiverFilterRating;
                 return matchesReligion && matchesCity && matchesRating;
             });
-            currentCaregiverIndex = 0; // Reset carousel position
+            currentCaregiverIndex = 0;
             renderCaregiverCarousel();
         }
-
         function getAbbreviatedName(fullName) {
             if (!fullName) return '';
             const parts = fullName.split(' ');
             if (parts.length <= 1) return fullName;
             return `${parts[0]} ${parts[parts.length - 1]}`;
         }
-
         function renderCaregiverCarousel() {
             caregiverCarousel.innerHTML = '';
             if (filteredCaregivers.length === 0) {
@@ -2691,10 +2359,9 @@
                 nextCaregiverBtn.style.display = 'none';
                 return;
             }
-
             filteredCaregivers.forEach(caregiver => {
                 const item = document.createElement('div');
-                item.className = 'caregiver-carousel-item'; // Use new class name
+                item.className = 'caregiver-carousel-item';
                 item.innerHTML = `
                     <div class="caregiver-carousel-profile">
                         ${caregiver.profilePhotoUrl ? `<img src="${caregiver.profilePhotoUrl}" alt="Foto do Cuidador">` : '<i class="fas fa-user-nurse"></i>'}
@@ -2723,7 +2390,6 @@
             prevCaregiverBtn.style.display = 'flex';
             nextCaregiverBtn.style.display = 'flex';
         }
-
         function updateCarousel() {
             if (filteredCaregivers.length === 0) {
                 prevCaregiverBtn.disabled = true;
@@ -2736,52 +2402,39 @@
             nextCaregiverBtn.disabled = currentCaregiverIndex === filteredCaregivers.length - 1;
             interestCaregiverBtn.style.display = 'block';
         }
-
         prevCaregiverBtn.addEventListener('click', () => {
             if (currentCaregiverIndex > 0) {
                 currentCaregiverIndex--;
                 updateCarousel();
             }
         });
-
         nextCaregiverBtn.addEventListener('click', () => {
             if (currentCaregiverIndex < filteredCaregivers.length - 1) {
                 currentCaregiverIndex++;
                 updateCarousel();
             }
         });
-
-        // Swipe functionality for carousel
         let touchStartX = 0;
         let touchEndX = 0;
-        const minSwipeDistance = 50; // Minimum pixels for a swipe to register
-
+        const minSwipeDistance = 50;
         caregiverCarousel.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
         });
-
         caregiverCarousel.addEventListener('touchmove', (e) => {
             touchEndX = e.touches[0].clientX;
         });
-
         caregiverCarousel.addEventListener('touchend', () => {
             const swipeDistance = touchEndX - touchStartX;
-
             if (swipeDistance > minSwipeDistance && currentCaregiverIndex > 0) {
-                // Swipe right (previous)
                 currentCaregiverIndex--;
                 updateCarousel();
             } else if (swipeDistance < -minSwipeDistance && currentCaregiverIndex < filteredCaregivers.length - 1) {
-                // Swipe left (next)
                 currentCaregiverIndex++;
                 updateCarousel();
             }
-            // Reset touch positions
             touchStartX = 0;
             touchEndX = 0;
         });
-
-
         interestCaregiverBtn.addEventListener('click', () => {
             if (filteredCaregivers.length > 0) {
                 selectedCaregiverForScheduling = filteredCaregivers[currentCaregiverIndex];
@@ -2791,15 +2444,12 @@
                 showAlert('Nenhum Cuidador', "Nenhum cuidador selecionado.");
             }
         });
-
         function populateScheduleCaregiverScreen() {
             if (!selectedCaregiverForScheduling) return;
-
             selectedCaregiverName.textContent = selectedCaregiverForScheduling.fullName;
             selectedCaregiverRating.innerHTML = '';
             displayStars(selectedCaregiverForScheduling.rating || 3.0, selectedCaregiverRating);
             selectedCaregiverRating.innerHTML += ` <span>(${(selectedCaregiverForScheduling.rating || 3.0).toFixed(1)})</span>`;
-
             if (selectedCaregiverForScheduling.profilePhotoUrl) {
                 selectedCaregiverAvatar.src = selectedCaregiverForScheduling.profilePhotoUrl;
                 selectedCaregiverAvatar.style.display = 'block';
@@ -2808,51 +2458,40 @@
                 selectedCaregiverAvatar.style.display = 'none';
                 selectedCaregiverIcon.style.display = 'block';
             }
-
             startDateInput.value = '';
             endDateInput.value = '';
             startTimeInput.value = '';
             endTimeInput.value = '';
             scheduleObservationInput.value = '';
             dayButtons.forEach(btn => btn.classList.remove('selected'));
-
             const today = new Date();
             const todayFormatted = String(today.getDate()).padStart(2, '0') + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + today.getFullYear();
             startDateInput.placeholder = todayFormatted;
             endDateInput.placeholder = todayFormatted;
         }
-
         dayButtons.forEach(button => {
             button.addEventListener('click', () => {
                 button.classList.toggle('selected');
             });
         });
-
         startDateInput.addEventListener('change', () => {
-            // Ensure endDate is not before startDate
             const start = startDateInput.value;
             const end = endDateInput.value;
-
             if (start && end) {
                 const [sDay, sMonth, sYear] = start.split('/').map(Number);
                 const [eDay, eMonth, eYear] = end.split('/').map(Number);
-
                 const startDateObj = new Date(sYear, sMonth - 1, sDay);
                 const endDateObj = new Date(eYear, eMonth - 1, eDay);
-
                 if (endDateObj < startDateObj) {
                     endDateInput.value = startDateInput.value;
                 }
             }
         });
-
-
         confirmScheduleBtn.addEventListener('click', async () => {
             if (!selectedCaregiverForScheduling || !currentUser) {
                 showAlert('Erro', "Cuidador ou cliente não selecionado.");
                 return;
             }
-
             const startDateDisplay = startDateInput.value;
             const endDateDisplay = endDateInput.value;
             const selectedDays = Array.from(dayButtons)
@@ -2861,78 +2500,59 @@
             const startTime = startTimeInput.value;
             const endTime = endTimeInput.value;
             const observation = scheduleObservationInput.value;
-
             if (!startDateDisplay || !endDateDisplay || selectedDays.length === 0 || !startTime || !endTime) {
                 showAlert('Campos Obrigatórios', "Por favor, preencha todos os campos de agendamento (período, dias e horários).");
                 return;
             }
-
             const startDate = formatDateToISO(startDateDisplay);
             const endDate = formatDateToISO(endDateDisplay);
-
             const [sDay, sMonth, sYear] = startDateDisplay.split('/').map(Number);
             const [eDay, eMonth, eYear] = endDateDisplay.split('/').map(Number);
-
             const startDateObj = new Date(sYear, sMonth - 1, sDay);
             const endDateObj = new Date(eYear, eMonth - 1, eDay);
-
             if (startDateObj > endDateObj) {
                 showAlert('Erro de Data', "A data de término não pode ser anterior à data de início.");
                 return;
             }
-
             if (startTime >= endTime) {
                 showAlert('Erro de Horário', "O horário de início deve ser anterior ao horário de término.");
                 return;
             }
-
             try {
                 const conflictingAppointmentsSnapshot = await db.collection('appointments')
                     .where('caregiverId', '==', selectedCaregiverForScheduling.id)
                     .where('status', 'in', ['pending', 'confirmed'])
                     .get();
-
                 const conflictingAppointments = conflictingAppointmentsSnapshot.docs.map(doc => doc.data());
-
                 const isCaregiverBusy = conflictingAppointments.some(existingApp => {
                     const existingStartDate = new Date(existingApp.startDate + 'T00:00:00');
                     const existingEndDate = new Date(existingApp.endDate + 'T00:00:00');
-
                     const newStartDate = new Date(startDate + 'T00:00:00');
                     const newEndDate = new Date(endDate + 'T00:00:00');
-
                     const datesOverlap = (newStartDate <= existingEndDate && newEndDate >= existingStartDate);
-
                     if (datesOverlap) {
                         const daysOverlap = selectedDays.some(day => existingApp.daysOfWeek.includes(day));
-
                         if (daysOverlap) {
                             const newStartMinutes = parseInt(startTime.split(':')[0]) * 60 + parseInt(startTime.split(':')[1]);
                             const newEndMinutes = parseInt(endTime.split(':')[0]) * 60 + parseInt(endTime.split(':')[1]);
                             const existingStartMinutes = parseInt(existingApp.startTime.split(':')[0]) * 60 + parseInt(existingApp.startTime.split(':')[1]);
                             const existingEndMinutes = parseInt(existingApp.endTime.split(':')[0]) * 60 + parseInt(existingApp.endTime.split(':')[1]);
-
                             const timesOverlap = (newStartMinutes < existingEndMinutes && newEndMinutes > existingStartMinutes);
-
                             return timesOverlap;
                         }
                     }
                     return false;
                 });
-
                 if (isCaregiverBusy) {
                     showAlert('Cuidador Indisponível', 'O cuidador já possui um agendamento confirmado ou pendente para os dias e horários selecionados. Por favor, escolha outro horário ou cuidador.');
                     return;
                 }
-
             } catch (error) {
                 console.error("Erro ao verificar disponibilidade do cuidador:", error);
                 showAlert('Erro', `Erro ao verificar disponibilidade: ${error.message}`);
                 return;
             }
-
             const confirmed = await showConfirm('Confirmar Agendamento', `Deseja confirmar o agendamento com ${selectedCaregiverForScheduling.fullName} para o período de ${startDateDisplay} a ${endDateDisplay}, nos dias ${selectedDays.join(', ')} e horário de ${startTime} a ${endTime}?`);
-
             if (confirmed) {
                 try {
                     const newAppointmentRef = await db.collection('appointments').add({
@@ -2940,7 +2560,7 @@
                         clientName: currentClientData.fullName,
                         caregiverId: selectedCaregiverForScheduling.id,
                         caregiverName: selectedCaregiverForScheduling.fullName,
-                        caregiverPhone: selectedCaregiverForScheduling.phone, // Save caregiver's phone
+                        caregiverPhone: selectedCaregiverForScheduling.phone,
                         startDate: startDate,
                         endDate: endDate,
                         daysOfWeek: selectedDays,
@@ -2951,7 +2571,6 @@
                         requestedAt: firebase.firestore.FieldValue.serverTimestamp(),
                         patientNotes: {}
                     });
-
                     showAlert('Sucesso', "Pedido de agendamento enviado! Aguarda aprovação do cuidador.");
                     goBack();
                 } catch (error) {
@@ -2960,48 +2579,39 @@
                 }
             }
         });
-
-        // --- Client Requests History Logic ---
         clientRequestsHistoryModule.addEventListener('click', () => {
             currentRequestPage = 0;
             loadClientRequestsHistory();
             showScreen('clientRequestsHistoryScreen');
         });
-
         async function loadClientRequestsHistory() {
             if (!currentUser) return;
-
             try {
                 const requestsSnapshot = await db.collection('appointments')
                     .where('clientId', '==', currentUser.uid)
                     .orderBy('requestedAt', 'desc')
                     .get();
-
                 clientRequests = requestsSnapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 }));
                 renderClientRequestsPage();
-
             } catch (error) {
                 console.error("Error loading client requests history:", error);
                 showAlert('Erro', `Erro ao carregar histórico de solicitações: ${error.message}`);
             }
         }
-
         function renderClientRequestsPage() {
             clientRequestsList.innerHTML = '';
             const startIndex = currentRequestPage * REQUESTS_PER_PAGE;
             const endIndex = startIndex + REQUESTS_PER_PAGE;
             const requestsToDisplay = clientRequests.slice(startIndex, endIndex);
-
             if (requestsToDisplay.length === 0) {
                 clientRequestsList.innerHTML = '<p style="text-align: center; color: var(--medium-gray);">Nenhuma solicitação encontrada.</p>';
             } else {
                 requestsToDisplay.forEach(request => {
                     const item = document.createElement('div');
                     item.className = 'client-request-item';
-
                     let statusText = '';
                     let statusClass = '';
                     switch (request.status) {
@@ -3029,10 +2639,8 @@
                             statusText = 'Desconhecido';
                             statusClass = '';
                     }
-
                     const daysText = request.daysOfWeek ? request.daysOfWeek.join(', ') : 'Não informado';
                     const timeText = request.startTime && request.endTime ? `${request.startTime} - ${request.endTime}` : 'Não informado';
-
                     let whatsappLinkHtml = '';
                     if (request.status === 'confirmed' && request.caregiverPhone) {
                         const cleanedPhoneNumber = request.caregiverPhone.replace(/\D/g, '');
@@ -3042,7 +2650,6 @@
                             </a>
                         `;
                     }
-
                     item.innerHTML = `
                         <div class="caregiver-name">${request.caregiverName}</div>
                         <div class="request-info">Período: ${formatDateToDisplay(request.startDate)} a ${formatDateToDisplay(request.endDate)}</div>
@@ -3053,7 +2660,6 @@
                     `;
                     item.dataset.requestId = request.id;
                     item.addEventListener('click', (e) => {
-                        // Prevent opening details if WhatsApp link was clicked
                         if (!e.target.closest('.whatsapp-link')) {
                             showClientRequestDetails(request.id);
                         }
@@ -3063,26 +2669,22 @@
             }
             updateRequestPaginationButtons();
         }
-
         function updateRequestPaginationButtons() {
             prevRequestPageBtn.disabled = currentRequestPage === 0;
             nextRequestPageBtn.disabled = (currentRequestPage + 1) * REQUESTS_PER_PAGE >= clientRequests.length;
         }
-
         prevRequestPageBtn.addEventListener('click', () => {
             if (currentRequestPage > 0) {
                 currentRequestPage--;
                 renderClientRequestsPage();
             }
         });
-
         nextRequestPageBtn.addEventListener('click', () => {
             if ((currentRequestPage + 1) * REQUESTS_PER_PAGE < clientRequests.length) {
                 currentRequestPage++;
                 renderClientRequestsPage();
             }
         });
-
         async function showClientRequestDetails(requestId) {
             try {
                 const requestDoc = await db.collection('appointments').doc(requestId).get();
@@ -3091,10 +2693,8 @@
                     return;
                 }
                 const requestData = requestDoc.data();
-
                 const caregiverDoc = await db.collection('users').doc(requestData.caregiverId).get();
                 const caregiverData = caregiverDoc.exists ? caregiverDoc.data() : null;
-
                 if (caregiverData) {
                     requestCaregiverName.textContent = caregiverData.fullName;
                     requestCaregiverRating.innerHTML = '';
@@ -3116,7 +2716,6 @@
                     requestCaregiverIcon.style.display = 'block';
                     requestCaregiverBio.textContent = 'Informações do cuidador não disponíveis.';
                 }
-
                 let statusText = '';
                 switch (requestData.status) {
                     case 'pending':
@@ -3142,7 +2741,6 @@
                 requestDays.textContent = requestData.daysOfWeek ? requestData.daysOfWeek.join(', ') : 'Não informado';
                 requestTime.textContent = requestData.startTime && requestData.endTime ? `${requestData.startTime} - ${requestData.endTime}` : 'Não informado';
                 requestObservation.textContent = requestData.observation || 'Nenhuma observação.';
-
                 if (requestData.status === 'confirmed' || requestData.status === 'completed') {
                     const notes = requestData.patientNotes;
                     let notesContent = '';
@@ -3155,29 +2753,21 @@
                 } else {
                     requestCaregiverNotes.innerHTML = 'Notas do cuidador estarão disponíveis após a confirmação ou conclusão do agendamento.';
                 }
-
                 showScreen('clientRequestDetailsScreen');
-
             } catch (error) {
                 console.error("Error showing client request details:", error);
                 showAlert('Erro', `Erro ao carregar detalhes da solicitação: ${error.message}`);
             }
         }
-
-        // --- Appointment Summary Popup Logic (REFACTORED) ---
         async function showAppointmentSummaryPopup(appointment, caregiverData, clientData, title) {
             summaryTitle.textContent = title;
-
             summaryCaregiverName.textContent = caregiverData.fullName;
             summaryClientName.textContent = clientData.fullName;
             summaryLocation.textContent = `${clientData.city}, ${clientData.state}`;
             summaryPeriod.textContent = `${formatDateToDisplay(appointment.startDate)} a ${formatDateToDisplay(appointment.endDate)}`;
             summaryDays.textContent = appointment.daysOfWeek ? appointment.daysOfWeek.join(', ') : 'Não informado';
             summaryTime.textContent = appointment.startTime && appointment.endTime ? `${appointment.startTime} - ${appointment.endTime}` : 'Não informado';
-
-            // Determine which photos to show based on the current user type
             if (currentUserType === 'client') {
-                // Client sees caregiver's photo and their own
                 if (caregiverData.profilePhotoUrl) {
                     summaryUserPhoto.src = caregiverData.profilePhotoUrl;
                     summaryUserPhoto.style.display = 'block';
@@ -3190,7 +2780,6 @@
                 } else {
                     summaryOtherPhoto.style.display = 'none';
                 }
-                // WhatsApp button for caregiver
                 if (caregiverData.phone) {
                     const cleanedPhoneNumber = caregiverData.phone.replace(/\D/g, '');
                     summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
@@ -3200,9 +2789,7 @@
                     summaryWhatsappBtn.style.display = 'none';
                     summaryDisclaimer.style.display = 'none';
                 }
-
             } else if (currentUserType === 'caregiver') {
-                // Caregiver sees client's photo and their own
                 if (clientData.profilePhotoUrl) {
                     summaryUserPhoto.src = clientData.profilePhotoUrl;
                     summaryUserPhoto.style.display = 'block';
@@ -3215,7 +2802,6 @@
                 } else {
                     summaryOtherPhoto.style.display = 'none';
                 }
-                // WhatsApp button for client
                 if (clientData.phone) {
                     const cleanedPhoneNumber = clientData.phone.replace(/\D/g, '');
                     summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
@@ -3226,17 +2812,12 @@
                     summaryDisclaimer.style.display = 'none';
                 }
             }
-
             appointmentSummaryOverlay.classList.add('show');
         }
-
         summaryOkBtn.addEventListener('click', () => {
             appointmentSummaryOverlay.classList.remove('show');
         });
-
-        // --- Photo Options and View Popups Logic ---
-        let currentPhotoTarget = null; // 'caregiver' or 'client'
-
+        let currentPhotoTarget = null;
         function showPhotoOptions(currentPhotoUrl, targetType) {
             currentPhotoTarget = targetType;
             if (currentPhotoUrl && currentPhotoUrl !== '') {
@@ -3251,20 +2832,16 @@
             }
             photoOptionsOverlay.classList.add('show');
         }
-
         closePhotoOptionsPopup.addEventListener('click', () => {
             photoOptionsOverlay.classList.remove('show');
         });
-
         closePhotoViewPopup.addEventListener('click', () => {
             photoViewOverlay.classList.remove('show');
-            photoViewImage.src = ''; // Clear image
+            photoViewImage.src = '';
         });
-
         editPhotoBtn.addEventListener('click', () => {
-            photoUploadInput.click(); // Trigger file input
+            photoUploadInput.click();
         });
-
         photoUploadInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -3295,14 +2872,11 @@
                 } catch (uploadError) {
                     showAlert('Erro no Upload', `Erro no upload da foto: ${uploadError.message}`);
                 } finally {
-                    photoUploadInput.value = ''; // Clear the input
+                    photoUploadInput.value = '';
                 }
             }
         });
-
-        // --- Caregiver Filter Popup Logic ---
         openCaregiverFilterPopupBtn.addEventListener('click', async () => {
-            // Populate city filter options based on all caregivers' cities
             const uniqueCities = [...new Set(allCaregivers.map(c => c.city).filter(Boolean))].sort();
             filterCitySelect.innerHTML = '<option value="">Todas</option>';
             uniqueCities.forEach(city => {
@@ -3311,19 +2885,14 @@
                 option.textContent = city;
                 filterCitySelect.appendChild(option);
             });
-
-            // Set current filter values
             filterReligionSelect.value = caregiverFilterReligion;
             filterCitySelect.value = caregiverFilterCity;
             filterRatingInput.value = caregiverFilterRating;
-
             caregiverFilterOverlay.classList.add('show');
         });
-
         closeCaregiverFilterPopupBtn.addEventListener('click', () => {
             caregiverFilterOverlay.classList.remove('show');
         });
-
         applyCaregiverFiltersBtn.addEventListener('click', () => {
             caregiverFilterReligion = filterReligionSelect.value;
             caregiverFilterCity = filterCitySelect.value;
@@ -3331,7 +2900,6 @@
             applyCaregiverFilters();
             caregiverFilterOverlay.classList.remove('show');
         });
-
         clearCaregiverFiltersBtn.addEventListener('click', () => {
             caregiverFilterReligion = '';
             caregiverFilterCity = '';
@@ -3342,12 +2910,8 @@
             applyCaregiverFilters();
             caregiverFilterOverlay.classList.remove('show');
         });
-
-
-        // --- Swipe Navigation (iOS-like) ---
         let startX = 0;
         let currentScreenIdOnTouch = '';
-
         appContainer.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             const currentScreen = document.querySelector('.app-container > div[style*="display: flex"]');
@@ -3355,37 +2919,29 @@
                 currentScreenIdOnTouch = currentScreen.id;
             }
         });
-
         appContainer.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
             const diffX = endX - startX;
-
             if (diffX > 70 && screenHistory.length > 0) {
                 if (currentScreenIdOnTouch !== 'authScreen' && !customAlertOverlay.classList.contains('show') && !adminUserDetailsOverlay.classList.contains('show') && !appointmentSummaryOverlay.classList.contains('show') && !photoOptionsOverlay.classList.contains('show') && !photoViewOverlay.classList.contains('show') && !caregiverFilterOverlay.classList.contains('show')) {
                     goBack();
                 }
             }
         });
-
-        // --- Backup and Restore Functions ---
         backupDataBtn.addEventListener('click', async () => {
             const confirmed = await showConfirm('Confirmar Backup', 'Deseja fazer backup de todos os dados de usuários e agendamentos?');
             if (!confirmed) return;
-
             try {
                 showAlert('Backup', 'Iniciando backup dos dados...');
                 const usersSnapshot = await db.collection('users').get();
                 const appointmentsSnapshot = await db.collection('appointments').get();
-
                 const usersData = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 const appointmentsData = appointmentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
                 const backupData = {
                     users: usersData,
                     appointments: appointmentsData,
                     timestamp: new Date().toISOString()
                 };
-
                 const filename = `firestore_backup_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
                 const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
@@ -3396,31 +2952,26 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-
                 showAlert('Sucesso', 'Backup concluído e arquivo baixado!');
             } catch (error) {
                 console.error('Erro ao fazer backup:', error);
                 showAlert('Erro', `Erro ao fazer backup: ${error.message}`);
             }
         });
-
         restoreDataBtn.addEventListener('click', () => {
-            restoreFileInput.click(); // Trigger file input click
+            restoreFileInput.click();
         });
-
         restoreFileInput.addEventListener('change', async (event) => {
             const file = event.target.files[0];
             if (!file) {
                 showAlert('Nenhum arquivo', 'Nenhum arquivo selecionado para restauração.');
                 return;
             }
-
             const confirmed = await showConfirm('Confirmar Restauração', 'ATENÇÃO: A restauração irá APAGAR TODOS os dados atuais e substituí-los pelos dados do arquivo. Esta ação é irreversível. Deseja continuar?');
             if (!confirmed) {
-                restoreFileInput.value = ''; // Clear selected file
+                restoreFileInput.value = '';
                 return;
             }
-
             const reader = new FileReader();
             reader.onload = async (e) => {
                 try {
@@ -3430,21 +2981,14 @@
                         restoreFileInput.value = '';
                         return;
                     }
-
                     showAlert('Restauração', 'Iniciando restauração dos dados. Isso pode levar um tempo...');
-
-                    // Delete existing data
                     await deleteAllCollectionData('users');
                     await deleteAllCollectionData('appointments');
-
-                    // Restore new data
                     await restoreCollectionData('users', data.users);
                     await restoreCollectionData('appointments', data.appointments);
-
                     showAlert('Sucesso', 'Restauração concluída! Os dados foram substituídos.');
-                    restoreFileInput.value = ''; // Clear selected file
-                    // Force a re-authentication or refresh to load new data
-                    auth.signOut(); // Sign out to force re-login with new data
+                    restoreFileInput.value = '';
+                    auth.signOut();
                 } catch (error) {
                     console.error('Erro ao restaurar dados:', error);
                     showAlert('Erro', `Erro ao restaurar dados: ${error.message}`);
@@ -3453,7 +2997,6 @@
             };
             reader.readAsText(file);
         });
-
         async function deleteAllCollectionData(collectionName) {
             const collectionRef = db.collection(collectionName);
             const snapshot = await collectionRef.get();
@@ -3464,35 +3007,26 @@
             await batch.commit();
             console.log(`Coleção ${collectionName} limpa.`);
         }
-
         async function restoreCollectionData(collectionName, data) {
             const collectionRef = db.collection(collectionName);
             const batch = db.batch();
             data.forEach(item => {
                 const docRef = collectionRef.doc(item.id);
-                // Remove 'id' field as it's the document ID
                 const { id, ...docData } = item;
                 batch.set(docRef, docData);
             });
             await batch.commit();
             console.log(`Coleção ${collectionName} restaurada com ${data.length} documentos.`);
         }
-
-
-        // --- Logout Functionality ---
         caregiverLogoutBtn.addEventListener('click', () => {
             auth.signOut();
         });
-
         clientLogoutBtn.addEventListener('click', () => {
             auth.signOut();
         });
-
         adminLogoutBtn.addEventListener('click', () => {
             auth.signOut();
         });
-
-        // --- Initial Load / Check Auth State ---
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {
@@ -3511,19 +3045,6 @@
                 showScreen('authScreen');
             }
         });
-
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
-            });
-        }
     </script>
 </body>
 </html>
