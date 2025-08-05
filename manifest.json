@@ -8,19 +8,19 @@
       "theme_color": "#2563eb",
       "icons": [
         {
-          "src": "/icone.jpg",
+          "src": "/icone.png",
           "sizes": "192x192",
-          "type": "image/jpeg"
+          "type": "image/png"
         },
         {
-          "src": "/icone.jpg",
+          "src": "/icone.png",
           "sizes": "512x512",
-          "type": "image/jpeg"
+          "type": "image/png"
         },
         {
-          "src": "/icone.jpg",
+          "src": "/icone.png",
           "sizes": "180x180",
-          "type": "image/jpeg",
+          "type": "image/png",
           "purpose": "apple touch icon"
         }
         // Adicione outros tamanhos de ícones conforme necessário para melhor compatibilidade
