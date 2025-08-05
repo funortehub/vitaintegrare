@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <!-- O manifest.json deve ser atualizado para apontar para icone.jpg para os ícones do PWA -->
     <link rel="manifest" href="/manifest.json">
+    <!-- Ícone para dispositivos Apple (PWA) -->
     <link rel="apple-touch-icon" href="/icone.jpg">
+    <!-- Ícone principal do site (favicon) -->
     <link rel="icon" href="/icone.jpg">
+    <!-- Ícone para Microsoft Edge/IE (PWA) -->
+    <meta name="msapplication-TileImage" content="/icone.jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
@@ -23,7 +28,14 @@
         @media (min-width:768px){.app-container{border-radius:var(--radius-xl);margin:2rem auto;min-height:90vh;height:auto;overflow:hidden}}
         .auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;min-height:100vh;background:linear-gradient(135deg,var(--primary-blue) 0,var(--dark-blue) 100%);color:var(--white);text-align:center;flex-grow:1}
         .logo-container{margin-bottom:2.5rem;animation:fadeInDown .8s ease-out}.logo-container .logo-icon{width:100px;height:100px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(255,255,255,.2);box-shadow:var(--shadow-lg)}
-        .logo-container .logo-icon i{font-size:3.5rem;color:var(--white)!important;}
+        /* Modificação: Usar a imagem icone.jpg para o logo-icon */
+        .logo-container .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+            border-radius: var(--radius-full); /* Mantém a forma circular */
+        }
+        .logo-container .logo-icon i{font-size:3.5rem;color:var(--white)!important; display: none;} /* Oculta o ícone de fonte quando a imagem é usada */
         .logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--white),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0, 0, 0, .2))}
         .logo-container p{font-size:1rem;opacity:.9;font-weight:300}.auth-form{width:100%;max-width:400px;background:var(--glass);backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-lg);animation:fadeInUp .8s ease-out;border:1px solid var(--glass-border)}
         .form-toggle{display:flex;margin-bottom:1.5rem;background-color:var(--glass);border-radius:var(--radius-full);overflow:hidden;position:relative;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}.form-toggle::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:var(--light-blue);border-radius:var(--radius-full);transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);z-index:0}.form-toggle.register-active::before{transform:translateX(100%)}
@@ -128,7 +140,7 @@
         .photo-options-popup .close-button{position:absolute;top:.75rem;right:.75rem;background:0 0;border:none;font-size:1.2rem;color:var(--medium-gray);cursor:pointer}
         .photo-view-popup{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-xl);max-width:90%;max-height:90%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}.photo-view-popup img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:var(--radius-md)}
         .photo-view-popup .close-button{position:absolute;top:.75rem;right:.75rem;background:0 0;border:none;font-size:1.5rem;color:var(--medium-gray);cursor:pointer}
-        .filter-button{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.8);border:none;border-radius:var(--radius-full);width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--primary-blue);font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);transition:var(--transition);z-index:10}.filter-button:hover{transform:scale(1.1);background-color:var(--sky-blue)}
+        .filter-button{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.8);border:none;border-radius:var(--radius-full);width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--primary-blue);font-size:1.2rem;cursor:pointer;box-shadow:var(--transition);z-index:10}.filter-button:hover{transform:scale(1.1);background-color:var(--sky-blue)}
         .filter-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:1001;opacity:0;visibility:hidden;transition:opacity .4s ease-in-out,visibility .4s ease-in-out}.filter-overlay.show{opacity:1;visibility:visible}
         .filter-popup{background-color:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-xl);max-width:400px;width:90%;transform:translateY(-30px) scale(.9);opacity:0;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55),opacity .4s ease-in-out}.filter-overlay.show .filter-popup{transform:translateY(0) scale(1);opacity:1}
         .filter-popup h3{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.5rem}.filter-popup .input-group{margin-bottom:1rem}
@@ -146,7 +158,15 @@
         <div id="appointmentSummaryOverlay" class="appointment-summary-overlay"><div class="appointment-summary-popup"><h3 id="summaryTitle"></h3><div class="summary-photos"><img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none"> <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none"></div><div class="summary-details"><p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p><p><strong>Paciente:</strong><span id="summaryClientName"></span></p><p><strong>Local:</strong><span id="summaryLocation"></span></p><p><strong>Período:</strong><span id="summaryPeriod"></span></p><p><strong>Dias:</strong><span id="summaryDays"></span></p><p><strong>Horário:</strong><span id="summaryTime"></span></p></div><a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a><p class="disclaimer" id="summaryDisclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p><button class="btn-ok" id="summaryOkBtn">OK</button></div></div>
         <div id="caregiverFilterOverlay" class="filter-overlay"><div class="filter-popup"><button class="close-button" id="closeCaregiverFilterPopup"><i class="fas fa-times"></i></button><h3>Filtrar Cuidadores</h3><div class="input-group"><label for="filterReligion">Religião:</label><select id="filterReligion"><option value="">Todas</option><option value="Católica">Católica</option><option value="Evangélica">Evangélica</option><option value="Espírita">Espírita</option><option value="Umbanda">Umbanda</option><option value="Candomblé">Candomblé</option><option value="Judaísmo">Judaísmo</option><option value="Islamismo">Islamismo</option><option value="Budismo">Budismo</option><option value="Hinduísmo">Hinduísmo</option><option value="Ateu">Ateu</option><option value="Outra">Outra</option><option value="Não Informar">Não Informar</option></select></div><div class="input-group"><label for="filterCity">Cidade:</label><select id="filterCity"><option value="">Todas</option></select></div><div class="input-group"><label for="filterRating">Avaliação Mínima:</label><input type="number" id="filterRating" min="0" max="5" step="0.5" value="0"></div><div class="filter-buttons"><button class="btn" id="applyCaregiverFilters">Aplicar Filtros</button><button class="btn" id="clearCaregiverFilters">Limpar Filtros</button></div></div></div>
         <div id="authScreen" class="auth-screen">
-            <div class="logo-container"><div class="logo-icon"><i class="fas fa-hands-helping"></i></div><h1>Vita Integrare</h1><p>Cuidado que Conecta</p></div>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <!-- Usando a imagem icone.jpg como o ícone do logo -->
+                    <img src="/icone.jpg" alt="Logo Vita Integrare">
+                    <i class="fas fa-hands-helping"></i> <!-- Mantido para fallback ou se quiser alternar, mas oculto por CSS -->
+                </div>
+                <h1>Vita Integrare</h1>
+                <p>Cuidado que Conecta</p>
+            </div>
             <div class="auth-form">
                 <div class="form-toggle" id="formToggle"><button class="toggle-btn active" id="loginBtn">Entrar</button><button class="toggle-btn" id="registerBtn">Cadastrar</button></div>
                 <div id="userTypeSelection" style="display:none"><p class="input-group">Selecione seu perfil:</p><div class="user-type"><button class="user-type-btn active" data-type="client"><i class="fas fa-user"></i>Cliente</button><button class="user-type-btn" data-type="caregiver"><i class="fas fa-user-nurse"></i>Cuidador</button></div></div>
@@ -1986,22 +2006,6 @@
             });
             updateClientMedications(currentSelectedAppointment.clientId, currentMeds);
         });
-        async function updateClientMedications(clientId, medications) {
-            try {
-                await db.collection('users').doc(clientId).update({
-                    medications: medications
-                });
-                const clientDoc = await db.collection('users').doc(clientId).get();
-                if (clientDoc.exists) {
-                    currentSelectedAppointment.clientData = clientDoc.data();
-                    renderCaregiverPatientMedications(clientDoc.data().medications || []);
-                    showAlert('Sucesso', 'Medicações atualizadas!');
-                }
-            } catch (error) {
-                console.error("Error updating client medications:", error);
-                showAlert('Erro', `Erro ao atualizar medicações: ${error.message}`);
-            }
-        }
         caregiverPatientMedicationsList.addEventListener('input', (e) => {
             if (e.target.classList.contains('medication-name') ||
                 e.target.classList.contains('medication-dose') ||
