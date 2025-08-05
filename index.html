@@ -11,9 +11,8 @@
     <link rel="apple-touch-icon" href="/icone.jpg">
     <link rel="icon" href="/icone.jpg" type="image/jpeg">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Vita Integrare">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2563eb">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
@@ -43,7 +42,8 @@
         .user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--white)!important;}
         .terms{display:flex;align-items:flex-start;margin-bottom:1.5rem;font-size:.85rem;color:var(--white)}.terms input{margin-right:.75rem;margin-top:.25rem;min-width:18px;min-height:18px;accent-color:var(--accent-yellow)}.terms label{text-align:justify;font-weight:400;opacity:.9}.terms label a{color:var(--accent-yellow);text-decoration:underline;font-weight:600;transition:color .2s ease}.terms label a:hover{color:var(--white)}
         .btn{width:100%;padding:1rem;border:none;border-radius:var(--radius-lg);background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);letter-spacing:.5px;position:relative;overflow:hidden}.btn:after{content:'';position:absolute;top:-50%;left:-60%;width:20px;height:200%;background:rgba(255,255,255,.3);transform:rotate(25deg);transition:all .6s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}.btn:active{transform:translateY(0);box-shadow:var(--shadow)}
-        .main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}
+        .main-screen{display:none;flex-direction:column;flex-grow:1;background-color:var(--off-white);position:relative;overflow-y:auto;padding-top:1.5rem;}
+        .header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:sticky;top:0;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}
         .user-info{display:flex;align-items:center;margin-bottom:1.25rem}.user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}
         .user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--white)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}
         .user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin-top:1rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}
@@ -92,7 +92,7 @@
         .client-request-details-screen .caregiver-summary .details{flex:1}.client-request-details-screen .caregiver-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.client-request-details-screen .caregiver-summary .rating{color:var(--accent-yellow);font-size:.95rem}
         .client-request-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.client-request-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}
         .client-request-details-screen .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.client-request-details-screen .profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.client-request-details-screen .profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}
-        .admin-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.admin-screen .header{background:linear-gradient(to right,#4caf50,#8bc34a)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}
+        .admin-screen{display:none;flex-direction:column;flex-grow:1;background-color:var(--off-white);position:relative;overflow-y:auto;padding-top:1.5rem;}.admin-screen .header{background:linear-gradient(to right,#4caf50,#8bc34a)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}
         .admin-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.admin-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin:1.5rem 1.25rem 1.25rem;box-shadow:var(--shadow)}
         .admin-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.admin-list{list-style:none;padding:0}
         .admin-list-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--shadow-sm)}.admin-list-item .item-details{font-size:.95rem;color:var(--dark-gray)}.admin-list-item .item-details strong{color:var(--primary-blue)}
@@ -152,7 +152,7 @@
         <div id="appointmentSummaryOverlay" class="appointment-summary-overlay"><div class="appointment-summary-popup"><h3 id="summaryTitle"></h3><div class="summary-photos"><img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none"> <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none"></div><div class="summary-details"><p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p><p><strong>Paciente:</strong><span id="summaryClientName"></span></p><p><strong>Local:</strong><span id="summaryLocation"></span></p><p><strong>Período:</strong><span id="summaryPeriod"></span></p><p><strong>Dias:</strong><span id="summaryDays"></span></p><p><strong>Horário:</strong><span id="summaryTime"></span></p></div><a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a><p class="disclaimer" id="summaryDisclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p><button class="btn-ok" id="summaryOkBtn">OK</button></div></div>
         <div id="caregiverFilterOverlay" class="filter-overlay"><div class="filter-popup"><button class="close-button" id="closeCaregiverFilterPopup"><i class="fas fa-times"></i></button><h3>Filtrar Cuidadores</h3><div class="input-group"><label for="filterReligion">Religião:</label><select id="filterReligion"><option value="">Todas</option><option value="Católica">Católica</option><option value="Evangélica">Evangélica</option><option value="Espírita">Espírita</option><option value="Umbanda">Umbanda</option><option value="Candomblé">Candomblé</option><option value="Judaísmo">Judaísmo</option><option value="Islamismo">Islamismo</option><option value="Budismo">Budismo</option><option value="Hinduísmo">Hinduísmo</option><option value="Ateu">Ateu</option><option value="Outra">Outra</option><option value="Não Informar">Não Informar</option></select></div><div class="input-group"><label for="filterCity">Cidade:</label><select id="filterCity"><option value="">Todas</option></select></div><div class="input-group"><label for="filterRating">Avaliação Mínima:</label><input type="number" id="filterRating" min="0" max="5" step="0.5" value="0"></div><div class="filter-buttons"><button class="btn" id="applyCaregiverFilters">Aplicar Filtros</button><button class="btn" id="clearCaregiverFilters">Limpar Filtros</button></div></div></div>
         <div id="authScreen" class="auth-screen">
-            <div class="logo-container"><div class="logo-icon"><i class="fas fa-hands-helping"></i></div><h1>Vita Integrare</h1><p>Cuidado que Conecta</p></div>
+            <div class="logo-container"><div class="logo-icon"><img src="/icone.jpg" alt="Logo Vita Integrare" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div><h1>Vita Integrare</h1><p>Cuidado que Conecta</p></div>
             <div class="auth-form">
                 <div class="form-toggle" id="formToggle"><button class="toggle-btn active" id="loginBtn">Entrar</button><button class="toggle-btn" id="registerBtn">Cadastrar</button></div>
                 <div id="userTypeSelection" style="display:none"><p class="input-group">Selecione seu perfil:</p><div class="user-type"><button class="user-type-btn active" data-type="client"><i class="fas fa-user"></i>Cliente</button><button class="user-type-btn" data-type="caregiver"><i class="fas fa-user-nurse"></i>Cuidador</button></div></div>
@@ -311,6 +311,19 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
         // Firebase Configuration (Replace with your actual Firebase project config)
         const firebaseConfig = {
             apiKey: "AIzaSyB8MtoEA9DNeQOR-CYDfjCAIEFUfpWvg8o",
@@ -1060,6 +1073,8 @@
                     if (currentUserType === 'caregiver') {
                         caregiverFields.style.display = 'block';
                         corenNumberGroup.style.display = hasCoren ? 'block' : 'none';
+                    } else {
+                        caregiverFields.style.display = 'none';
                     }
                 } else {
                     caregiverFields.style.display = 'none';
@@ -2168,7 +2183,7 @@
                 patientAge.textContent = `${age} anos`;
 
                 patientReligion.textContent = clientData.religion || 'Não informado';
-                patientAddress.textContent = `${clientData.street || ''}, ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
+                patientAddress.textContent = `${clientData.street || '', clientData.number || '', clientData.neighborhood || '', clientData.city || ''} - ${clientData.state || ''}`;
 
                 const daysText = currentSelectedAppointment.daysOfWeek ? currentSelectedAppointment.daysOfWeek.join(', ') : 'Não informado';
                 const timeText = currentSelectedAppointment.startTime && currentSelectedAppointment.endTime ? `${currentSelectedAppointment.startTime} - ${currentSelectedAppointment.endTime}` : 'Não informado';
@@ -2434,7 +2449,7 @@
                 historyPatientAge.textContent = `${age} anos`;
 
                 historyPatientReligion.textContent = clientData.religion || 'Não informado';
-                historyPatientAddress.textContent = `${clientData.street || ''}, ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
+                historyPatientAddress.textContent = `${clientData.street || '', clientData.number || '', clientData.neighborhood || '', clientData.city || ''} - ${clientData.state || ''}`;
 
                 renderHistoryPatientMedications(clientData.medications || []);
 
@@ -2532,7 +2547,7 @@
             clientDisplayPhone.textContent = currentClientData.phone || 'N/A'; // Display phone
             clientDisplayEmail.textContent = currentClientData.email || 'N/A';
             clientDisplayReligion.textContent = currentClientData.religion || 'Não informado';
-            clientDisplayAddress.textContent = `${currentClientData.street || ''}, ${currentClientData.number || ''}, ${currentClientData.neighborhood || ''}, ${currentClientData.city || ''} - ${currentClientData.state || ''}`;
+            clientDisplayAddress.textContent = `${currentClientData.street || '', currentClientData.number || '', currentClientData.neighborhood || '', currentClientData.city || ''} - ${currentClientData.state || ''}`;
 
             renderClientMedications(currentClientData.medications || []);
             editClientRecommendations.value = currentClientData.recommendations || '';
@@ -3512,19 +3527,6 @@
                 showScreen('authScreen');
             }
         });
-
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('Service Worker registered:', registration);
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
-            });
-        }
     </script>
 </body>
 </html>
