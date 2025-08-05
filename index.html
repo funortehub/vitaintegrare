@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icone.jpg">
-    <link rel="icon" href="/icone.jpg" type="image/jpeg">
+    <link rel="icon" href="/icone.jpg" type="image/jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
@@ -18,17 +18,17 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     <style>
-        :root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255,255,255,.08);--glass-border:rgba(255,255,255,.18);--shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);--shadow-lg:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);--shadow-xl:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);--transition:all .3s cubic-bezier(.4,0,.2,1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}
-        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-        input,textarea,select,button,a,.user-type-btn,.toggle-btn,.day-button,.module-card,.appointment-item,.client-request-item,.admin-list-item,.admin-user-item,.option-button,.filter-button,.close-button,.back-button,.logout-button,.pagination-controls button,.whatsapp-btn,.btn-ok,.btn-cancel,.btn-approve,.btn-reject,.btn-view-docs,.btn-save-user,.add-medication-btn,.remove-medication-btn,.coren-toggle-btn,.admin-user-type-toggle button{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto}
+        :root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255, 255, 255, 0.08);--glass-border:rgba(255, 255, 255, 0.18);--shadow-sm:0 1px 2px rgba(0, 0, 0, 0.05);--shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06);--shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);--shadow-xl:0 20px 25px -5px rgba(0, 0, 0, 0.1),0 10px 10px -5px rgba(0, 0, 0, 0.04);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+        input, textarea, select, button, a, .user-type-btn, .toggle-btn, .day-button, .module-card, .appointment-item, .client-request-item, .admin-list-item, .admin-user-item, .option-button, .filter-button, .close-button, .back-button, .logout-button, .pagination-controls button, .whatsapp-btn, .btn-ok, .btn-cancel, .btn-approve, .btn-reject, .btn-view-docs, .btn-save-user, .add-medication-btn, .remove-medication-btn, .coren-toggle-btn, .admin-user-type-toggle button { -webkit-user-select: auto; -moz-user-select: auto; -ms-user-select: auto; user-select: auto; }
         body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#f0f9ff 0,#e0f2fe 100%);color:var(--dark-gray);line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;justify-content:center;align-items:center}
         ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:rgba(255,255,255,.1);border-radius:10px}::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:10px;transition:background .3s ease}::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.4)}
         html{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) rgba(255,255,255,.1)}.app-container{max-width:480px;width:100%;margin:0 auto;background-color:var(--white);box-shadow:var(--shadow-xl);position:relative;overflow:hidden;min-height:100vh;border-radius:0;display:flex;flex-direction:column}
         @media (min-width:768px){.app-container{border-radius:var(--radius-xl);margin:2rem auto;min-height:90vh;height:auto;overflow:hidden}}
         .auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;min-height:100vh;background:linear-gradient(135deg,var(--primary-blue) 0,var(--dark-blue) 100%);color:var(--white);text-align:center;flex-grow:1}
         .logo-container{margin-bottom:2.5rem;animation:fadeInDown .8s ease-out}.logo-container .logo-icon{width:100px;height:100px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:2px solid rgba(255,255,255,.2);box-shadow:var(--shadow-lg)}
-        .logo-container .logo-icon i{font-size:3.5rem;color:var(--white)!important}
-        .logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--white),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+        .logo-container .logo-icon i{font-size:3.5rem;color:var(--white)!important;}
+        .logo-container h1{font-weight:700;font-size:2.2rem;margin-bottom:.5rem;letter-spacing:.5px;background:linear-gradient(to right,var(--white),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0, 0, 0, .2))}
         .logo-container p{font-size:1rem;opacity:.9;font-weight:300}.auth-form{width:100%;max-width:400px;background:var(--glass);backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-lg);animation:fadeInUp .8s ease-out;border:1px solid var(--glass-border)}
         .form-toggle{display:flex;margin-bottom:1.5rem;background-color:var(--glass);border-radius:var(--radius-full);overflow:hidden;position:relative;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}.form-toggle::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:var(--light-blue);border-radius:var(--radius-full);transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);z-index:0}.form-toggle.register-active::before{transform:translateX(100%)}
         .toggle-btn{flex:1;padding:.8rem;text-align:center;background:0 0;border:none;color:var(--white);font-weight:500;font-size:.95rem;cursor:pointer;transition:var(--transition);position:relative;z-index:1}.toggle-btn.active{color:var(--white);font-weight:600}
@@ -38,18 +38,10 @@
         .file-upload-label{display:flex;align-items:center;justify-content:center;width:100%;padding:.9rem 1.2rem;border:2px dashed rgba(255,255,255,.4);border-radius:var(--radius-md);background-color:var(--glass);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);font-size:.9rem}.file-upload-label:hover{background-color:rgba(255,255,255,.15);border-color:var(--accent-yellow)}.file-upload-label.uploaded{background-color:rgba(16,185,129,.2);border-color:var(--success);color:var(--white)}
         .file-upload-input{display:none}.coren-toggle-group{display:flex;gap:.75rem;margin-top:.5rem}.coren-toggle-btn{flex:1;padding:.7rem;background-color:var(--glass);border:2px solid transparent;border-radius:var(--radius-md);color:var(--white);font-weight:500;font-size:.85rem;cursor:pointer;transition:var(--transition)}.coren-toggle-btn.active{background-color:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow)}
         .user-type{display:flex;gap:1rem;margin-bottom:1.5rem}.user-type-btn{flex:1;padding:1.25rem .75rem;background:var(--glass);border:2px solid transparent;border-radius:var(--radius-lg);color:var(--white);font-weight:500;cursor:pointer;transition:var(--transition);text-align:center;box-shadow:var(--shadow)}.user-type-btn.active{background:var(--light-blue);border-color:var(--accent-yellow);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
-        .user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--white)!important}
+        .user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--white)!important;}
         .terms{display:flex;align-items:flex-start;margin-bottom:1.5rem;font-size:.85rem;color:var(--white)}.terms input{margin-right:.75rem;margin-top:.25rem;min-width:18px;min-height:18px;accent-color:var(--accent-yellow)}.terms label{text-align:justify;font-weight:400;opacity:.9}.terms label a{color:var(--accent-yellow);text-decoration:underline;font-weight:600;transition:color .2s ease}.terms label a:hover{color:var(--white)}
         .btn{width:100%;padding:1rem;border:none;border-radius:var(--radius-lg);background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);letter-spacing:.5px;position:relative;overflow:hidden}.btn:after{content:'';position:absolute;top:-50%;left:-60%;width:20px;height:200%;background:rgba(255,255,255,.3);transform:rotate(25deg);transition:all .6s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}.btn:active{transform:translateY(0);box-shadow:var(--shadow)}
-        .main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto;padding-top:60px}
-        .header{background:var(--primary-blue);color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}
-        .fixed-header{position:fixed;top:0;left:0;width:100%;background-color:var(--primary-blue);color:var(--white);padding:.5rem 1rem;display:flex;align-items:center;justify-content:space-between;z-index:100;box-shadow:var(--shadow);transform:translateY(-100%);transition:transform .3s ease-in-out}
-        .fixed-header.show{transform:translateY(0)}
-        .fixed-header .user-info{display:flex;align-items:center}
-        .fixed-header .user-avatar{width:40px;height:40px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:.5rem;font-size:1.2rem;color:var(--dark-blue);border:2px solid var(--white);overflow:hidden}
-        .fixed-header .user-avatar img{width:100%;height:100%;object-fit:cover}
-        .fixed-header .user-name{font-weight:600;font-size:.9rem}
-        .fixed-header .logout-button{font-size:1.2rem;color:var(--white);cursor:pointer;transition:transform .2s ease-in-out;background:0 0;border:none;padding:0}
+        .main-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:relative;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}
         .user-info{display:flex;align-items:center;margin-bottom:1.25rem}.user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}
         .user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--white)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}
         .user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin-top:1rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}
@@ -61,14 +53,14 @@
         .appointment-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.appointment-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
         .patient-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.appointment-time{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}.appointment-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
         .status-pending{background-color:rgba(245,158,11,.15);color:var(--warning)}.status-confirmed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-completed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-cancelled{background-color:rgba(239,68,68,.15);color:var(--error)}.status-refused{background-color:rgba(239,68,68,.15);color:var(--error)}
-        .profile-edit-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:60px}.profile-edit-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.profile-edit-screen .input-group{margin-bottom:1.25rem;text-align:left}.profile-edit-screen .input-group label{color:var(--dark-gray);font-weight:500;font-size:.9rem;display:block;margin-bottom:.5rem}.profile-edit-screen .btn{margin-top:1.5rem}
+        .profile-edit-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.profile-edit-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.profile-edit-screen .input-group{margin-bottom:1.25rem;text-align:left}.profile-edit-screen .input-group label{color:var(--dark-gray);font-weight:500;font-size:.9rem;display:block;margin-bottom:.5rem}.profile-edit-screen .btn{margin-top:1.5rem}
         .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}.profile-section strong{color:var(--dark-gray);font-weight:600}.profile-section ul{list-style:none;padding:0}.profile-section ul li{margin-bottom:.5rem;color:var(--medium-gray);font-size:.9rem}
         .medication-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:.75rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;position:relative}.medication-item .medication-details{display:flex;flex-direction:column}.medication-item .medication-details strong{color:var(--dark-blue);font-size:.95rem}.medication-item .medication-details span{font-size:.85rem;color:var(--medium-gray)}
         .medication-item .remove-medication-btn{position:absolute;top:.5rem;right:.5rem;background:0 0;border:none;color:var(--error);font-size:1.2rem;cursor:pointer;padding:.2rem;border-radius:var(--radius-sm);transition:background-color .2s}.medication-item .remove-medication-btn:hover{background-color:rgba(239,68,68,.1)}
         .add-medication-btn{background-color:var(--success);color:var(--white);padding:.75rem;border:none;border-radius:var(--radius-md);cursor:pointer;font-weight:600;margin-top:1rem;transition:var(--transition)}.add-medication-btn:hover{background-color:#059669;transform:translateY(-2px)}
-        .patient-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:60px}.patient-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .patient-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.patient-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .patient-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.patient-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.patient-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}
-        .schedule-caregiver-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:60px}.schedule-caregiver-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .schedule-caregiver-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.schedule-caregiver-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .schedule-caregiver-screen .caregiver-info-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.schedule-caregiver-screen .caregiver-info-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.schedule-caregiver-screen .caregiver-info-summary .avatar img{width:100%;height:100%;object-fit:cover}
         .schedule-caregiver-screen .caregiver-info-summary .details{flex:1}.schedule-caregiver-screen .caregiver-info-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.schedule-caregiver-screen .caregiver-info-summary .rating{color:var(--accent-yellow);font-size:.95rem}
         .schedule-caregiver-screen .form-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow);border:1px solid var(--light-gray)}.schedule-caregiver-screen .form-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}
@@ -88,17 +80,17 @@
         .patient-actions .btn-complete{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue))}.patient-actions .btn-complete:hover{background:linear-gradient(to right,#1e40af,var(--primary-blue))}
         .patient-actions .btn-cancel-appointment{background:linear-gradient(to right,var(--error),#f87171)}.patient-actions .btn-cancel-appointment:hover{background:linear-gradient(to right,#dc2626,#f87171)}
         .header-actions{position:absolute;top:1.5rem;right:1.25rem;display:flex;gap:1rem;z-index:11}.logout-button{font-size:1.4rem;color:var(--white);cursor:pointer;transition:transform .2s ease-in-out;background:0 0;border:none;padding:0;position:relative}.logout-button:hover{transform:scale(1.1);color:var(--accent-yellow)}
-        .client-requests-history-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:60px}.client-requests-history-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .client-requests-history-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-requests-history-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .client-requests-list{margin-top:1rem}.client-request-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
         .client-request-item .caregiver-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.client-request-item .request-info{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}
         .client-request-item .request-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.client-request-item .whatsapp-link{display:inline-flex;align-items:center;gap:.3rem;color:var(--success);text-decoration:none;font-weight:600;margin-top:.5rem}.client-request-item .whatsapp-link i{font-size:1.1rem}
         .pagination-controls{display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;margin-bottom:1rem}.pagination-controls button{padding:.6rem 1.2rem;border:none;border-radius:var(--radius-md);background-color:var(--primary-blue);color:var(--white);font-weight:600;cursor:pointer;transition:var(--transition)}.pagination-controls button:disabled{background-color:var(--medium-gray);cursor:not-allowed;opacity:.7}.pagination-controls button:hover:not(:disabled){background-color:var(--dark-blue);transform:translateY(-2px)}
-        .client-request-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:60px}.client-request-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .client-request-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-request-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .client-request-details-screen .caregiver-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.client-request-details-screen .caregiver-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.client-request-details-screen .caregiver-summary .avatar img{width:100%;height:100%;object-fit:cover}
         .client-request-details-screen .caregiver-summary .details{flex:1}.client-request-details-screen .caregiver-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.client-request-details-screen .caregiver-summary .rating{color:var(--accent-yellow);font-size:.95rem}
         .client-request-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.client-request-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}
         .client-request-details-screen .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.client-request-details-screen .profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.client-request-details-screen .profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}
-        .admin-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto;padding-top:60px}.admin-screen .header{background:var(--primary-blue)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}
+        .admin-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.admin-screen .header{background:linear-gradient(to right,#4caf50,#8bc34a)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}
         .admin-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.admin-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin:1.5rem 1.25rem 1.25rem;box-shadow:var(--shadow)}
         .admin-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.admin-list{list-style:none;padding:0}
         .admin-list-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--shadow-sm)}.admin-list-item .item-details{font-size:.95rem;color:var(--dark-gray)}.admin-list-item .item-details strong{color:var(--primary-blue)}
@@ -122,7 +114,7 @@
         .fade-in{animation:fadeIn .5s ease forwards}@media (max-width:480px){.auth-form{padding:1.5rem}.user-type{flex-direction:column}.carousel-container{height:480px}.header-actions{right:1rem;gap:.75rem}.day-button{flex:1 1 calc(50% - .5rem)}}
         .caregiver-carousel-container{position:relative;width:100%;overflow:hidden;margin:1.5rem 0;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);background-color:var(--white);display:flex;flex-direction:column;min-height:450px}
         .caregiver-carousel-inner{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);height:100%;width:100%}.caregiver-carousel-item{min-width:100%;flex-shrink:0;flex-basis:100%;height:100%;padding:0;display:flex;flex-direction:column;align-items:center;position:relative;background:linear-gradient(135deg,var(--dark-blue) 0,var(--primary-blue) 100%);color:var(--white);text-align:center;box-sizing:border-box;border-radius:var(--radius-lg);overflow:hidden}
-        .caregiver-carousel-profile{width:100%;height:180px;border-radius:var(--radius-lg);border-bottom-left-radius:0;border-bottom-right-radius:0;border:4px solid var(--white);border-bottom:none;background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:0}.caregiver-carousel-profile img{width:100%;height:100%;object-fit:cover}.caregiver-carousel-profile i{font-size:4rem;color:var(--dark-blue)}
+        .caregiver-carousel-profile{width:100%;height:180px;border-radius:var(--radius-lg);border-bottom-left-radius:0;border-bottom-right-radius:0;border:4px solid var(--white);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:0}.caregiver-carousel-profile img{width:100%;height:100%;object-fit:cover}.caregiver-carousel-profile i{font-size:4rem;color:var(--dark-blue)}
         .caregiver-carousel-content{padding:1rem 1.5rem;width:100%;display:flex;flex-direction:column;align-items:center;flex-grow:1}.caregiver-carousel-name{font-weight:700;font-size:1.7rem;margin-bottom:.25rem}
         .caregiver-carousel-rating{display:flex;margin-bottom:1rem;align-items:center;justify-content:center}.caregiver-carousel-rating .stars{color:var(--accent-yellow);font-size:1.4rem;margin-right:.5rem}.caregiver-carousel-rating span{font-size:1rem;font-weight:600}
         .caregiver-carousel-bio{background-color:rgba(255,255,255,.95);border-radius:var(--radius-lg);padding:1.25rem;width:100%;margin-top:1rem;color:var(--dark-gray);overflow-y:auto;max-height:170px;text-align:left;box-shadow:var(--shadow);font-size:.9rem;word-wrap:break-word}.caregiver-carousel-bio p{margin-bottom:.75rem;line-height:1.6}.caregiver-carousel-bio strong{color:var(--primary-blue)}
@@ -147,6 +139,61 @@
         .filter-popup .input-group label{color:var(--dark-gray);margin-bottom:.5rem}.filter-popup .input-group select,.filter-popup .input-group input[type="number"]{width:100%;padding:.8rem;border:1px solid var(--light-gray);border-radius:var(--radius-md);font-size:.95rem;color:var(--dark-gray)}
         .filter-popup .filter-buttons{display:flex;gap:1rem;margin-top:1.5rem}.filter-popup .filter-buttons .btn{flex:1}
         .filter-popup .close-button{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;color:var(--medium-gray);cursor:pointer}
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background-color: #2563eb;
+            color: var(--white);
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .sticky-header.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .sticky-header .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .sticky-header .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background-color: var(--sky-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            border: 2px solid var(--white);
+            overflow: hidden;
+        }
+        .sticky-header .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sticky-header .user-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--white);
+        }
+        .sticky-header .logout-button {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
     </style>
 </head>
 <body>
@@ -157,6 +204,15 @@
         <div id="adminUserDetailsOverlay" class="custom-overlay"><div class="admin-user-details-popup"><button class="back-button" id="closeAdminUserDetailsPopup"><i class="fas fa-times"></i></button><h3 id="adminUserDetailsTitle"></h3><div class="profile-section"><h4>Informações Pessoais</h4><div class="input-group"><label for="adminEditFullName">Nome Completo</label><input type="text" id="adminEditFullName"></div><div class="input-group"><label for="adminEditEmail">E-mail</label><input type="email" id="adminEditEmail" disabled="disabled"></div><div class="input-group"><label for="adminEditPhone">Telefone</label><input type="tel" id="adminEditPhone"></div><div class="input-group"><label for="adminEditCpf">CPF</label><input type="text" id="adminEditCpf" disabled="disabled"></div><div class="input-group"><label for="adminEditReligion">Religião</label><select id="adminEditReligion"><option value="">Selecione a Religião</option><option value="Católica">Católica</option><option value="Evangélica">Evangélica</option><option value="Espírita">Espírita</option><option value="Umbanda">Umbanda</option><option value="Candomblé">Candomblé</option><option value="Judaísmo">Judaísmo</option><option value="Islamismo">Islamismo</option><option value="Budismo">Budismo</option><option value="Hinduísmo">Hinduísmo</option><option value="Ateu">Ateu</option><option value="Outra">Outra</option><option value="Não Informar">Não Informar</option></select></div><div class="input-group"><label for="adminEditAddress">Endereço</label><input type="text" id="adminEditAddress"></div><div class="input-group" id="adminCaregiverStatusGroup" style="display:none"><label for="adminEditStatus">Status do Cuidador</label><select id="adminEditStatus"><option value="pending">Pendente</option><option value="approved">Aprovado</option><option value="rejected">Rejeitado</option><option value="payment_pending">Pagamento Pendente</option></select></div><div class="input-group" id="adminCaregiverRatingGroup" style="display:none"><label for="adminEditRating">Avaliação do Cuidador</label><div class="rating-input"><input type="number" id="adminEditRating" min="0" max="5" step="0.1"><div class="stars" id="adminEditRatingStars"></div></div></div></div><div class="profile-section" id="adminCaregiverBioSection" style="display:none"><h4>Biografia</h4><div class="input-group"><textarea id="adminEditBio"></textarea></div></div><div class="profile-section" id="adminClientMedicationsSection" style="display:none"><h4>Medicações em Uso</h4><div id="adminEditMedicationsList"></div></div><div class="profile-section" id="adminCaregiverDocumentsSection" style="display:none"><h4>Documentos do Cuidador</h4><div class="document-preview" id="adminCaregiverProfilePhotoPreview"><strong>Foto de Perfil:</strong><img src="" alt="Foto de Perfil" style="display:none"><p style="color:var(--medium-gray);font-size:.9em">Nenhuma foto de perfil enviada.</p></div><div class="document-preview" id="adminCaregiverDocumentPreview"><strong>Documento de Identificação:</strong><img src="" alt="Documento de Identificação" style="display:none"><a href="#" target="_blank" style="display:none">Ver Documento Completo</a><p style="color:var(--medium-gray);font-size:.9em">Nenhum documento enviado.</p></div></div><button class="btn btn-save-user" id="adminSaveUserDetailsBtn">Salvar Alterações</button></div></div>
         <div id="appointmentSummaryOverlay" class="appointment-summary-overlay"><div class="appointment-summary-popup"><h3 id="summaryTitle"></h3><div class="summary-photos"><img id="summaryUserPhoto" class="summary-photo" src="" alt="Foto do Usuário" style="display:none"> <img id="summaryOtherPhoto" class="summary-photo" src="" alt="Foto do Outro" style="display:none"></div><div class="summary-details"><p><strong>Cuidador:</strong><span id="summaryCaregiverName"></span></p><p><strong>Paciente:</strong><span id="summaryClientName"></span></p><p><strong>Local:</strong><span id="summaryLocation"></span></p><p><strong>Período:</strong><span id="summaryPeriod"></span></p><p><strong>Dias:</strong><span id="summaryDays"></span></p><p><strong>Horário:</strong><span id="summaryTime"></span></p></div><a href="#" id="summaryWhatsappBtn" class="whatsapp-btn" target="_blank" style="display:none"><i class="fab fa-whatsapp"></i>Conversar no WhatsApp</a><p class="disclaimer" id="summaryDisclaimer">Lembre-se: A comunicação e questões financeiras entre paciente e cuidador são de responsabilidade dos usuários e devem ser realizadas fora do Vita Integrare. Sugerimos o WhatsApp como meio de comunicação.</p><button class="btn-ok" id="summaryOkBtn">OK</button></div></div>
         <div id="caregiverFilterOverlay" class="filter-overlay"><div class="filter-popup"><button class="close-button" id="closeCaregiverFilterPopup"><i class="fas fa-times"></i></button><h3>Filtrar Cuidadores</h3><div class="input-group"><label for="filterReligion">Religião:</label><select id="filterReligion"><option value="">Todas</option><option value="Católica">Católica</option><option value="Evangélica">Evangélica</option><option value="Espírita">Espírita</option><option value="Umbanda">Umbanda</option><option value="Candomblé">Candomblé</option><option value="Judaísmo">Judaísmo</option><option value="Islamismo">Islamismo</option><option value="Budismo">Budismo</option><option value="Hinduísmo">Hinduísmo</option><option value="Ateu">Ateu</option><option value="Outra">Outra</option><option value="Não Informar">Não Informar</option></select></div><div class="input-group"><label for="filterCity">Cidade:</label><select id="filterCity"><option value="">Todas</option></select></div><div class="input-group"><label for="filterRating">Avaliação Mínima:</label><input type="number" id="filterRating" min="0" max="5" step="0.5" value="0"></div><div class="filter-buttons"><button class="btn" id="applyCaregiverFilters">Aplicar Filtros</button><button class="btn" id="clearCaregiverFilters">Limpar Filtros</button></div></div></div>
+        
+        <div id="stickyHeader" class="sticky-header">
+            <div class="user-info">
+                <div class="user-avatar" id="stickyUserAvatar"></div>
+                <div class="user-name" id="stickyUserName"></div>
+            </div>
+            <button id="stickyLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+
         <div id="authScreen" class="auth-screen">
             <div class="logo-container"><div class="logo-icon"><i class="fas fa-hands-helping"></i></div><h1>Vita Integrare</h1><p>Cuidado que Conecta</p></div>
             <div class="auth-form">
@@ -190,10 +246,6 @@
             </div>
         </div>
         <div id="caregiverScreen" class="main-screen">
-            <div class="fixed-header" id="caregiverFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedCaregiverAvatar"></div><div class="user-name" id="fixedCaregiverName"></div></div>
-                <button id="fixedCaregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <div class="header"><div class="header-actions"><button id="caregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div><div class="user-info"><div class="user-avatar" id="caregiverAvatar"><i class="fas fa-user-nurse"></i></div><div class="user-details"><div class="user-name" id="caregiverNameDisplay">Dr. Ana Silva</div><div class="user-badge">Cuidador</div><div class="user-rating"><div class="stars" id="caregiverStars"></div><span id="caregiverRatingValue">3.0</span></div></div></div><div class="welcome-message" id="caregiverWelcomeMessage">Mantenha seu perfil sempre atualizado para conseguir melhores avaliações e mais pacientes!</div></div>
             <div class="modules">
                 <div class="module-card" id="caregiverProfileModule"><div class="module-header"><div class="module-icon"><i class="fas fa-user"></i></div><div class="module-title">Meu Perfil</div></div><div class="module-description">Visualize e edite suas informações pessoais, formação, experiência e disponibilidade.</div></div>
@@ -203,10 +255,6 @@
             </div>
         </div>
         <div id="caregiverProfileEditScreen" class="profile-edit-screen">
-            <div class="fixed-header" id="caregiverProfileFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedCaregiverProfileAvatar"></div><div class="user-name" id="fixedCaregiverProfileName"></div></div>
-                <button id="fixedCaregiverProfileLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToCaregiverDashboard"><i class="fas fa-arrow-left"></i></button>
             <h2>Meu Perfil - Cuidador</h2>
             <div class="profile-section">
@@ -223,10 +271,6 @@
             <button class="btn" id="saveCaregiverProfile">Salvar Alterações</button>
         </div>
         <div id="caregiverPatientDetailsScreen" class="patient-details-screen">
-            <div class="fixed-header" id="caregiverPatientFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedCaregiverPatientAvatar"></div><div class="user-name" id="fixedCaregiverPatientName"></div></div>
-                <button id="fixedCaregiverPatientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToCaregiverPatients"><i class="fas fa-arrow-left"></i></button>
             <h2>Detalhes do Paciente:<span id="patientDetailsName"></span></h2>
             <div class="info-item"><strong>Nome Completo:</strong><p id="patientFullName"></p></div><div class="info-item"><strong>Idade:</strong><p id="patientAge"></p></div><div class="info-item"><strong>Religião:</strong><p id="patientReligion"></p></div><div class="info-item"><strong>Endereço:</strong><p id="patientAddress"></p></div><div class="info-item"><strong style="color:var(--success)">Horário Agendado:</strong><p id="patientScheduledTime"></p></div><div class="info-item"><strong>Observação do Paciente:</strong><p id="patientObservation"></p></div>
@@ -235,10 +279,6 @@
             <div class="patient-actions"><button class="btn btn-confirm" id="confirmAppointmentBtn">Confirmar Atendimento</button><button class="btn btn-complete" id="completeAppointmentBtn">Concluir Atendimento</button><button class="btn btn-cancel-appointment" id="cancelAppointmentBtn">Cancelar Atendimento</button><button class="btn btn-cancel-appointment" id="refuseAppointmentBtn">Recusar Atendimento</button></div>
         </div>
         <div id="caregiverPatientHistoryDetailsScreen" class="patient-details-screen">
-            <div class="fixed-header" id="caregiverHistoryFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedCaregiverHistoryAvatar"></div><div class="user-name" id="fixedCaregiverHistoryName"></div></div>
-                <button id="fixedCaregiverHistoryLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToCaregiverPatientHistory"><i class="fas fa-arrow-left"></i></button>
             <h2>Histórico do Paciente:<span id="historyPatientDetailsName"></span></h2>
             <div class="info-item"><strong>Nome Completo:</strong><p id="historyPatientFullName"></p></div><div class="info-item"><strong>Idade:</strong><p id="historyPatientAge"></p></div><div class="info-item"><strong>Religião:</strong><p id="historyPatientReligion"></p></div><div class="info-item"><strong>Endereço:</strong><p id="historyPatientAddress"></p></div>
@@ -246,10 +286,6 @@
             <div class="profile-section"><h3>Notas do Cuidador (Histórico)</h3><div class="input-group"><label>Rotinas e Hábitos:</label><textarea id="historyPatientRoutines" readonly="readonly"></textarea></div><div class="input-group"><label>Cuidados e Manejos Específicos:</label><textarea id="historyPatientSpecificCare" readonly="readonly"></textarea></div><div class="input-group"><label>Registro Diário:</label><textarea id="historyPatientDailyRecord" readonly="readonly"></textarea></div></div>
         </div>
         <div id="clientScreen" class="main-screen">
-            <div class="fixed-header" id="clientFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedClientAvatar"></div><div class="user-name" id="fixedClientName"></div></div>
-                <button id="fixedClientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <div class="header"><div class="header-actions"><button id="clientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div><div class="user-info"><div class="user-avatar" id="clientAvatar"><i class="fas fa-user"></i></div><div class="user-details"><div class="user-name" id="clientNameDisplay">Sra. Marta Costa</div><div class="user-badge">Cliente</div></div></div><div class="welcome-message">Bem-vindo(a) à Vita Integrare! Use os botões abaixo para agendar um atendimento, editar seu perfil ou falar com nossos representantes.</div></div>
             <div class="modules">
                 <div class="module-card" id="clientProfileModule"><div class="module-header"><div class="module-icon"><i class="fas fa-user"></i></div><div class="module-title">Meu Perfil</div></div><div class="module-description">Visualize e edite suas informações pessoais, medicamentos e necessidades específicas.</div></div>
@@ -267,10 +303,6 @@
             </div>
         </div>
         <div id="clientProfileEditScreen" class="profile-edit-screen">
-            <div class="fixed-header" id="clientProfileFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedClientProfileAvatar"></div><div class="user-name" id="fixedClientProfileName"></div></div>
-                <button id="fixedClientProfileLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToClientDashboard"><i class="fas fa-arrow-left"></i></button>
             <h2>Meu Perfil - Cliente</h2>
             <div class="profile-section">
@@ -283,10 +315,6 @@
             <button class="btn" id="saveClientProfile">Salvar Alterações</button>
         </div>
         <div id="scheduleCaregiverScreen" class="schedule-caregiver-screen">
-            <div class="fixed-header" id="scheduleCaregiverFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedScheduleCaregiverAvatar"></div><div class="user-name" id="fixedScheduleCaregiverName"></div></div>
-                <button id="fixedScheduleCaregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToCaregiverCarousel"><i class="fas fa-arrow-left"></i></button>
             <h2>Agendar Cuidador</h2>
             <div class="caregiver-info-summary"><div class="avatar"><img id="selectedCaregiverAvatar" src="" alt="Foto do Cuidador" style="display:none"><i class="fas fa-user-nurse" id="selectedCaregiverIcon"></i></div><div class="details"><div class="name" id="selectedCaregiverName"></div><div class="rating" id="selectedCaregiverRating"></div></div></div>
@@ -297,20 +325,12 @@
             <button class="btn" id="confirmScheduleBtn">Confirmar Agendamento</button>
         </div>
         <div id="clientRequestsHistoryScreen" class="client-requests-history-screen">
-            <div class="fixed-header" id="clientRequestsFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedClientRequestsAvatar"></div><div class="user-name" id="fixedClientRequestsName"></div></div>
-                <button id="fixedClientRequestsLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToClientDashboardFromRequests"><i class="fas fa-arrow-left"></i></button>
             <h2>Minhas Solicitações</h2>
             <div class="client-requests-list" id="clientRequestsList"></div>
             <div class="pagination-controls"><button id="prevRequestPageBtn" disabled="disabled">Anterior</button><button id="nextRequestPageBtn" disabled="disabled">Próximo</button></div>
         </div>
         <div id="clientRequestDetailsScreen" class="client-request-details-screen">
-            <div class="fixed-header" id="clientRequestDetailsFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedClientRequestDetailsAvatar"></div><div class="user-name" id="fixedClientRequestDetailsName"></div></div>
-                <button id="fixedClientRequestDetailsLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <button class="back-button" id="backToClientRequestsHistory"><i class="fas fa-arrow-left"></i></button>
             <h2>Detalhes da Solicitação</h2>
             <div class="caregiver-summary"><div class="avatar"><img id="requestCaregiverAvatar" src="" alt="Foto do Cuidador" style="display:none"><i class="fas fa-user-nurse" id="requestCaregiverIcon"></i></div><div class="details"><div class="name" id="requestCaregiverName"></div><div class="rating" id="requestCaregiverRating"></div></div></div>
@@ -319,10 +339,6 @@
             <div class="profile-section"><h3>Notas do Cuidador (se houver)</h3><p id="requestCaregiverNotes"></p></div>
         </div>
         <div id="adminScreen" class="main-screen">
-            <div class="fixed-header" id="adminFixedHeader">
-                <div class="user-info"><div class="user-avatar" id="fixedAdminAvatar"></div><div class="user-name" id="fixedAdminName"></div></div>
-                <button id="fixedAdminLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
             <div class="header"><div class="header-actions"><button id="adminLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div><div class="user-info"><div class="user-avatar"><i class="fas fa-user-shield"></i></div><div class="user-details"><div class="user-name">Administrador</div><div class="user-badge">Admin</div></div></div><div class="welcome-message">Bem-vindo, Administrador! Gerencie usuários e agendamentos da plataforma.</div></div>
             <div class="modules">
                 <div class="module-card" id="adminPendingCaregiversModule">
@@ -361,12 +377,8 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
+                    .then(reg => console.log('Service Worker Registered', reg))
+                    .catch(err => console.error('Service Worker Registration Failed', err));
             });
         }
 
@@ -484,58 +496,6 @@
         const professionalPhotoUploadLabel = document.getElementById('professionalPhotoUploadLabel');
         const termsConsentCheckbox = document.getElementById('termsConsent');
         const emailInputGroup = document.getElementById('emailInputGroup');
-
-        // Fixed Headers
-        const caregiverFixedHeader = document.getElementById('caregiverFixedHeader');
-        const fixedCaregiverAvatar = document.getElementById('fixedCaregiverAvatar');
-        const fixedCaregiverName = document.getElementById('fixedCaregiverName');
-        const fixedCaregiverLogoutBtn = document.getElementById('fixedCaregiverLogoutBtn');
-
-        const caregiverProfileFixedHeader = document.getElementById('caregiverProfileFixedHeader');
-        const fixedCaregiverProfileAvatar = document.getElementById('fixedCaregiverProfileAvatar');
-        const fixedCaregiverProfileName = document.getElementById('fixedCaregiverProfileName');
-        const fixedCaregiverProfileLogoutBtn = document.getElementById('fixedCaregiverProfileLogoutBtn');
-
-        const caregiverPatientFixedHeader = document.getElementById('caregiverPatientFixedHeader');
-        const fixedCaregiverPatientAvatar = document.getElementById('fixedCaregiverPatientAvatar');
-        const fixedCaregiverPatientName = document.getElementById('fixedCaregiverPatientName');
-        const fixedCaregiverPatientLogoutBtn = document.getElementById('fixedCaregiverPatientLogoutBtn');
-
-        const caregiverHistoryFixedHeader = document.getElementById('caregiverHistoryFixedHeader');
-        const fixedCaregiverHistoryAvatar = document.getElementById('fixedCaregiverHistoryAvatar');
-        const fixedCaregiverHistoryName = document.getElementById('fixedCaregiverHistoryName');
-        const fixedCaregiverHistoryLogoutBtn = document.getElementById('fixedCaregiverHistoryLogoutBtn');
-
-        const clientFixedHeader = document.getElementById('clientFixedHeader');
-        const fixedClientAvatar = document.getElementById('fixedClientAvatar');
-        const fixedClientName = document.getElementById('fixedClientName');
-        const fixedClientLogoutBtn = document.getElementById('fixedClientLogoutBtn');
-
-        const clientProfileFixedHeader = document.getElementById('clientProfileFixedHeader');
-        const fixedClientProfileAvatar = document.getElementById('fixedClientProfileAvatar');
-        const fixedClientProfileName = document.getElementById('fixedClientProfileName');
-        const fixedClientProfileLogoutBtn = document.getElementById('fixedClientProfileLogoutBtn');
-
-        const scheduleCaregiverFixedHeader = document.getElementById('scheduleCaregiverFixedHeader');
-        const fixedScheduleCaregiverAvatar = document.getElementById('fixedScheduleCaregiverAvatar');
-        const fixedScheduleCaregiverName = document.getElementById('fixedScheduleCaregiverName');
-        const fixedScheduleCaregiverLogoutBtn = document.getElementById('fixedScheduleCaregiverLogoutBtn');
-
-        const clientRequestsFixedHeader = document.getElementById('clientRequestsFixedHeader');
-        const fixedClientRequestsAvatar = document.getElementById('fixedClientRequestsAvatar');
-        const fixedClientRequestsName = document.getElementById('fixedClientRequestsName');
-        const fixedClientRequestsLogoutBtn = document.getElementById('fixedClientRequestsLogoutBtn');
-
-        const clientRequestDetailsFixedHeader = document.getElementById('clientRequestDetailsFixedHeader');
-        const fixedClientRequestDetailsAvatar = document.getElementById('fixedClientRequestDetailsAvatar');
-        const fixedClientRequestDetailsName = document.getElementById('fixedClientRequestDetailsName');
-        const fixedClientRequestDetailsLogoutBtn = document.getElementById('fixedClientRequestDetailsLogoutBtn');
-
-        const adminFixedHeader = document.getElementById('adminFixedHeader');
-        const fixedAdminAvatar = document.getElementById('fixedAdminAvatar');
-        const fixedAdminName = document.getElementById('fixedAdminName');
-        const fixedAdminLogoutBtn = document.getElementById('fixedAdminLogoutBtn');
-
 
         // Caregiver Dashboard elements
         const caregiverNameDisplay = document.getElementById('caregiverNameDisplay');
@@ -761,6 +721,12 @@
         const applyCaregiverFiltersBtn = document.getElementById('applyCaregiverFilters');
         const clearCaregiverFiltersBtn = document.getElementById('clearCaregiverFilters');
 
+        // Sticky Header elements
+        const stickyHeader = document.getElementById('stickyHeader');
+        const stickyUserAvatar = document.getElementById('stickyUserAvatar');
+        const stickyUserName = document.getElementById('stickyUserName');
+        const stickyLogoutBtn = document.getElementById('stickyLogoutBtn');
+
 
         // --- Utility Functions ---
 
@@ -787,119 +753,6 @@
                     screen.classList.remove('fade-in');
                 }
             });
-            updateFixedHeader(screenId);
-        }
-
-        function updateFixedHeader(currentScreenId) {
-            const fixedHeaders = document.querySelectorAll('.fixed-header');
-            fixedHeaders.forEach(header => header.classList.remove('show'));
-
-            let targetHeader = null;
-            let avatarElement = null;
-            let nameElement = null;
-            let logoutButton = null;
-
-            switch (currentScreenId) {
-                case 'caregiverScreen':
-                    targetHeader = caregiverFixedHeader;
-                    avatarElement = fixedCaregiverAvatar;
-                    nameElement = fixedCaregiverName;
-                    logoutButton = fixedCaregiverLogoutBtn;
-                    break;
-                case 'caregiverProfileEditScreen':
-                    targetHeader = caregiverProfileFixedHeader;
-                    avatarElement = fixedCaregiverProfileAvatar;
-                    nameElement = fixedCaregiverProfileName;
-                    logoutButton = fixedCaregiverProfileLogoutBtn;
-                    break;
-                case 'caregiverPatientDetailsScreen':
-                    targetHeader = caregiverPatientFixedHeader;
-                    avatarElement = fixedCaregiverPatientAvatar;
-                    nameElement = fixedCaregiverPatientName;
-                    logoutButton = fixedCaregiverPatientLogoutBtn;
-                    break;
-                case 'caregiverPatientHistoryDetailsScreen':
-                    targetHeader = caregiverHistoryFixedHeader;
-                    avatarElement = fixedCaregiverHistoryAvatar;
-                    nameElement = fixedCaregiverHistoryName;
-                    logoutButton = fixedCaregiverHistoryLogoutBtn;
-                    break;
-                case 'clientScreen':
-                    targetHeader = clientFixedHeader;
-                    avatarElement = fixedClientAvatar;
-                    nameElement = fixedClientName;
-                    logoutButton = fixedClientLogoutBtn;
-                    break;
-                case 'clientProfileEditScreen':
-                    targetHeader = clientProfileFixedHeader;
-                    avatarElement = fixedClientProfileAvatar;
-                    nameElement = fixedClientProfileName;
-                    logoutButton = fixedClientProfileLogoutBtn;
-                    break;
-                case 'scheduleCaregiverScreen':
-                    targetHeader = scheduleCaregiverFixedHeader;
-                    avatarElement = fixedScheduleCaregiverAvatar;
-                    nameElement = fixedScheduleCaregiverName;
-                    logoutButton = fixedScheduleCaregiverLogoutBtn;
-                    break;
-                case 'clientRequestsHistoryScreen':
-                    targetHeader = clientRequestsFixedHeader;
-                    avatarElement = fixedClientRequestsAvatar;
-                    nameElement = fixedClientRequestsName;
-                    logoutButton = fixedClientRequestsLogoutBtn;
-                    break;
-                case 'clientRequestDetailsScreen':
-                    targetHeader = clientRequestDetailsFixedHeader;
-                    avatarElement = fixedClientRequestDetailsAvatar;
-                    nameElement = fixedClientRequestDetailsName;
-                    logoutButton = fixedClientRequestDetailsLogoutBtn;
-                    break;
-                case 'adminScreen':
-                    targetHeader = adminFixedHeader;
-                    avatarElement = fixedAdminAvatar;
-                    nameElement = fixedAdminName;
-                    logoutButton = fixedAdminLogoutBtn;
-                    break;
-                default:
-                    return; // No fixed header for auth screen
-            }
-
-            if (targetHeader) {
-                if (currentUserType === 'caregiver' && currentCaregiverData) {
-                    nameElement.textContent = currentCaregiverData.fullName;
-                    if (currentCaregiverData.profilePhotoUrl) {
-                        avatarElement.innerHTML = `<img src="${currentCaregiverData.profilePhotoUrl}" alt="Foto">`;
-                    } else {
-                        avatarElement.innerHTML = '<i class="fas fa-user-nurse"></i>';
-                    }
-                } else if (currentUserType === 'client' && currentClientData) {
-                    nameElement.textContent = currentClientData.fullName;
-                    if (currentClientData.profilePhotoUrl) {
-                        avatarElement.innerHTML = `<img src="${currentClientData.profilePhotoUrl}" alt="Foto">`;
-                    } else {
-                        avatarElement.innerHTML = '<i class="fas fa-user"></i>';
-                    }
-                } else if (currentUserType === 'admin') {
-                    nameElement.textContent = 'Administrador';
-                    avatarElement.innerHTML = '<i class="fas fa-user-shield"></i>';
-                }
-
-                logoutButton.onclick = () => auth.signOut();
-
-                let lastScrollTop = 0;
-                const screenElement = document.getElementById(currentScreenId);
-                if (screenElement) {
-                    screenElement.onscroll = () => {
-                        const scrollTop = screenElement.scrollTop;
-                        if (scrollTop > 100 && scrollTop > lastScrollTop) { // Scrolled down past 100px
-                            targetHeader.classList.add('show');
-                        } else if (scrollTop < lastScrollTop || scrollTop < 50) { // Scrolled up or near top
-                            targetHeader.classList.remove('show');
-                        }
-                        lastScrollTop = scrollTop;
-                    };
-                }
-            }
         }
 
         function goBack() {
@@ -921,7 +774,6 @@
                         screen.classList.remove('fade-in');
                     }
                 });
-                updateFixedHeader(prevScreenId);
             }
         }
 
@@ -1285,8 +1137,6 @@
                     if (currentUserType === 'caregiver') {
                         caregiverFields.style.display = 'block';
                         corenNumberGroup.style.display = hasCoren ? 'block' : 'none';
-                    } else {
-                        caregiverFields.style.display = 'none';
                     }
                 } else {
                     caregiverFields.style.display = 'none';
@@ -2147,6 +1997,7 @@
 
             showScreen('caregiverScreen');
             setupCaregiverAppointmentsListener(currentUser.uid);
+            updateStickyHeader(currentCaregiverData.fullName, currentCaregiverData.profilePhotoUrl, 'caregiver');
         }
 
         function setupCaregiverAppointmentsListener(caregiverId) {
@@ -2744,6 +2595,7 @@
                     module.element.style.pointerEvents = 'auto';
                 }
             });
+            updateStickyHeader(currentClientData.fullName, currentClientData.profilePhotoUrl, 'client');
         }
 
         clientProfileModule.addEventListener('click', () => {
@@ -3719,15 +3571,70 @@
             auth.signOut();
         });
 
+        stickyLogoutBtn.addEventListener('click', () => {
+            auth.signOut();
+        });
+
+        // --- Sticky Header Logic ---
+        let headerObserver;
+        const mainScreens = [caregiverScreen, clientScreen, adminScreen];
+
+        function setupStickyHeaderObserver() {
+            if (headerObserver) {
+                headerObserver.disconnect();
+            }
+
+            const currentMainScreen = mainScreens.find(screen => screen.style.display === 'flex');
+            if (!currentMainScreen) {
+                stickyHeader.classList.remove('show');
+                return;
+            }
+
+            const headerElement = currentMainScreen.querySelector('.header');
+            if (!headerElement) {
+                stickyHeader.classList.remove('show');
+                return;
+            }
+
+            headerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        stickyHeader.classList.remove('show');
+                    } else {
+                        stickyHeader.classList.add('show');
+                    }
+                });
+            }, { threshold: 0 }); // Trigger when 0% of the header is visible
+
+            headerObserver.observe(headerElement);
+        }
+
+        function updateStickyHeader(userName, userPhotoUrl, userType) {
+            stickyUserName.textContent = userName;
+            stickyUserAvatar.innerHTML = '';
+            if (userPhotoUrl) {
+                const img = document.createElement('img');
+                img.src = userPhotoUrl;
+                img.alt = 'Foto de Perfil';
+                stickyUserAvatar.appendChild(img);
+            } else {
+                const icon = document.createElement('i');
+                icon.className = `fas fa-user${userType === 'caregiver' ? '-nurse' : (userType === 'admin' ? '-shield' : '')}`;
+                stickyUserAvatar.appendChild(icon);
+            }
+            setupStickyHeaderObserver();
+        }
+
         // --- Initial Load / Check Auth State ---
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {
                     const userDoc = await db.collection('users').doc(user.uid).get();
-                    if (userDoc.exists) { const userData = userDoc.data();
+                    if (userDoc.exists) { 
+                        const userData = userDoc.data();
                         handleAuthSuccess(user, userData.type);
                     } else {
-                        console.error("User  data not found for UID:", user.uid);
+                        console.error("User data not found for UID:", user.uid);
                         await auth.signOut();
                     }
                 } catch (error) {
@@ -3736,8 +3643,80 @@
                 }
             } else {
                 showScreen('authScreen');
+                stickyHeader.classList.remove('show'); // Hide sticky header on auth screen
             }
         });
+    </script>
+    <script>
+        // service-worker.js content
+        self.addEventListener('install', (event) => {
+            event.waitUntil(
+                caches.open('vita-integrare-cache-v1').then((cache) => {
+                    return cache.addAll([
+                        '/',
+                        '/index.html',
+                        '/icone.jpg',
+                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+                        'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap',
+                        'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css',
+                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js',
+                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js',
+                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js',
+                        'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js',
+                        'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js',
+                        'https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js',
+                        'https://cdn.jsdelivr.net/npm/chart.js'
+                    ]);
+                })
+            );
+        });
+
+        self.addEventListener('fetch', (event) => {
+            event.respondWith(
+                caches.match(event.request).then((response) => {
+                    return response || fetch(event.request);
+                })
+            );
+        });
+    </script>
+    <script>
+        // manifest.json content
+        const manifestContent = {
+            "name": "Vita Integrare",
+            "short_name": "Vita",
+            "description": "Cuidado que Conecta",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#f0f9ff",
+            "theme_color": "#2563eb",
+            "icons": [
+                {
+                    "src": "/icone.jpg",
+                    "sizes": "192x192",
+                    "type": "image/jpg"
+                },
+                {
+                    "src": "/icone.jpg",
+                    "sizes": "512x512",
+                    "type": "image/jpg"
+                }
+            ]
+        };
+
+        // Create a Blob for the manifest and set its URL
+        const manifestBlob = new Blob([JSON.stringify(manifestContent)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+
+        // Update the manifest link in the HTML head
+        const manifestLink = document.querySelector('link[rel="manifest"]');
+        if (manifestLink) {
+            manifestLink.href = manifestURL;
+        } else {
+            const newManifestLink = document.createElement('link');
+            newManifestLink.rel = 'manifest';
+            newManifestLink.href = manifestURL;
+            document.head.appendChild(newManifestLink);
+        }
     </script>
 </body>
 </html>
