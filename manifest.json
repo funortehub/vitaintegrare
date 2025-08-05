@@ -1,11 +1,11 @@
 {
   "name": "Vita Integrare",
   "short_name": "Vita",
-  "description": "Cuidado que Conecta",
-  "start_url": "/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#e0f2fe",
-  "theme_color": "#2563eb",
+  "theme_color": "#e0f2fe",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/icone.jpg",
