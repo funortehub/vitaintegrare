@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icone.jpg">
-    <link rel="icon" href="/icone.jpg">
+    <link rel="icon" href="/icone.jpg" type="image/jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
@@ -2168,7 +2168,7 @@
                 patientAge.textContent = `${age} anos`;
 
                 patientReligion.textContent = clientData.religion || 'Não informado';
-                patientAddress.textContent = `${clientData.street || '', clientData.number || '', clientData.neighborhood || '', clientData.city || ''} - ${clientData.state || ''}`;
+                patientAddress.textContent = `${clientData.street || '', ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
 
                 const daysText = currentSelectedAppointment.daysOfWeek ? currentSelectedAppointment.daysOfWeek.join(', ') : 'Não informado';
                 const timeText = currentSelectedAppointment.startTime && currentSelectedAppointment.endTime ? `${currentSelectedAppointment.startTime} - ${currentSelectedAppointment.endTime}` : 'Não informado';
@@ -3517,7 +3517,7 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
                     .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
+                        console.log('Service Worker registered:', registration);
                     })
                     .catch(error => {
                         console.error('Service Worker registration failed:', error);
