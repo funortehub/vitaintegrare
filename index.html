@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>Vita Integrare - Cuidado que Conecta</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="icone.jpg">
+    <link rel="icon" href="icone.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2563eb">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
@@ -11,12 +17,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-    <link rel="apple-touch-icon" href="icone.jpg">
-    <link rel="icon" href="icone.jpg">
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#2563eb">
     <style>
         :root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255, 255, 255, 0.08);--glass-border:rgba(255, 255, 255, 0.18);--shadow-sm:0 1px 2px rgba(0, 0, 0, 0.05);--shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06);--shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);--shadow-xl:0 20px 25px -5px rgba(0, 0, 0, 0.1),0 10px 10px -5px rgba(0, 0, 0, 0.04);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}
         *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
@@ -41,10 +41,11 @@
         .user-type-btn i{font-size:1.8rem;margin-bottom:.75rem;display:block;color:var(--white)!important;}
         .terms{display:flex;align-items:flex-start;margin-bottom:1.5rem;font-size:.85rem;color:var(--white)}.terms input{margin-right:.75rem;margin-top:.25rem;min-width:18px;min-height:18px;accent-color:var(--accent-yellow)}.terms label{text-align:justify;font-weight:400;opacity:.9}.terms label a{color:var(--accent-yellow);text-decoration:underline;font-weight:600;transition:color .2s ease}.terms label a:hover{color:var(--white)}
         .btn{width:100%;padding:1rem;border:none;border-radius:var(--radius-lg);background:linear-gradient(to right,var(--primary-blue),var(--light-blue));color:var(--white);font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);letter-spacing:.5px;position:relative;overflow:hidden}.btn:after{content:'';position:absolute;top:-50%;left:-60%;width:20px;height:200%;background:rgba(255,255,255,.3);transform:rotate(25deg);transition:all .6s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}.btn:active{transform:translateY(0);box-shadow:var(--shadow)}
-        .main-screen{display:none;flex-direction:column;flex-grow:1;background-color:var(--off-white);position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.header{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue));color:var(--white);padding:1.5rem 1.25rem 2rem;position:sticky;top:0;z-index:10;border-bottom-left-radius:var(--radius-xl);border-bottom-right-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding-top:2.5rem}
-        .user-info{display:flex;align-items:center;margin-bottom:1.25rem}.user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}
-        .user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--white)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}
-        .user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin-top:1rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}
+        .main-screen{display:none;flex-direction:column;flex-grow:1;background-color:var(--off-white);position:relative;overflow-y:auto;padding-bottom:1.5rem;}
+        .user-info{display:flex;align-items:center;margin-bottom:1.25rem;padding:1.5rem 1.25rem 0;}
+        .user-avatar{width:70px;height:70px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.8rem;color:var(--dark-blue);border:3px solid var(--white);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0}.user-avatar img{width:100%;height:100%;object-fit:cover}
+        .user-details{flex:1}.user-name{font-weight:600;font-size:1.3rem;margin-bottom:.25rem;color:var(--dark-gray)}.user-badge{display:inline-block;padding:.3rem .8rem;background-color:var(--accent-yellow);color:var(--dark-blue);border-radius:var(--radius-full);font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm)}
+        .user-rating{display:flex;align-items:center;margin-top:.5rem}.user-rating .stars{color:var(--accent-yellow);margin-right:.5rem;font-size:1rem}.welcome-message{background-color:var(--white);color:var(--dark-gray);padding:1rem;border-radius:var(--radius-lg);margin:1rem 1.25rem;position:relative;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5;font-weight:400}.welcome-message:before{content:'';position:absolute;top:-12px;left:30px;width:20px;height:20px;background-color:var(--white);transform:rotate(45deg);box-shadow:-2px -2px 5px rgba(0,0,0,.05)}
         .modules{padding:1.5rem 1.25rem;flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(100%,1fr));gap:1.25rem}@media (min-width:480px){.modules{grid-template-columns:repeat(auto-fill,minmax(48%,1fr))}}
         .module-card{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;overflow:hidden;position:relative;border:1px solid var(--light-gray)}.module-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
         .module-header{display:flex;align-items:center;margin-bottom:1rem}.module-icon{width:50px;height:50px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--primary-blue),var(--light-blue));display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--white);box-shadow:var(--shadow);flex-shrink:0}
@@ -53,14 +54,14 @@
         .appointment-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.appointment-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
         .patient-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.appointment-time{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}.appointment-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
         .status-pending{background-color:rgba(245,158,11,.15);color:var(--warning)}.status-confirmed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-completed{background-color:rgba(16,185,129,.15);color:var(--success)}.status-cancelled{background-color:rgba(239,68,68,.15);color:var(--error)}.status-refused{background-color:rgba(239,68,68,.15);color:var(--error)}
-        .profile-edit-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.profile-edit-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.profile-edit-screen .input-group{margin-bottom:1.25rem;text-align:left}.profile-edit-screen .input-group label{color:var(--dark-gray);font-weight:500;font-size:.9rem;display:block;margin-bottom:.5rem}.profile-edit-screen .btn{margin-top:1.5rem}
+        .profile-edit-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.profile-edit-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.profile-edit-screen .input-group{margin-bottom:1.25rem;text-align:left}.profile-edit-screen .input-group label{color:var(--dark-gray);font-weight:500;font-size:.9rem;display:block;margin-bottom:.5rem}.profile-edit-screen .btn{margin-top:1.5rem}
         .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}.profile-section strong{color:var(--dark-gray);font-weight:600}.profile-section ul{list-style:none;padding:0}.profile-section ul li{margin-bottom:.5rem;color:var(--medium-gray);font-size:.9rem}
         .medication-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:.75rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;position:relative}.medication-item .medication-details{display:flex;flex-direction:column}.medication-item .medication-details strong{color:var(--dark-blue);font-size:.95rem}.medication-item .medication-details span{font-size:.85rem;color:var(--medium-gray)}
         .medication-item .remove-medication-btn{position:absolute;top:.5rem;right:.5rem;background:0 0;border:none;color:var(--error);font-size:1.2rem;cursor:pointer;padding:.2rem;border-radius:var(--radius-sm);transition:background-color .2s}.medication-item .remove-medication-btn:hover{background-color:rgba(239,68,68,.1)}
         .add-medication-btn{background-color:var(--success);color:var(--white);padding:.75rem;border:none;border-radius:var(--radius-md);cursor:pointer;font-weight:600;margin-top:1rem;transition:var(--transition)}.add-medication-btn:hover{background-color:#059669;transform:translateY(-2px)}
-        .patient-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.patient-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .patient-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.patient-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .patient-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.patient-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.patient-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}
-        .schedule-caregiver-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.schedule-caregiver-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .schedule-caregiver-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.schedule-caregiver-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .schedule-caregiver-screen .caregiver-info-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.schedule-caregiver-screen .caregiver-info-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.schedule-caregiver-screen .caregiver-info-summary .avatar img{width:100%;height:100%;object-fit:cover}
         .schedule-caregiver-screen .caregiver-info-summary .details{flex:1}.schedule-caregiver-screen .caregiver-info-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.schedule-caregiver-screen .caregiver-info-summary .rating{color:var(--accent-yellow);font-size:.95rem}
         .schedule-caregiver-screen .form-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow);border:1px solid var(--light-gray)}.schedule-caregiver-screen .form-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}
@@ -79,18 +80,18 @@
         .patient-actions .btn-confirm{background:linear-gradient(to right,var(--success),#34d399)}.patient-actions .btn-confirm:hover{background:linear-gradient(to right,#059669,#34d399)}
         .patient-actions .btn-complete{background:linear-gradient(to right,var(--dark-blue),var(--primary-blue))}.patient-actions .btn-complete:hover{background:linear-gradient(to right,#1e40af,var(--primary-blue))}
         .patient-actions .btn-cancel-appointment{background:linear-gradient(to right,var(--error),#f87171)}.patient-actions .btn-cancel-appointment:hover{background:linear-gradient(to right,#dc2626,#f87171)}
-        .header-actions{position:absolute;top:1.5rem;right:1.25rem;display:flex;gap:1rem;z-index:11}.logout-button{font-size:1.4rem;color:var(--white);cursor:pointer;transition:transform .2s ease-in-out;background:0 0;border:none;padding:0;position:relative}.logout-button:hover{transform:scale(1.1);color:var(--accent-yellow)}
-        .client-requests-history-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.client-requests-history-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .header-actions{position:absolute;top:1.25rem;right:1.25rem;display:flex;gap:1rem;z-index:11}.logout-button{font-size:1.4rem;color:var(--dark-gray);cursor:pointer;transition:transform .2s ease-in-out;background:0 0;border:none;padding:0;position:relative}.logout-button:hover{transform:scale(1.1);color:var(--accent-yellow)}
+        .client-requests-history-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-requests-history-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .client-requests-list{margin-top:1rem}.client-request-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-item:hover{background-color:var(--sky-blue);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
         .client-request-item .caregiver-name{font-weight:600;font-size:1rem;margin-bottom:.5rem;color:var(--primary-blue)}.client-request-item .request-info{color:var(--medium-gray);font-weight:500;font-size:.85rem;margin-bottom:.5rem}
         .client-request-item .request-status{display:inline-block;padding:.25rem .7rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}.client-request-item .whatsapp-link{display:inline-flex;align-items:center;gap:.3rem;color:var(--success);text-decoration:none;font-weight:600;margin-top:.5rem}.client-request-item .whatsapp-link i{font-size:1.1rem}
         .pagination-controls{display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;margin-bottom:1rem}.pagination-controls button{padding:.6rem 1.2rem;border:none;border-radius:var(--radius-md);background-color:var(--primary-blue);color:var(--white);font-weight:600;cursor:pointer;transition:var(--transition)}.pagination-controls button:disabled{background-color:var(--medium-gray);cursor:not-allowed;opacity:.7}.pagination-controls button:hover:not(:disabled){background-color:var(--dark-blue);transform:translateY(-2px)}
-        .client-request-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.client-request-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
+        .client-request-details-screen{display:none;flex-direction:column;padding:1.5rem 1.25rem;background-color:var(--off-white);flex-grow:1;position:relative;overflow-y:auto}.client-request-details-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}
         .client-request-details-screen .caregiver-summary{background-color:var(--white);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);display:flex;align-items:center;border:1px solid var(--light-gray)}.client-request-details-screen .caregiver-summary .avatar{width:65px;height:65px;border-radius:var(--radius-full);background-color:var(--sky-blue);display:flex;align-items:center;justify-content:center;margin-right:1rem;font-size:1.5rem;color:var(--dark-blue);overflow:hidden;border:3px solid var(--accent-yellow);flex-shrink:0}.client-request-details-screen .caregiver-summary .avatar img{width:100%;height:100%;object-fit:cover}
         .client-request-details-screen .caregiver-summary .details{flex:1}.client-request-details-screen .caregiver-summary .name{font-weight:600;font-size:1.1rem;color:var(--dark-blue);margin-bottom:.25rem}.client-request-details-screen .caregiver-summary .rating{color:var(--accent-yellow);font-size:.95rem}
         .client-request-details-screen .info-item{background-color:var(--white);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;box-shadow:var(--shadow);border-left:4px solid var(--primary-blue)}.client-request-details-screen .info-item strong{color:var(--primary-blue);display:block;margin-bottom:.5rem;font-size:.95rem;font-weight:600}.client-request-details-screen .info-item p{color:var(--dark-gray);font-size:.95rem}
         .client-request-details-screen .profile-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}.client-request-details-screen .profile-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.client-request-details-screen .profile-section p{margin-bottom:.75rem;color:var(--medium-gray);font-size:.95rem}
-        .admin-screen{display:none;flex-direction:column;flex-grow:1;background-color:var(--off-white);position:relative;overflow-y:auto;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}.admin-screen .header{background:linear-gradient(to right,#4caf50,#8bc34a)}.admin-screen .header .user-badge{background-color:var(--white);color:#4caf50}
+        .admin-screen{display:none;flex-direction:column;flex-grow:1;padding-bottom:1.5rem;background-color:var(--off-white);position:relative;overflow-y:auto}.admin-screen .user-badge{background-color:var(--white);color:#4caf50}
         .admin-screen h2{color:var(--dark-blue);margin-bottom:1.5rem;text-align:center;font-size:1.6rem;font-weight:700;padding-top:.5rem}.admin-section{background-color:var(--white);border-radius:var(--radius-lg);padding:1.5rem;margin:1.5rem 1.25rem 1.25rem;box-shadow:var(--shadow)}
         .admin-section h3{color:var(--primary-blue);margin-bottom:1rem;border-bottom:1px solid var(--light-gray);padding-bottom:.75rem;font-size:1.15rem;font-weight:600}.admin-list{list-style:none;padding:0}
         .admin-list-item{background-color:var(--off-white);border:1px solid var(--light-gray);border-radius:var(--radius-md);padding:1rem;margin-bottom:.75rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--shadow-sm)}.admin-list-item .item-details{font-size:.95rem;color:var(--dark-gray)}.admin-list-item .item-details strong{color:var(--primary-blue)}
@@ -182,7 +183,8 @@
             </div>
         </div>
         <div id="caregiverScreen" class="main-screen">
-            <div class="header"><div class="header-actions"><button id="caregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div><div class="user-info"><div class="user-avatar" id="caregiverAvatar"><i class="fas fa-user-nurse"></i></div><div class="user-details"><div class="user-name" id="caregiverNameDisplay">Dr. Ana Silva</div><div class="user-badge">Cuidador</div><div class="user-rating"><div class="stars" id="caregiverStars"></div><span id="caregiverRatingValue">3.0</span></div></div></div><div class="welcome-message" id="caregiverWelcomeMessage">Mantenha seu perfil sempre atualizado para conseguir melhores avaliações e mais pacientes!</div></div>
+            <div class="header-actions"><button id="caregiverLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div>
+            <div class="user-info"><div class="user-avatar" id="caregiverAvatar"><i class="fas fa-user-nurse"></i></div><div class="user-details"><div class="user-name" id="caregiverNameDisplay">Dr. Ana Silva</div><div class="user-badge">Cuidador</div><div class="user-rating"><div class="stars" id="caregiverStars"></div><span id="caregiverRatingValue">3.0</span></div></div></div><div class="welcome-message" id="caregiverWelcomeMessage">Mantenha seu perfil sempre atualizado para conseguir melhores avaliações e mais pacientes!</div>
             <div class="modules">
                 <div class="module-card" id="caregiverProfileModule"><div class="module-header"><div class="module-icon"><i class="fas fa-user"></i></div><div class="module-title">Meu Perfil</div></div><div class="module-description">Visualize e edite suas informações pessoais, formação, experiência e disponibilidade.</div></div>
                 <div class="module-card" id="caregiverPatientsModule"><div class="module-header"><div class="module-icon"><i class="fas fa-users"></i></div><div class="module-title">Agendamentos Ativos</div></div><div class="module-description">Gerencie seus pacientes e agendamentos ativos.</div><div class="appointment-list" id="caregiverPatientList"></div></div>
@@ -222,7 +224,8 @@
             <div class="profile-section"><h3>Notas do Cuidador (Histórico)</h3><div class="input-group"><label>Rotinas e Hábitos:</label><textarea id="historyPatientRoutines" readonly="readonly"></textarea></div><div class="input-group"><label>Cuidados e Manejos Específicos:</label><textarea id="historyPatientSpecificCare" readonly="readonly"></textarea></div><div class="input-group"><label>Registro Diário:</label><textarea id="historyPatientDailyRecord" readonly="readonly"></textarea></div></div>
         </div>
         <div id="clientScreen" class="main-screen">
-            <div class="header"><div class="header-actions"><button id="clientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div><div class="user-info"><div class="user-avatar" id="clientAvatar"><i class="fas fa-user"></i></div><div class="user-details"><div class="user-name" id="clientNameDisplay">Sra. Marta Costa</div><div class="user-badge">Cliente</div></div></div><div class="welcome-message">Bem-vindo(a) à Vita Integrare! Use os botões abaixo para agendar um atendimento, editar seu perfil ou falar com nossos representantes.</div></div>
+            <div class="header-actions"><button id="clientLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div>
+            <div class="user-info"><div class="user-avatar" id="clientAvatar"><i class="fas fa-user"></i></div><div class="user-details"><div class="user-name" id="clientNameDisplay">Sra. Marta Costa</div><div class="user-badge">Cliente</div></div></div><div class="welcome-message">Bem-vindo(a) à Vita Integrare! Use os botões abaixo para agendar um atendimento, editar seu perfil ou falar com nossos representantes.</div>
             <div class="modules">
                 <div class="module-card" id="clientProfileModule"><div class="module-header"><div class="module-icon"><i class="fas fa-user"></i></div><div class="module-title">Meu Perfil</div></div><div class="module-description">Visualize e edite suas informações pessoais, medicamentos e necessidades específicas.</div></div>
                 <div class="module-card" id="clientAppointmentsModule">
@@ -275,7 +278,8 @@
             <div class="profile-section"><h3>Notas do Cuidador (se houver)</h3><p id="requestCaregiverNotes"></p></div>
         </div>
         <div id="adminScreen" class="main-screen">
-            <div class="header"><div class="header-actions"><button id="adminLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div><div class="user-info"><div class="user-avatar"><i class="fas fa-user-shield"></i></div><div class="user-details"><div class="user-name">Administrador</div><div class="user-badge">Admin</div></div></div><div class="welcome-message">Bem-vindo, Administrador! Gerencie usuários e agendamentos da plataforma.</div></div>
+            <div class="header-actions"><button id="adminLogoutBtn" class="logout-button"><i class="fas fa-sign-out-alt"></i></button></div>
+            <div class="user-info"><div class="user-avatar"><i class="fas fa-user-shield"></i></div><div class="user-details"><div class="user-name">Administrador</div><div class="user-badge">Admin</div></div></div><div class="welcome-message">Bem-vindo, Administrador! Gerencie usuários e agendamentos da plataforma.</div>
             <div class="modules">
                 <div class="module-card" id="adminPendingCaregiversModule">
                     <div class="module-header"><div class="module-icon"><i class="fas fa-user-clock"></i></div><div class="module-title">Cuidadores Pendentes</div></div>
@@ -309,19 +313,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Register service worker for PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
-            });
-        }
-
         // Firebase Configuration (Replace with your actual Firebase project config)
         const firebaseConfig = {
             apiKey: "AIzaSyB8MtoEA9DNeQOR-CYDfjCAIEFUfpWvg8o",
@@ -2181,7 +2172,7 @@
                 patientAge.textContent = `${age} anos`;
 
                 patientReligion.textContent = clientData.religion || 'Não informado';
-                patientAddress.textContent = `${clientData.street || '', clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
+                patientAddress.textContent = `${clientData.street || '', ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
 
                 const daysText = currentSelectedAppointment.daysOfWeek ? currentSelectedAppointment.daysOfWeek.join(', ') : 'Não informado';
                 const timeText = currentSelectedAppointment.startTime && currentSelectedAppointment.endTime ? `${currentSelectedAppointment.startTime} - ${currentSelectedAppointment.endTime}` : 'Não informado';
@@ -2447,7 +2438,7 @@
                 historyPatientAge.textContent = `${age} anos`;
 
                 historyPatientReligion.textContent = clientData.religion || 'Não informado';
-                historyPatientAddress.textContent = `${clientData.street || '', clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
+                historyPatientAddress.textContent = `${clientData.street || '', ${clientData.number || ''}, ${clientData.neighborhood || ''}, ${clientData.city || ''} - ${clientData.state || ''}`;
 
                 renderHistoryPatientMedications(clientData.medications || []);
 
@@ -2545,7 +2536,7 @@
             clientDisplayPhone.textContent = currentClientData.phone || 'N/A'; // Display phone
             clientDisplayEmail.textContent = currentClientData.email || 'N/A';
             clientDisplayReligion.textContent = currentClientData.religion || 'Não informado';
-            clientDisplayAddress.textContent = `${currentClientData.street || '', currentClientData.number || ''}, ${currentClientData.neighborhood || ''}, ${currentClientData.city || ''} - ${currentClientData.state || ''}`;
+            clientDisplayAddress.textContent = `${currentClientData.street || '', ${currentClientData.number || ''}, ${currentClientData.neighborhood || ''}, ${currentClientData.city || ''} - ${currentClientData.state || ''}`;
 
             renderClientMedications(currentClientData.medications || []);
             editClientRecommendations.value = currentClientData.recommendations || '';
@@ -3524,6 +3515,19 @@
                 showScreen('authScreen');
             }
         });
+
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
