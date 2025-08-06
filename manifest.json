@@ -1,28 +1,20 @@
 {
-  "name": "Vita Integrare",
   "short_name": "Vita Integrare",
-  "description": "Cuidado que conecta!",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "name": "Vita Integrare - Cuidado que Conecta",
   "icons": [
     {
-      "src": "/vitaintegrare/index.html",
+      "src": "/vitaintegrare/icone.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/vitaintegrare/index.html",
+      "src": "/vitaintegrare/icone.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    {
-      "src": "/vitaintegrare/index.html",
-      "sizes": "1024x1024",
-      "type": "image/png",
-      "purpose": "apple touch icon"
     }
-  ]
+  ],
+  "start_url": "/vitaintegrare/index.html",
+  "display": "fullscreen",
+  "theme_color": "#2563eb",
+  "background_color": "#e0f2fe"
 }
-
