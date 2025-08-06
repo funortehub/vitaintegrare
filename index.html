@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>Vita Integraree</title>
+    <title>Vita Integrare</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    
+    <!-- PWA: Manifest e Ícones -->
     <link rel="manifest" href="/manifest.json">
-    <!-- CORREÇÃO: Apontando para icone.png para apple-touch-icon e favicon -->
     <link rel="apple-touch-icon" href="/icone.png">
     <link rel="icon" href="/icone.png">
+    
+    <!-- PWA: Meta tags para experiência de tela cheia e tema -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
+    
     <style>
         :root{--primary-blue:#2563eb;--dark-blue:#1d4ed8;--light-blue:#3b82f6;--sky-blue:#dbeafe;--accent-yellow:#fcd34d;--gold:#fbbf24;--white:#ffffff;--off-white:#f8fafc;--light-gray:#e2e8f0;--medium-gray:#94a3b8;--dark-gray:#1e293b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--glass:rgba(255, 255, 255, 0.08);--glass-border:rgba(255, 255, 255, 0.18);--shadow-sm:0 1px 2px rgba(0, 0, 0, 0.05);--shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06);--shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);--shadow-xl:0 20px 25px -5px rgba(0, 0, 0, 0.1),0 10px 10px -5px rgba(0, 0, 0, 0.04);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px}
         *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
@@ -310,6 +314,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Registro do Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
@@ -676,8 +681,8 @@
                 const data = await response.json();
                 return data.data.link;
             } catch (error) {
-                console.error("Erro ao fazer upload para o Imgur:", error);
-                throw new Error(`Erro ao fazer upload da imagem: ${error.message}`);
+                    console.error("Erro ao fazer upload para o Imgur:", error);
+                    throw new Error(`Erro ao fazer upload da imagem: ${error.message}`);
             }
         }
         function showAlert(title, message) {
@@ -2783,7 +2788,8 @@
                 }
                 if (caregiverData.phone) {
                     const cleanedPhoneNumber = caregiverData.phone.replace(/\D/g, '');
-                    summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    whatsappLinkHtml = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    summaryWhatsappBtn.href = whatsappLinkHtml;
                     summaryWhatsappBtn.style.display = 'inline-flex';
                     summaryDisclaimer.style.display = 'block';
                 } else {
@@ -2805,7 +2811,8 @@
                 }
                 if (clientData.phone) {
                     const cleanedPhoneNumber = clientData.phone.replace(/\D/g, '');
-                    summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    whatsappLinkHtml = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    summaryWhatsappBtn.href = whatsappLinkHtml;
                     summaryWhatsappBtn.style.display = 'inline-flex';
                     summaryDisclaimer.style.display = 'block';
                 } else {
