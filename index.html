@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
-    <!-- CORREÇÃO: Apontando para icone.png para apple-touch-icon e favicon -->
-    <link rel="apple-touch-icon" href="icone.png">
-    <link rel="icon" href="icone.png">
+    <link rel="manifest" href="/manifest.json">
+    <!-- CORREÇÃO: Apontando para icone.png para apple-touch-icon e favicon com caminho relativo ao diretório atual -->
+    <link rel="apple-touch-icon" href="./icone.png">
+    <link rel="icon" href="./icone.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
@@ -940,8 +940,6 @@
                     if (currentUserType === 'caregiver') {
                         caregiverFields.style.display = 'block';
                         corenNumberGroup.style.display = hasCoren ? 'block' : 'none';
-                    } else {
-                        caregiverFields.style.display = 'none';
                     }
                 } else {
                     caregiverFields.style.display = 'none';
@@ -2783,7 +2781,8 @@
                 }
                 if (caregiverData.phone) {
                     const cleanedPhoneNumber = caregiverData.phone.replace(/\D/g, '');
-                    summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    whatsappLinkHtml = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    summaryWhatsappBtn.href = whatsappLinkHtml;
                     summaryWhatsappBtn.style.display = 'inline-flex';
                     summaryDisclaimer.style.display = 'block';
                 } else {
@@ -2805,7 +2804,8 @@
                 }
                 if (clientData.phone) {
                     const cleanedPhoneNumber = clientData.phone.replace(/\D/g, '');
-                    summaryWhatsappBtn.href = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    whatsappLinkHtml = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    summaryWhatsappBtn.href = whatsappLinkHtml;
                     summaryWhatsappBtn.style.display = 'inline-flex';
                     summaryDisclaimer.style.display = 'block';
                 } else {
