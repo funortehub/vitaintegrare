@@ -10,10 +10,10 @@
     
     <!-- PWA: Manifest e Ícones -->
     <link rel="manifest" href="/vitaintegrare/manifest.json">
-    <link rel="apple-touch-icon" href="/icone.png">
-    <link rel="icon" href="/icone.png">
+    <link rel="apple-touch-icon" href="/vitaintegrare/icone.png">
+    <link rel="icon" href="/vitaintegrare/icone.png">
     
-    <!-- PWA: Meta tags para experiência de tela cheia e tema -->
+    <!-- PWA: Meta Tags para experiência em tela cheia e tema -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
@@ -317,7 +317,7 @@
         // Registro do Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('/vitaintegrare/sw.js') // Caminho corrigido
                     .then(reg => console.log('Service Worker registrado com sucesso:', reg))
                     .catch(err => console.error('Falha ao registrar Service Worker:', err));
             });
@@ -328,8 +328,8 @@
             projectId: "vitaintegrare",
             storageBucket: "vitaintegrare.firebasestorage.app",
             messagingSenderId: "138494228136",
-            appId: "1:138494228136:web:729d9fac1ae365af72b49d",
-            measurementId: "G-NQYCL90H73"
+            appId: "1:138494228136:web:729d9fac1ae365af72b49d"
+            // measurementId: "G-NQYCL90H73" // Removido, não essencial para PWA
         };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
@@ -2788,7 +2788,8 @@
                 }
                 if (caregiverData.phone) {
                     const cleanedPhoneNumber = caregiverData.phone.replace(/\D/g, '');
-                    whatsappLinkHtml = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    whatsappLinkHtml = `
+                        <a href="https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${caregiverData.fullName},%20meu%20nome%20é%20${clientData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
                     summaryWhatsappBtn.href = whatsappLinkHtml;
                     summaryWhatsappBtn.style.display = 'inline-flex';
                     summaryDisclaimer.style.display = 'block';
@@ -2811,7 +2812,8 @@
                 }
                 if (clientData.phone) {
                     const cleanedPhoneNumber = clientData.phone.replace(/\D/g, '');
-                    whatsappLinkHtml = `https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
+                    whatsappLinkHtml = `
+                        <a href="https://wa.me/55${cleanedPhoneNumber}?text=Olá%20${clientData.fullName},%20meu%20nome%20é%20${caregiverData.fullName}%20e%20gostaria%20de%20conversar%20sobre%20o%20agendamento%20confirmado.`;
                     summaryWhatsappBtn.href = whatsappLinkHtml;
                     summaryWhatsappBtn.style.display = 'inline-flex';
                     summaryDisclaimer.style.display = 'block';
